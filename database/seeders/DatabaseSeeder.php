@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Departemen;
+use App\Models\Divisi;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,12 +16,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        
+        $this->call(UsersTableSeeder::class);
+        $this->call(RoleSeeder::class);
         $this->call(RolesAndPermissionsSeeder::class);
+        $this->call(DivisiSeeder::class);
+        $this->call(DepartemenSeeder::class);
+        $this->call(ParamSeeder::class);
+        $this->call(SeqSeeder::class);
     }
 }
