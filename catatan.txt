@@ -7,3 +7,17 @@ CRUD User
 https://bukuinformatika.com/tutorial-membuat-aplikasi-crud-laravel-adminlte/#Konfigurasi_plugins_sweetalert2
 
 https://spatie.be/docs/laravel-permission/v5/basic-usage/artisan
+
+
+Laravel 8
+
+I recently resolved this by modifying this file:
+
+app/Providers/AppServiceProvider.php
+
+in the method boot() add the following:
+
+URL::forceScheme('https');
+Add the use in the top:
+
+use Illuminate\Support\Facades\URL;
