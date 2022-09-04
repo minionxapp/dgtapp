@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-// use Illuminate\Support\Facades\URL; //unutk deploy https
+use Illuminate\Support\Facades\URL; //unutk deploy https
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -25,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         // AppServiceProvider
-        // URL::forceScheme('https');// untuk deploy https
+        URL::forceScheme('https');// untuk deploy https
     }
 }
