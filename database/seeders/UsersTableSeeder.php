@@ -23,6 +23,15 @@ class UsersTableSeeder extends Seeder
             'departemen_kode' => '10001',
 
         ]);
+        \App\Models\User::create([
+            'name' => 'User Biasa',
+            'user_id'=>'user',
+            'email' => 'user@gmail.com',
+            'password' => bcrypt('12345678'),
+            'divisi_kode' => '10005',
+            'departemen_kode' => '10001',
+
+        ]);
        
     }
 }

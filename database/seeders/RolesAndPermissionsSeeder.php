@@ -19,11 +19,11 @@ class RolesAndPermissionsSeeder extends Seeder
     public function run()
     {
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        $userbiasa = User::where('user_id','=','user')->first();
+        $userbiasa->assignRole('user');
         $user = User::find(1);
         $user->assignRole('admin');
-        // $user->assignRole('user');
         $roles = $user->getRoleNames();
-        // dd($roles);
         $permission = Permission::create(['name' => 'test.role']);
         $role = Role:: where('name','=','admin')->first();
         $role->givePermissionTo(Permission::create(['name' => 'setup']));
