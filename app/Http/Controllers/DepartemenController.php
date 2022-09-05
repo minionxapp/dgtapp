@@ -18,7 +18,7 @@ class DepartemenController extends Controller
     {
 
         
-        $departemens = Departemen::join('Divisis','departemens.divisi_kode','=','divisis.kode')->get(['departemens.*', 'divisis.nama as nama_divisi']);
+        $departemens = Departemen::join('divisis','departemens.divisi_kode','=','divisis.kode')->get(['departemens.*', 'divisis.nama as nama_divisi']);
 
         return view('departemens.index',
          [            'departemens' => $departemens        ]
