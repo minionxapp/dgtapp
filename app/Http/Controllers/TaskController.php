@@ -30,18 +30,18 @@ class TaskController extends Controller
         $user_id =(Auth::user()->id);
         $userloged = User::find($user_id);
         if($userloged->hasRole(['Admin', 'Super-Admin'])){
-            $tasks = Task::join('Divisis','tasks.divisi_kode','=','divisis.kode')
-            ->join('Departemens','tasks.departemen_kode','=','departemens.kode')
-            ->join('Params','tasks.status','=','params.kode')
-            ->join('Params as jns','tasks.jenis','=','jns.kode')
+            $tasks = Task::join('divisis','tasks.divisi_kode','=','divisis.kode')
+            ->join('departemens','tasks.departemen_kode','=','departemens.kode')
+            ->join('params','tasks.status','=','params.kode')
+            ->join('params as jns','tasks.jenis','=','jns.kode')
             ->get(['tasks.*', 'divisis.nama as nama_divisi','departemens.nama as nama_departemen',
             'params.desc as status_desc','jns.desc as jenis_desc']);
 
         }else{
-            $tasks = Task::join('Divisis','tasks.divisi_kode','=','divisis.kode')
-            ->join('Departemens','tasks.departemen_kode','=','departemens.kode')
-            ->join('Params','tasks.status','=','params.kode')
-            ->join('Params as jns','tasks.jenis','=','jns.kode')
+            $tasks = Task::join('divisis','tasks.divisi_kode','=','divisis.kode')
+            ->join('departemens','tasks.departemen_kode','=','departemens.kode')
+            ->join('params','tasks.status','=','params.kode')
+            ->join('params as jns','tasks.jenis','=','jns.kode')
             ->where('tasks.departemen_kode','=',$userloged->departemen_kode)
             ->get(['tasks.*', 'divisis.nama as nama_divisi','departemens.nama as nama_departemen',
             'params.desc as status_desc','jns.desc as jenis_desc']);
