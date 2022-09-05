@@ -62,7 +62,7 @@ class UserRoleController extends Controller
                 'role_id' => $request->role_id,
                 'model_type' => 'App\Models\User',
                 'model_id' => $request->model_id,
-                'create_by' => Auth::user()->user_id
+                // 'create_by' => Auth::user()->user_id
             ]);
             $userrole->save();
             return redirect()->route('userroles.index')->with('success_message', 'Berhasil menambah userrole baru');

@@ -377,7 +377,6 @@ return [
         [
             'text'    => 'Task',
             'can'     => ['task'],
-            'can'     => ['task'],
             'submenu' => [
                 [
                     'text' => 'Inisiasi',
