@@ -17,8 +17,8 @@ class UserController extends Controller
     public function index()
     {
 
-        $users = User::join('Divisis','users.divisi_kode','=','divisis.kode')
-        ->join('Departemens','users.departemen_kode','=','departemens.kode')
+        $users = User::join('divisis','users.divisi_kode','=','divisis.kode')
+        ->join('departemens','users.departemen_kode','=','departemens.kode')
         ->get(['users.*', 'divisis.nama as nama_divisi','departemens.nama as nama_departemen']);
      
 

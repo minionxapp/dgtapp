@@ -19,8 +19,8 @@ class RolePermissionController extends Controller
      */
     public function index()
     {
-        $rolepermissions = RolePermission::join('Roles', 'role_has_permissions.role_id', '=', 'roles.id')
-            ->join('Permissions', 'role_has_permissions.permission_id', '=', 'permissions.id')
+        $rolepermissions = RolePermission::join('roles', 'role_has_permissions.role_id', '=', 'roles.id')
+            ->join('permissions', 'role_has_permissions.permission_id', '=', 'permissions.id')
             ->get(['role_has_permissions.*', 'roles.name as role_name', 'permissions.name as permission_name']);
 
 
