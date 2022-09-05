@@ -18,8 +18,8 @@ class UserRoleController extends Controller
      */
     public function index()
     {
-        $userroles =UserRole:: join('Roles','model_has_roles.role_id','=','roles.id')
-        ->join('Users','model_has_roles.model_id','=','users.id')
+        $userroles =UserRole:: join('roles','model_has_roles.role_id','=','roles.id')
+        ->join('users','model_has_roles.model_id','=','users.id')
         ->orderBy('users.user_id', 'ASC')
         ->get(['model_has_roles.*','roles.name as role_name','users.user_id as user_id']);
         // $userroles = UserRole::all();
