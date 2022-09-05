@@ -62,7 +62,8 @@ class DepartemenController extends Controller
             'nik_kadept'=>$request->nik_kadept ,
             'nama_kadept'=>$request->nama_kadept ,
             'divisi_kode'=>$request->divisi_kode ,
-            'create_by'=>Auth::user()->id.'' 
+            'create_by'=>Auth::user()->id.'' ,
+            'folder'=>$request->nama,
             
              
         ]);
