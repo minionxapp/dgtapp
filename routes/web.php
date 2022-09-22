@@ -172,6 +172,17 @@ Route::get('files/edit/{id}', [App\Http\Controllers\FileController::class, 'edit
 Route::put('files/update/{id}', [App\Http\Controllers\FileController::class, 'update'])->name('files.update')->middleware(['auth','permission:files.edit']);
 Route::delete('files/destroy/{id}', [App\Http\Controllers\FileController::class, 'destroy'])->name('files.destroy')->middleware(['auth','permission:files.delete']);
 
+Route::get('/projects', [App\Http\Controllers\ProjectController::class, 'index'])->name('projects.index')->middleware(['auth','permission:projects.index']);
+Route::get('projects/create', [App\Http\Controllers\ProjectController::class, 'create'])->name('projects.create')->middleware(['auth','permission:projects.create']);
+Route::post('projects/store', [App\Http\Controllers\ProjectController::class, 'store'])->name('projects.store')->middleware(['auth','permission:projects.create']);
+Route::get('projects/edit/{id}', [App\Http\Controllers\ProjectController::class, 'edit'])->name('projects.edit')->middleware(['auth','permission:projects.edit']);
+Route::put('projects/update/{id}', [App\Http\Controllers\ProjectController::class, 'update'])->name('projects.update')->middleware(['auth','permission:projects.edit']);
+Route::delete('projects/destroy/{id}', [App\Http\Controllers\ProjectController::class, 'destroy'])->name('projects.destroy')->middleware(['auth','permission:projects.delete']);
+
+
+
+
+
 Route::post('/simpanfile', [App\Http\Controllers\TaskController::class, 'simpanFile'])->name('simpanfile')->middleware(['auth']);
 
 

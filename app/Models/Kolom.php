@@ -9,5 +9,5 @@ class Kolom extends Model
 {
     use HasFactory;
     protected $fillable = [
-     'nama','tipedata','null_','key_','default_','create_by','update_by','nama_tabel'];
+     'nama','tipedata','null_','key_','default_','create_by','update_by','nama_tabel','urut'];
 }

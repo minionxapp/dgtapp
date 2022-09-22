@@ -58,13 +58,13 @@ class UserRoleController extends Controller
         if  ($userrole_cek){
             return redirect()->route('userroles.create')->with('success_message', 'GAGAL menambah userrole baru');
         }else{
-             $userrole = UserRole::create([
+            // dd('aaaaaaaaaaaaaaaaaaaaaaaa');
+             $userrolex = UserRole::create([
                 'role_id' => $request->role_id,
                 'model_type' => 'App\Models\User',
                 'model_id' => $request->model_id,
-                // 'create_by' => Auth::user()->user_id
             ]);
-            $userrole->save();
+            $userrolex->save();
             return redirect()->route('userroles.index')->with('success_message', 'Berhasil menambah userrole baru');
         }
     }

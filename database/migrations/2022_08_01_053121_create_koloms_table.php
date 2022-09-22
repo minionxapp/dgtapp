@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string("null_")->nullable();
             $table->string("key_")->nullable();
             $table->string("default_")->nullable();
-            // $table->string("")->nullable();
+            $table->integer("urut")->nullable();
             // $table->string("")->nullable();
             // $table->string("")->nullable();
             // $table->string("")->nullable();

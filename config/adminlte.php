@@ -383,6 +383,12 @@ return [
                     'url'  => '/tasks',
                     'icon' => 'fas fa-fw fa-user',
                     'can'     => ['task']
+                ],
+                [
+                    'text' => 'Project',
+                    'url'  => '/projects',
+                    'icon' => 'fas fa-fw fa-user',
+                    'can'     => ['projects.index']
                 ]
             ]
                 ],

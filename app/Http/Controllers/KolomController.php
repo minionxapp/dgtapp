@@ -17,9 +17,8 @@ class KolomController extends Controller
      */
     public function index($id)
     {
-        // 'nama','tipedata','null_','key_','default_','create_by','update_by',nama_tabel
         $tabel = Tabel::find($id);
-        $koloms = Kolom::where('nama_tabel','=',$tabel->nama)->get();
+        $koloms = Kolom::where('nama_tabel','=',$tabel->nama)->orderBy('urut', 'ASC')->get();
         return view('koloms.index',['koloms'=>$koloms,'tabel'=>$tabel]);
     }
 
@@ -50,7 +49,6 @@ class KolomController extends Controller
     {
 
         $tabel = Tabel::where('nama','=',$request->nama_tabel)->first();
-        $koloms = Kolom::where('nama_tabel','=',$tabel->nama)->get();
         
         $request->validate([
                'nama' => 'required'
@@ -63,12 +61,13 @@ class KolomController extends Controller
             'key_'=>$request->key_ ,
             'default_'=>$request->default_ ,
             'nama_tabel'=>$request->nama_tabel ,
+            'urut'=>$request->urut ,
             'create_by'=>Auth::user()->id.'' 
         ]);
         $kolom->save();
         return redirect('/kolom/'.$tabel->id)
+        ->with('success_message', 'Berhasil menambah Kolom baru');
         // ->route('koloms.index',['tabel'=>$tabel->id])
-            ->with('success_message', 'Berhasil menambah Kolom baru');
     }
 
     /**
@@ -88,34 +87,55 @@ class KolomController extends Controller
      * @param  \App\Models\Kolom  $kolom
      * @return \Illuminate\Http\Response
      */
-    // public function edit($id)
-    // {
-    //     $kolom = Kolom::find($id);
-    //     if (!$kolom) return redirect()->route('koloms.index')
-    //         ->with('error_message', 'Kolom dengan id'.$id.' tidak ditemukan');
-    //     return view('koloms.edit', ['kolom' => $kolom]);
-    // }
+    public function edit($id)
+    {
+        $kolom = Kolom::find($id);
+        // dd($kolom);
+        if (!$kolom) return redirect()->route('koloms.index')
+            ->with('error_message', 'Kolom dengan id'.$id.' tidak ditemukan');
 
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @param  \App\Models\Kolom  $kolom
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(Request $request, $id)
-    // {
-    //     $request->validate([            
-    //         'nama' => 'required|'            
-    //     ]);
-    //     $kolom = Kolom::find($id);
-    //     $kolom->nama = $request->nama;
-    //     $kolom->desc1 = $request->desc1;
-    //     $kolom->desc2 = $request->desc2;
-    //     $kolom->save();
-    //     return redirect()->route('koloms.index')
-    //         ->with('success_message', 'Berhasil mengubah user');
-    // }
+
+            $tipedatas = Param::where('nama','=','TIPEDATA')->get(['kode','desc']);
+            $null_s = Param::where('nama','=','YESNO')->get(['kode','desc']);
+            $tabels = Tabel::where('nama','=',$kolom->nama_tabel)->first();
+            // $koloms = Kolom::where('nama_tabel','=',$tabels->nama)->get();
+
+
+        return view('koloms.edit', ['kolom' => $kolom,
+        // 'koloms'=>$koloms,
+        'tabels'=>$tabels,
+        'tipedatas'=>$tipedatas,
+        'null_s'=>$null_s]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Kolom  $kolom
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $tabel = Tabel::where('nama','=',$request->nama_tabel)->first();
+        $request->validate([            
+            'nama' => 'required|'            
+        ]);
+        $kolom = Kolom::find($id);       
+        $kolom->nama=$request->nama ;
+        $kolom->tipedata=$request->tipedata ;
+        $kolom->null_=$request->null_ ;   
+        $kolom->key_=$request->key_ ;
+        $kolom->default_=$request->default_ ;
+        $kolom->nama_tabel=$request->nama_tabel ;
+        $kolom->urut=$request->urut ;
+        $kolom->update_by=Auth::user()->id.''; 
+        $kolom->save();
+        return redirect('/kolom/'.$tabel->id)
+        ->with('success_message', 'Berhasil mengubah user');
+
+           
+    }
 
     /**
      * Remove the specified resource from storage.

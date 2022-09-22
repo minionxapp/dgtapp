@@ -47,7 +47,7 @@
 
                     <div class="form-group">
                         <label for="exampleInputPassword">null_</label>
-                        <select name="tipedata" class="form-control" id="null_">
+                        <select name="null_" class="form-control" id="null_">
                             <option value="">Null</option>
                             @foreach ($null_s as $null_)
                                 <option value={{$null_->kode}}>{{$null_->desc}}</option>
@@ -72,7 +72,11 @@
                         </select>
                     </div>
 
-
+                    <div class="form-group">
+                        <label for="exampleInputEmail">Urut</label>
+                        <input type="text" class="form-control @error('urut') is-invalid @enderror" id="urut" placeholder="urut" name="urut" value="{{old('urut')}}">
+                        @error('urut') <span class="text-danger">{{$message}}</span> @enderror
+                    </div>
 
                     <div class="form-group">
                         <label for="exampleInputPassword">default_</label>

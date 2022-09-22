@@ -33,6 +33,7 @@ class ParamSeeder extends Seeder
         Param::create(['nama' => 'TIPEDATA','kode' => 'VAR','desc' => 'Varchar','aktif'=>'Y','urut'=>1]);
         Param::create(['nama' => 'TIPEDATA','kode' => 'NUM','desc' => 'Numeric','aktif'=>'Y','urut'=>2]);
         Param::create(['nama' => 'TIPEDATA','kode' => 'DAT','desc' => 'Date','aktif'=>'Y','urut'=>3]);
+        Param::create(['nama' => 'TIPEDATA','kode' => 'SEL','desc' => 'Select','aktif'=>'Y','urut'=>3]);
         Param::create(['nama' => 'JENIS','kode' => 'JNS-04','desc' => 'Video','aktif'=>'Y','urut'=>4]);
         // Param::create(['nama' => '','kode' => '','desc' => '','aktif'=>'','urut'=>]);
     }

@@ -53,6 +53,7 @@
                             <th>null_</th>
                             <th>key_</th>
                             <th>default_</th>
+                            <th>urut</th>
                             <th>Opsi</th>
                         </tr>
                         </thead>
@@ -66,10 +67,11 @@
                                 <td>{{$koloms->null_}}</td>
                                 <td>{{$koloms->key_}}</td>
                                 <td>{{$koloms->default_}}</td>
+                                <td>{{$koloms->urut}}</td>
                                 <td>
-                                    {{-- <a href="{{route('koloms.edit', $koloms)}}" class="btn btn-primary btn-xs">
+                                    <a href="{{route('koloms.edit', $koloms)}}" class="btn btn-primary btn-xs">
                                         Edit
-                                    </a> --}}
+                                    </a>
                                     <a href="{{route('koloms.destroy', $koloms)}}" onclick="notificationBeforeDelete(event, this)" class="btn btn-danger btn-xs">
                                         Delete
                                     </a>
@@ -100,6 +102,8 @@
     <script>
         $('#example2').DataTable({
             "responsive": true,
+            'iDisplayLength': 50
+            // "paging": false
         });
 
         function notificationBeforeDelete(event, el) {

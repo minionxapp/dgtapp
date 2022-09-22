@@ -64,6 +64,8 @@
     <script>
         $('#example2').DataTable({
             "responsive": true,
+            // "paging": false
+            // "iDisplayLength": 100,
         });
 
         function notificationBeforeDelete(event, el) {

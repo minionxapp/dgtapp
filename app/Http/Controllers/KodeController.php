@@ -25,7 +25,7 @@ class KodeController extends Controller
     public  function makeController($id)
     {
         $tabel = Tabel::find($id);
-        $koloms = Kolom::where('nama_tabel', '=', $tabel->nama)->get();
+        $koloms = Kolom::where('nama_tabel', '=', $tabel->nama)->orderBy('urut', 'ASC')->get();
         $x = '<?php
 
         namespace App\Http\Controllers;
@@ -56,7 +56,26 @@ class KodeController extends Controller
              */
             public function create()
             {
-                return view(\'' . strtolower($tabel->nama) . 's.create\');
+                ';
+
+        foreach ($koloms as $key => $value) {
+            if ($value['tipedata'] == 'SEL') {
+                $x = $x . '$' . $value['nama'] . 's=[];' . "\n";
+            }
+        };
+
+
+        $x = $x .
+            '
+                return view(\'' . strtolower($tabel->nama) . 's.create\',[';
+        // 'jeniss'=>$jeniss,
+        foreach ($koloms as $key => $value) {
+            if ($value['tipedata'] == 'SEL') {
+                $x = $x . '\'' . $value['nama'] . 's\'=>$' . $value['nama'] . 's,' . "\n";
+            }
+        };
+
+        $x = $x . ']);
             }
 
             /**
@@ -70,7 +89,9 @@ class KodeController extends Controller
         ';
 
         foreach ($koloms as $key => $value) {
-            $x = $x . '\'' . $value['nama'] . '\'=> \'required\',' . "\n";
+            if ($value['null_'] == 'NO') {
+                $x = $x . '\'' . $value['nama'] . '\'=> \'required\',' . "\n";
+            }
         }
         $x = $x . ']);
         $' . strtolower($tabel->nama) . ' = ' . ($tabel->nama) . '::create([
@@ -102,14 +123,29 @@ class KodeController extends Controller
             $id = Crypt::decrypt($idx);
            // $user_id =(Auth::user()->id);
            // $userloged = User::find($user_id);
+           ';
 
-            $' . strtolower($tabel->nama) . ' = ' . $tabel->nama . '::find($id);
-            //if($'.strtolower($tabel->nama).'->create_by == Auth::user()->id ||$userloged->hasRole([\'Super-Admin\']) == 1){
+        foreach ($koloms as $key => $value) {
+            if ($value['tipedata'] == 'SEL') {
+                $x = $x . '$' . $value['nama'] . 's=[];' . "\n";
+            }
+        };
+
+        $x = $x . '$' . strtolower($tabel->nama) . ' = ' . $tabel->nama . '::find($id);
+            //if($' . strtolower($tabel->nama) . '->create_by == Auth::user()->id ||$userloged->hasRole([\'Super-Admin\']) == 1){
                 if (!$' . strtolower($tabel->nama) . ') return redirect()->route(\'' . strtolower($tabel->nama) . 's.index\')
                     ->with(\'error_message\', \'' . ($tabel->nama) . ' dengan id\'.$id.\' tidak ditemukan\');
-                return view(\'' . strtolower($tabel->nama) . 's.edit\', [\'' . strtolower($tabel->nama) . '\' => $' . strtolower($tabel->nama) . ']);
+                return view(\'' . strtolower($tabel->nama) . 's.edit\', [\'' . strtolower($tabel->nama) . '\' => $' . strtolower($tabel->nama) . ',';
+
+        foreach ($koloms as $key => $value) {
+            if ($value['tipedata'] == 'SEL') {
+                $x = $x . '\'' . $value['nama'] . 's\'=>$' . $value['nama'] . 's,' . "\n";
+            }
+        };
+
+        $x = $x . ']);
             //}else{
-            //    return redirect()->route(\''.strtolower($tabel->nama).'s.index\')
+            //    return redirect()->route(\'' . strtolower($tabel->nama) . 's.index\')
             //    ->with(\'error_message\', \'And tidak berhak untuk meng edit data ini\');
             //}
         }
@@ -126,7 +162,9 @@ class KodeController extends Controller
             $request->validate([
         ';
         foreach ($koloms as $key => $value) {
-            $x = $x . '\'' . $value['nama'] . '\'=> \'required\',' . "\n";
+            if ($value['null_'] == 'NO') {
+                $x = $x . '\'' . $value['nama'] . '\'=> \'required\',' . "\n";
+            }
         }
         $x = $x . ']);
         $' . strtolower($tabel->nama) . ' = ' . ($tabel->nama) . '::find($id);' . "\n";
@@ -134,7 +172,7 @@ class KodeController extends Controller
         foreach ($koloms as $key => $value) {
             $x = $x . '$' . strtolower($tabel->nama) . '->' . strtolower($value['nama']) . '=$request->' . strtolower($value['nama']) . ";\n";
         }
-        $x = $x . ' $'.strtolower($tabel->nama).'->update_by = Auth::user()->user_id;
+        $x = $x . ' $' . strtolower($tabel->nama) . '->update_by = Auth::user()->user_id;
             $' . strtolower($tabel->nama) . '->save();
             return redirect()->route(\'' . strtolower($tabel->nama) . 's.index\')
             ->with(\'success_message\', \'Berhasil mengubah ' . strtolower($tabel->nama) . '\');
@@ -167,7 +205,7 @@ class KodeController extends Controller
     public  function makeModel($id)
     {
         $tabel = Tabel::find($id);
-        $koloms = Kolom::where('nama_tabel', '=', $tabel->nama)->get();
+        $koloms = Kolom::where('nama_tabel', '=', $tabel->nama)->orderBy('urut', 'ASC')->get();
         $x = '<?php
         namespace App\Models;
 
@@ -193,7 +231,7 @@ class KodeController extends Controller
     public  function makeVIndex($id)
     {
         $tabel = Tabel::find($id);
-        $koloms = Kolom::where('nama_tabel', '=', $tabel->nama)->get();
+        $koloms = Kolom::where('nama_tabel', '=', $tabel->nama)->orderBy('urut', 'ASC')->get();
         $x = '
         @extends(\'adminlte::page\')
 
@@ -208,12 +246,12 @@ class KodeController extends Controller
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            @can(\''.strtolower($tabel->nama).'s.create\')
+                            @can(\'' . strtolower($tabel->nama) . 's.create\')
                                 <a href="{{route(\'' . strtolower($tabel->nama) . 's.create\')}}" class="btn btn-primary mb-2">
                                     Tambah
                                 </a>
                             @endcan
-                            <table class="table table-hover table-bordered table-stripped" id="example2">
+                            <table class="table table-hover table-bordered table-stripped table-responsive" id="datalist">
                             <thead>
                             <tr>
                             <th>No.</th> 
@@ -233,18 +271,18 @@ class KodeController extends Controller
                         ';
         //  <td>{{$koloms->nama}}</td>
         foreach ($koloms as $key => $value) {
-            $x = $x . '<td>{{$'.strtolower($tabel->nama).'->' . $value['nama'] . '}}</td>' . "\n";
+            $x = $x . '<td>{{$' . strtolower($tabel->nama) . '->' . $value['nama'] . '}}</td>' . "\n";
         }
 
         $x = $x . '
             <td>
-                        @can(\''.strtolower($tabel->nama).'s.edit\')
-                            <a href="{{route(\''.strtolower($tabel->nama).'s.edit\', Crypt::encrypt($'.strtolower($tabel->nama).'->id))}}" class="btn btn-primary btn-xs">
+                        @can(\'' . strtolower($tabel->nama) . 's.edit\')
+                            <a href="{{route(\'' . strtolower($tabel->nama) . 's.edit\', Crypt::encrypt($' . strtolower($tabel->nama) . '->id))}}" class="btn btn-primary btn-xs">
                                 Edit
                             </a>
                         @endcan
-                        @can(\''.strtolower($tabel->nama).'s.delete\')
-                            <a href="{{route(\''.strtolower($tabel->nama).'s.destroy\', Crypt::encrypt($'.strtolower($tabel->nama).'->id))}}" onclick="notificationBeforeDelete(event, this)" class="btn btn-danger btn-xs">
+                        @can(\'' . strtolower($tabel->nama) . 's.delete\')
+                            <a href="{{route(\'' . strtolower($tabel->nama) . 's.destroy\', Crypt::encrypt($' . strtolower($tabel->nama) . '->id))}}" onclick="notificationBeforeDelete(event, this)" class="btn btn-danger btn-xs">
                             Delete
                             </a>
                         @endcan
@@ -267,7 +305,7 @@ class KodeController extends Controller
                 @csrf
             </form>
             <script>
-                $(\'#example2\').DataTable({
+                $(\'#datalist\').DataTable({
                     "responsive": true,
                 });
 
@@ -288,18 +326,18 @@ class KodeController extends Controller
     public  function makeVCreate($id)
     {
         $tabel = Tabel::find($id);
-        $koloms = Kolom::where('nama_tabel', '=', $tabel->nama)->get();
+        $koloms = Kolom::where('nama_tabel', '=', $tabel->nama)->orderBy('urut', 'ASC')->get();
         $x = '
         @extends(\'adminlte::page\')
 
-        @section(\'title\', \'Tambah Divisi\')
+        @section(\'title\', \'Tambah ' . $tabel->nama . ' \')
 
         @section(\'content_header\')
-            <h1 class="m-0 text-dark">Tambah '. $tabel->nama.'</h1>
+            <h1 class="m-0 text-dark">Tambah ' . $tabel->nama . '</h1>
         @stop
 
         @section(\'content\')
-            <form action="{{route(\''. strtolower($tabel->nama).'s.store\')}}" method="post">
+            <form action="{{route(\'' . strtolower($tabel->nama) . 's.store\')}}" method="post" {{--enctype="multipart/form-data"--}}>
                 @csrf
             <div class="row">
                 <div class="col-12">
@@ -310,22 +348,52 @@ class KodeController extends Controller
 
 
         foreach ($koloms as $key => $value) {
-            $x = $x . '
-            <div class="form-group">
-                <label for="'.strtolower($value['nama']).'">'.($value['nama']).'</label>
-                <input type="text" class="form-control @error(\''.$value['nama'].'\') is-invalid @enderror" id="'.$value['nama'].'" placeholder="'.($value['nama']).'" name="'.strtolower($value['nama']).'" value="{{old(\''.strtolower($value['nama']).'\')}}">
-                @error(\''.$value['nama'].'\') <span class="text-danger">{{$message}}</span> @enderror
-            </div>
-                '
-            ;
+            // return ($value['tipedata']) ;
+            // VAR
+            if ($value['tipedata'] == 'VAR') {
+                $x = $x . '
+                <div class="form-group">
+                <label for="' . strtolower($value['nama']) . '">' . ($value['nama']) . '</label>
+                <input type="text" autocomplete="off" class="form-control @error(\'' . $value['nama'] . '\') is-invalid @enderror" id="' . $value['nama'] . '" placeholder="' . ($value['nama']) . '" name="' . strtolower($value['nama']) . '" value="{{old(\'' . strtolower($value['nama']) . '\')}}">
+                @error(\'' . $value['nama'] . '\') <span class="text-danger">{{$message}}</span> @enderror
+                </div>
+                ';
+            }
+            // DATE /DAT
+            if ($value['tipedata'] == 'DAT') {
+                $x = $x . '
+                <div class="form-group">
+                <label for="' . strtolower($value['nama']) . '">' . ($value['nama']) . '</label>
+                <input type="date" autocomplete="off" class="form-control @error(\'' . $value['nama'] . '\') is-invalid @enderror" id="' . $value['nama'] . '" placeholder="' . ($value['nama']) . '" name="' . strtolower($value['nama']) . '" value="{{old(\'' . strtolower($value['nama']) . '\')}}">
+                @error(\'' . $value['nama'] . '\') <span class="text-danger">{{$message}}</span> @enderror
+                </div>
+                ';
+            }
+
+            if ($value['tipedata'] == 'SEL') {
+                $x = $x . '
+                <div class="form-group">
+                    <label for="' . strtolower($value['nama']) . '">' . $value['nama'] . '</label>
+                    <select name="' . $value['nama'] . '" class="form-control" id="' . $value['nama'] . '">
+                        <option value="XXX">Jenis</option>
+                        @foreach ($' . $value['nama'] . 's as $' . $value['nama'] . ')
+                            <option value={{ $' . $value['nama'] . '->kode }}>{{ $' . $value['nama'] . '->desc }}</option>
+                        @endforeach
+                    </select>
+                    @error(\'' . $value['nama'] . '\')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                ';
+            }
         }
 
-        $x = $x .'
+        $x = $x . '
         </div>
 
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Simpan</button>
-                        <a href="{{route(\''.strtolower($tabel->nama).'s.index\')}}" class="btn btn-default">
+                        <a href="{{route(\'' . strtolower($tabel->nama) . 's.index\')}}" class="btn btn-default">
                             Batal
                         </a>
                     </div>
@@ -347,18 +415,18 @@ class KodeController extends Controller
     public  function makeVEdit($id)
     {
         $tabel = Tabel::find($id);
-        $koloms = Kolom::where('nama_tabel', '=', $tabel->nama)->get();
+        $koloms = Kolom::where('nama_tabel', '=', $tabel->nama)->orderBy('urut', 'ASC')->get();
         $x = '
         @extends(\'adminlte::page\')
 
-        @section(\'title\', \'Edit '.$tabel->nama.'\')
+        @section(\'title\', \'Edit ' . $tabel->nama . '\')
 
         @section(\'content_header\')
-            <h1 class="m-0 text-dark">Edit '.$tabel->nama.'</h1>
+            <h1 class="m-0 text-dark">Edit ' . $tabel->nama . '</h1>
         @stop
 
         @section(\'content\')
-            <form action="{{route(\''.strtolower($tabel->nama).'s.update\', $'.strtolower($tabel->nama).')}}" method="post">
+            <form action="{{route(\'' . strtolower($tabel->nama) . 's.update\', $' . strtolower($tabel->nama) . ')}}" method="post">
                 @method(\'PUT\')
                 @csrf
             <div class="row">
@@ -366,17 +434,57 @@ class KodeController extends Controller
                     <div class="card">
                         <div class="card-body">               
          ';
-         foreach ($koloms as $key => $value) {
-            $x = $x .'<div class="form-group">
-                             <label for="'.$value['nama'].'">'.$value['nama'].'</label>
-                             <input type="text" class="form-control @error(\''.$value['nama'].'\') is-invalid @enderror" id="'.$value['nama'].'" placeholder="'.$value['nama'].'" name="'.$value['nama'].'" value="{{$'.strtolower($tabel->nama).'->'.$value['nama'].' ?? old(\''.$value['nama'].'\')}}">
-                             @error(\''.$value['nama'].'\') <span class="text-danger">{{$message}}</span> @enderror
+        foreach ($koloms as $key => $value) {
+            if($value['tipedata']=='VAR'){
+            $x = $x . '<div class="form-group">
+                             <label for="' . $value['nama'] . '">' . $value['nama'] . '</label>
+                             <input type="text" autocomplete="off" class="form-control @error(\'' . $value['nama'] . '\') is-invalid @enderror" id="' . $value['nama'] . '" placeholder="' . $value['nama'] . '" name="' . $value['nama'] . '" value="{{$' . strtolower($tabel->nama) . '->' . $value['nama'] . ' ?? old(\'' . $value['nama'] . '\')}}">
+                             @error(\'' . $value['nama'] . '\') <span class="text-danger">{{$message}}</span> @enderror
                         </div>';
+            }
+
+            // DATE /DAT
+            if ($value['tipedata'] == 'DAT') {
+                $x = $x . '
+                <div class="form-group">
+                <label for="' . strtolower($value['nama']) . '">' . ($value['nama']) . '</label>
+                <input type="date" autocomplete="off" class="form-control @error(\'' . $value['nama'] . '\') is-invalid @enderror" id="' . $value['nama'] . '" placeholder="' . ($value['nama']) . '" name="' . strtolower($value['nama']) . '" value="{{old(\'' . strtolower($value['nama']) . '\')}}">
+                @error(\'' . $value['nama'] . '\') <span class="text-danger">{{$message}}</span> @enderror
+                </div>
+                ';
+            }
+
+            if ($value['tipedata'] == 'SEL') {
+                $x = $x . '
+                <div class="form-group">
+                    <label for="' . strtolower($value['nama']) . '">' . $value['nama'] . '</label>
+                    <select name="' . $value['nama'] . '" class="form-control" id="' . $value['nama'] . '">
+                        <option value="XXX">Jenis</option>
+                        @foreach ($' . $value['nama'] . 's as $' . $value['nama'] . ')
+                            @if ($'.$value['nama'].'->kode == $'.strtolower($tabel->nama).'->kode)
+                                <option selected="selected" value={{ $' . $value['nama'] . '->kode }}>{{ $' . $value['nama'] . '->desc }}</option>
+                            @else
+                                <option value={{ $' . $value['nama'] . '->kode }}>{{ $' . $value['nama'] . '->desc }}</option>
+                            @endif
+
+                        @endforeach
+                    </select>
+                    @error(\'' . $value['nama'] . '\')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                ';
+            }
+
+
+
+
+
         };
-        $x = $x.'
+        $x = $x . '
                 <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Simpan</button>
-                            <a href="{{route(\''.strtolower($tabel->nama).'s.index\')}}" class="btn btn-default">
+                            <a href="{{route(\'' . strtolower($tabel->nama) . 's.index\')}}" class="btn btn-default">
                                 Batal
                             </a>
                         </div>
@@ -388,13 +496,14 @@ class KodeController extends Controller
         @stop
         
         ';
-         return $x;
+        return $x;
     }
 
 
-    public  function makeMigrate($id){
+    public  function makeMigrate($id)
+    {
         $tabel = Tabel::find($id);
-        $koloms = Kolom::where('nama_tabel', '=', $tabel->nama)->get();
+        $koloms = Kolom::where('nama_tabel', '=', $tabel->nama)->orderBy('urut', 'ASC')->get();
         $x = '
         
         <?php
@@ -412,14 +521,14 @@ class KodeController extends Controller
              */
             public function up()
             {
-                Schema::create(\''.strtolower($tabel->nama).'s\', function (Blueprint $table) {
+                Schema::create(\'' . strtolower($tabel->nama) . 's\', function (Blueprint $table) {
                     $table->id();                    
               ';
-              foreach ($koloms as $key => $value) {
-                $x = $x .' $table->string(\''.strtolower($value['nama']).'\');'."\n";
-            };
+        foreach ($koloms as $key => $value) {
+            $x = $x . ' $table->string(\'' . strtolower($value['nama']) . '\')->nullable();' . "\n";
+        };
 
-              $x = $x.'      
+        $x = $x . '      
                     $table->string(\'create_by\')->nullable();
                     $table->string(\'update_by\')->nullable();
                     $table->timestamps();
@@ -433,7 +542,7 @@ class KodeController extends Controller
              */
             public function down()
             {
-                Schema::dropIfExists(\''.strtolower($tabel->nama).'s\');
+                Schema::dropIfExists(\'' . strtolower($tabel->nama) . 's\');
             }
         };
                 
@@ -449,22 +558,22 @@ class KodeController extends Controller
     public  function makeRoute($id)
     {
         $tabel = Tabel::find($id);
-        $koloms = Kolom::where('nama_tabel', '=', $tabel->nama)->get();
+        $koloms = Kolom::where('nama_tabel', '=', $tabel->nama)->orderBy('urut', 'ASC')->get();
         $nm_tabel = strtolower($tabel->nama);
-        $nm_controler = $tabel->nama.'Controller';
+        $nm_controler = $tabel->nama . 'Controller';
         $x = '//make route
 
-        Route::get(\'/'.$nm_tabel.'s\', [App\Http\Controllers\\'. $nm_controler.'::class, \'index\'])->name(\''.$nm_tabel.'s.index\')->middleware([\'auth\',\'permission:'.$nm_tabel.'s.index\']);
-        Route::get(\''.$nm_tabel.'s/create\', [App\Http\Controllers\\'. $nm_controler.'::class, \'create\'])->name(\''.$nm_tabel.'s.create\')->middleware([\'auth\',\'permission:'.$nm_tabel.'s.create\']);
-        Route::post(\''.$nm_tabel.'s/store\', [App\Http\Controllers\\'. $nm_controler.'::class, \'store\'])->name(\''.$nm_tabel.'s.store\')->middleware([\'auth\',\'permission:'.$nm_tabel.'s.create\']);
-        Route::get(\''.$nm_tabel.'s/edit/{id}\', [App\Http\Controllers\\'. $nm_controler.'::class, \'edit\'])->name(\''.$nm_tabel.'s.edit\')->middleware([\'auth\',\'permission:'.$nm_tabel.'s.edit\']);
-        Route::put(\''.$nm_tabel.'s/update/{id}\', [App\Http\Controllers\\'. $nm_controler.'::class, \'update\'])->name(\''.$nm_tabel.'s.update\')->middleware([\'auth\',\'permission:'.$nm_tabel.'s.edit\']);
-        Route::delete(\''.$nm_tabel.'s/destroy/{id}\', [App\Http\Controllers\\'. $nm_controler.'::class, \'destroy\'])->name(\''.$nm_tabel.'s.destroy\')->middleware([\'auth\',\'permission:'.$nm_tabel.'s.delete\']);
+        Route::get(\'/' . $nm_tabel . 's\', [App\Http\Controllers\\' . $nm_controler . '::class, \'index\'])->name(\'' . $nm_tabel . 's.index\')->middleware([\'auth\',\'permission:' . $nm_tabel . 's.index\']);
+        Route::get(\'' . $nm_tabel . 's/create\', [App\Http\Controllers\\' . $nm_controler . '::class, \'create\'])->name(\'' . $nm_tabel . 's.create\')->middleware([\'auth\',\'permission:' . $nm_tabel . 's.create\']);
+        Route::post(\'' . $nm_tabel . 's/store\', [App\Http\Controllers\\' . $nm_controler . '::class, \'store\'])->name(\'' . $nm_tabel . 's.store\')->middleware([\'auth\',\'permission:' . $nm_tabel . 's.create\']);
+        Route::get(\'' . $nm_tabel . 's/edit/{id}\', [App\Http\Controllers\\' . $nm_controler . '::class, \'edit\'])->name(\'' . $nm_tabel . 's.edit\')->middleware([\'auth\',\'permission:' . $nm_tabel . 's.edit\']);
+        Route::put(\'' . $nm_tabel . 's/update/{id}\', [App\Http\Controllers\\' . $nm_controler . '::class, \'update\'])->name(\'' . $nm_tabel . 's.update\')->middleware([\'auth\',\'permission:' . $nm_tabel . 's.edit\']);
+        Route::delete(\'' . $nm_tabel . 's/destroy/{id}\', [App\Http\Controllers\\' . $nm_controler . '::class, \'destroy\'])->name(\'' . $nm_tabel . 's.destroy\')->middleware([\'auth\',\'permission:' . $nm_tabel . 's.delete\']);
         
         
 
         //make seeder
-        $model =\''.$nm_tabel.'s\';
+        $model =\'' . $nm_tabel . 's\';
         $role->givePermissionTo(Permission::create([\'name\' => $model.\'.index\']));
         $role->givePermissionTo(Permission::create([\'name\' => $model.\'.create\']));
         $role->givePermissionTo(Permission::create([\'name\' => $model.\'.edit\']));
