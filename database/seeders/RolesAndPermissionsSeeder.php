@@ -27,7 +27,6 @@ class RolesAndPermissionsSeeder extends Seeder
             $permission = Permission::create(['name' => 'test.role']);
         $role = Role:: where('name','=','admin')->first();
             $role->givePermissionTo(Permission::create(['name' => 'setup']));
-            $role->givePermissionTo('permision2');
             $model ='users';
             $role->givePermissionTo(Permission::create(['name' => $model.'.index']));
             $role->givePermissionTo(Permission::create(['name' => $model.'.create']));
