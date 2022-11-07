@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\File;
+use Illuminate\Support\Facades\Crypt;
 
 class FileController extends Controller
 {
@@ -116,9 +117,11 @@ class FileController extends Controller
      * @param  \App\Models\Divisi  $divisi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $idx)
     {
+        $id = Crypt::decrypt($idx);
         $file = File::find($id);
+        // dd($file);
         if ($file) $file->delete();
         return redirect()->route('files.index')
             ->with('success_message', 'Berhasil menghapus file');

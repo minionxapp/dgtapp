@@ -17,8 +17,9 @@
             {
                 Schema::create('cobas', function (Blueprint $table) {
                     $table->id();
-                    $table->string('nama');
-                    $table->string('alamat');
+                    $table->string('teks')->nullable();
+                    $table->string('tanggal')->nullable();
+                    $table->string('pilihan')->nullable();
 
                     $table->string('create_by')->nullable();
                     $table->string('update_by')->nullable();

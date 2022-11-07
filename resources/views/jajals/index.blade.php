@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'List Coba')
+@section('title', 'List Jajal')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">List Coba</h1>
+    <h1 class="m-0 text-dark">List Jajal</h1>
 @stop
 
 @section('content')
@@ -11,8 +11,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    @can('cobas.create')
-                        <a href="{{ route('cobas.create') }}" class="btn btn-primary mb-2">
+                    @can('jajals.create')
+                        <a href="{{ route('jajals.create') }}" class="btn btn-primary mb-2">
                             Tambah
                         </a>
                     @endcan
@@ -20,31 +20,35 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>teks</th>
-                                <th>tanggal</th>
-                                <th>pilihan</th>
+                                <th>kode</th>
+                                <th>nama</th>
+                                <th>jumlah</th>
+                                <th>divisi</th>
+                                <th>mulai</th>
 
                                 <th>Opsi</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            @foreach ($cobas as $key => $coba)
+                            @foreach ($jajals as $key => $jajal)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $coba->teks }}</td>
-                                    <td>{{ $coba->tanggal }}</td>
-                                    <td>{{ $coba->pilihan }}</td>
+                                    <td>{{ $jajal->kode }}</td>
+                                    <td>{{ $jajal->nama }}</td>
+                                    <td>{{ $jajal->jumlah }}</td>
+                                    <td>{{ $jajal->divisi }}</td>
+                                    <td>{{ $jajal->mulai }}</td>
 
                                     <td>
-                                        @can('cobas.edit')
-                                            <a href="{{ route('cobas.edit', Crypt::encrypt($coba->id)) }}"
+                                        @can('jajals.edit')
+                                            <a href="{{ route('jajals.edit', Crypt::encrypt($jajal->id)) }}"
                                                 class="btn btn-primary btn-xs">
                                                 Edit
                                             </a>
                                         @endcan
-                                        @can('cobas.delete')
-                                            <a href="{{ route('cobas.destroy', Crypt::encrypt($coba->id)) }}"
+                                        @can('jajals.delete')
+                                            <a href="{{ route('jajals.destroy', Crypt::encrypt($jajal->id)) }}"
                                                 onclick="notificationBeforeDelete(event, this)" class="btn btn-danger btn-xs">
                                                 Delete
                                             </a>

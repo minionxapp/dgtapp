@@ -408,13 +408,18 @@ return [
                     // 'can'     => ['.index']
                 ],
                 [
-                    'text'    => 'level_one',
+                    'text'    => 'Cobain',
                     'url'     => '#',
                     'submenu' => [
                         [
                             'text' => 'Coba',
                             'url'  => '/cobas',
                             'can'     => ['cobas','cobas.index']
+                        ],
+                        [
+                            'text' => 'Jajal',
+                            'url'  => '/jajals',
+                            'can'     => ['jajals','jajals.index']
                         ],
                         [
                             'text'    => 'level_two',

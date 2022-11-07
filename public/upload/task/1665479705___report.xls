@@ -1,0 +1,445 @@
+﻿<meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+<style type="text/css">
+	.report-red-neg-val {
+		color: red;
+	}
+</style>
+<table border="1">
+<thead>
+<tr>
+			<th>Project: Name</th>
+			<th>Name</th>
+			<th>Responsible person</th>
+			<th>Status</th>
+			<th>Description</th>
+	</tr>
+</thead>
+<tbody>	<tr>
+										<td></td>
+											<td>Update data pegawai di platform</td>
+											<td>Dian  Aprilia</td>
+											<td>Completed</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>AdHoc</td>
+											<td>Seminar Binus Creates</td>
+											<td>Iswara  Maharani</td>
+											<td>Overdue</td>
+											<td>Tawaran Seminar oleh binus creates untuk membuat seminar dengan pembicara dari binus cretates, dengan topik bebas</td>
+						</tr>
+		<tr>
+										<td>AdHoc</td>
+											<td>Penyampaian Project IT BAU Non-RKAP 2022</td>
+											<td>Dian  Aprilia</td>
+											<td>Completed</td>
+											<td>Penyampaian Project IT BAU Non-RKAP 2022</td>
+						</tr>
+		<tr>
+										<td>AdHoc</td>
+											<td>Pengisian data Annual Report</td>
+											<td>Dian  Aprilia</td>
+											<td>Completed</td>
+											<td>https://docs.google.com/document/d/1Kz...edit?pli=1</td>
+						</tr>
+		<tr>
+										<td>AdHoc</td>
+											<td>Permintaan daftar training 2021</td>
+											<td>Dian  Aprilia</td>
+											<td>Completed</td>
+											<td>Permintaan daftar training yang sudah dilakukan oleh corpu, Divisi Kepatuhan</td>
+						</tr>
+		<tr>
+										<td>Admin Zoom</td>
+											<td>Diskusi dengan Mas Harji</td>
+											<td>Admin pgd pcu</td>
+											<td>Pending</td>
+											<td>Diskusi dengan Mas Harji</td>
+						</tr>
+		<tr>
+										<td>Advisory Board</td>
+											<td>Diskusi dengan Pak Suryatin</td>
+											<td>Admin pgd pcu</td>
+											<td>Pending</td>
+											<td>Diskusi dengan Pak Suryatin tentang tema yang akan di bawakan</td>
+						</tr>
+		<tr>
+										<td>Content Pedoman Agen</td>
+											<td>Dokumen Permintaan</td>
+											<td>Admin pgd pcu</td>
+											<td>Pending</td>
+											<td>Dokumen Permintaan dari divisi JOS</td>
+						</tr>
+		<tr>
+										<td>Content RKAP</td>
+											<td>Dokumen Permintaan</td>
+											<td>Mr  S K Y</td>
+											<td>Pending</td>
+											<td>Dokumen Permintaan dan materi PPT</td>
+						</tr>
+		<tr>
+										<td>Content RKAP</td>
+											<td>Meeting dengan user</td>
+											<td>Mr  S K Y</td>
+											<td>Overdue</td>
+											<td>Meeting dengan user dan vendor</td>
+						</tr>
+		<tr>
+										<td>E-Learning</td>
+											<td>Elearning Produk Kreasi Multiguna</td>
+											<td>Dian  Aprilia</td>
+											<td>Overdue</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>E-Learning</td>
+											<td>E-learning System Kerja Agile</td>
+											<td>Dian  Aprilia</td>
+											<td>Overdue</td>
+											<td>E-learning System Kerja Agile</td>
+						</tr>
+		<tr>
+										<td>E-Learning</td>
+											<td>E-learning ID Promosi</td>
+											<td>Dian  Aprilia</td>
+											<td>Pending</td>
+											<td>E-learning ID Promosi</td>
+						</tr>
+		<tr>
+										<td>Gade Podcast Inspigo</td>
+											<td>Permintaan proposal penawaran terbaru</td>
+											<td>Denissa Chika Finira</td>
+											<td>Pending</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>Gamification :: Penaksiran Emas</td>
+											<td>Proposal Vendor</td>
+											<td>Denissa Chika Finira</td>
+											<td>In progress</td>
+											<td>Proposal Vendor  gamification penaksiran emas</td>
+						</tr>
+		<tr>
+										<td>Gamification :: Penaksiran Emas</td>
+											<td>Starter Meeting with Agate &amp; ak. Gadai</td>
+											<td>Denissa Chika Finira</td>
+											<td>Completed</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>Gamification :: Penaksiran Emas</td>
+											<td>Pembuatan Administrasi Apps Gamification (TOR BRD dll)</td>
+											<td>Denissa Chika Finira</td>
+											<td>Overdue</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>Gamification :: Penaksiran Emas</td>
+											<td>Diskusi  Team TI</td>
+											<td>Denissa Chika Finira</td>
+											<td>Completed</td>
+											<td>Diskusi mitigasi perubahan anggran (SAPTI) dari pengembangan corpu (pembuatan materi/content) menjadi pengembangan TI yang disebabkan berbah menjadi aplikasi. Permasalahan dalam pengembangan aplikasi (PASTI)</td>
+						</tr>
+		<tr>
+										<td>Gamification::Pemasaran</td>
+											<td>Pencarian Vendor Gamification</td>
+											<td>Mr  S K Y</td>
+											<td>In progress</td>
+											<td>Pencarian Vendor Gamification</td>
+						</tr>
+		<tr>
+										<td>Gamification::Pemasaran</td>
+											<td>Team Meeting</td>
+											<td>Mr  S K Y</td>
+											<td>Completed</td>
+											<td>Team meeting dengan team JOS (Agas)</td>
+						</tr>
+		<tr>
+										<td>I-Leads (LMS 2.0)</td>
+											<td>Proposal New LMS</td>
+											<td>Mugi Minionx</td>
+											<td>Completed</td>
+											<td>Permintaan proposal pengebangan new LMS ke vendor</td>
+						</tr>
+		<tr>
+										<td>I-Leads (LMS 2.0)</td>
+											<td>BRD</td>
+											<td>Dian  Aprilia</td>
+											<td>Completed</td>
+											<td>Pembuatan BRD new LMS</td>
+						</tr>
+		<tr>
+										<td>I-Leads (LMS 2.0)</td>
+											<td>Draft TOR</td>
+											<td>Dian  Aprilia</td>
+											<td>Completed</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>I-Leads (LMS 2.0)</td>
+											<td>Nodin Permohonan Pengadaan</td>
+											<td>Mugi Minionx</td>
+											<td>Completed</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>I-Leads (LMS 2.0)</td>
+											<td>FGD ILedas</td>
+											<td>Dian  Aprilia</td>
+											<td>Completed</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>I-Leads (LMS 2.0)</td>
+											<td>Meeting TI</td>
+											<td>Dian  Aprilia</td>
+											<td>Completed</td>
+											<td>Meeting TI membahas fitur,timeline,project dll  </td>
+						</tr>
+		<tr>
+										<td>I-Leads (LMS 2.0)</td>
+											<td>Inception Project LMS</td>
+											<td>Mugi Minionx</td>
+											<td>Completed</td>
+											<td>Melakukan project inception dengan Team PMO</td>
+						</tr>
+		<tr>
+										<td>I-Leads (LMS 2.0)</td>
+											<td>Pemenuhan Envirotment Pengembangan</td>
+											<td>Dian  Aprilia</td>
+											<td>In progress</td>
+											<td>Pemenuhan Envirotment Pengembangan</td>
+						</tr>
+		<tr>
+										<td>I-Leads (LMS 2.0)</td>
+											<td>Instalasi New LMS Env Pegadaian</td>
+											<td>Dian  Aprilia</td>
+											<td>In progress</td>
+											<td>Instalasi aplikasi new lms untuk environment pegadaian</td>
+						</tr>
+		<tr>
+										<td>I-Leads (LMS 2.0)</td>
+											<td>UAT 1</td>
+											<td>Dian  Aprilia</td>
+											<td>Pending</td>
+											<td>UAT untuk aplikasi yang telah dikembangkan vendor apa adanya</td>
+						</tr>
+		<tr>
+										<td>I-Leads (LMS 2.0)</td>
+											<td>Dev Cusomisasi Modul</td>
+											<td>Admin pgd pcu</td>
+											<td>Pending</td>
+											<td>Development kustomisasi</td>
+						</tr>
+		<tr>
+										<td>I-Leads (LMS 2.0)</td>
+											<td>UAT 2</td>
+											<td>Dian  Aprilia</td>
+											<td>Pending</td>
+											<td>Uat fitur  kustomisasi</td>
+						</tr>
+		<tr>
+										<td>I-Leads (LMS 2.0)</td>
+											<td>Deployment</td>
+											<td>Dian  Aprilia</td>
+											<td>Pending</td>
+											<td>Deployment aplikasi new LMS</td>
+						</tr>
+		<tr>
+										<td>I-Leads (LMS 2.0)</td>
+											<td>Pengembangan</td>
+											<td>Admin pgd pcu</td>
+											<td>Pending</td>
+											<td>Pengembangan Aplikasi</td>
+						</tr>
+		<tr>
+										<td>I-Leads (LMS 2.0)</td>
+											<td>Dokumen Pengembangan</td>
+											<td>Dian  Aprilia</td>
+											<td>In progress</td>
+											<td>Permintaan dokumen tambahan untuk pengembangan</td>
+						</tr>
+		<tr>
+										<td>I-Leads (LMS 2.0)</td>
+											<td>Jadwal present Pak Kadiv</td>
+											<td>Admin pgd pcu</td>
+											<td>Pending</td>
+											<td>Jadwal present Pak Kadiv</td>
+						</tr>
+		<tr>
+										<td>ITDRI,IFLI,IFRI</td>
+											<td>Penunjukan LD IFLI</td>
+											<td>Mr  S K Y</td>
+											<td>Completed</td>
+											<td>PenunjukAn LD IFLI</td>
+						</tr>
+		<tr>
+										<td>KMS Reward</td>
+											<td>Pemenang KMS 2021</td>
+											<td>Denissa Chika Finira</td>
+											<td>Completed</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>KMS Reward</td>
+											<td>Draft Kepdir KMS Reward 2021</td>
+											<td>Denissa Chika Finira</td>
+											<td>Completed</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>KMS Reward</td>
+											<td>Launch Kepdir KMS Reward 2021</td>
+											<td>Denissa Chika Finira</td>
+											<td>Overdue</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>KMS Reward</td>
+											<td>Pembuatan Nota Dinas pengajuan Kepdir KMS Reward 2021</td>
+											<td>Denissa Chika Finira</td>
+											<td>Completed</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>KMS Reward</td>
+											<td>Pengiriman Memo permohonan List Tabungan emas pemenang KMS Reward 2021</td>
+											<td>Denissa Chika Finira</td>
+											<td>Completed</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>KMS Reward</td>
+											<td>Pengiriman Memo permohonan List CIF pemenang KMS Reward 2021</td>
+											<td>Denissa Chika Finira</td>
+											<td>Completed</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>KMS Reward</td>
+											<td>Pengiriman Memo &amp; RAB ke LOGS untuk pencairan biaya KMS Reward</td>
+											<td>Denissa Chika Finira</td>
+											<td>Completed</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>KMS Reward</td>
+											<td>Menghubungi CP Salemba dan CPS Kramat Raya</td>
+											<td>Denissa Chika Finira</td>
+											<td>Overdue</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>Learning Performance</td>
+											<td>Data Learning Performance 2021 All karyawan</td>
+											<td>Denissa Chika Finira</td>
+											<td>Completed</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>Learning Performance</td>
+											<td>Data Learning Performance 2021</td>
+											<td>Denissa Chika Finira</td>
+											<td>Pending</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>MOOC :: GadeX</td>
+											<td>Meeting dengan Gadex</td>
+											<td>Mr  S K Y</td>
+											<td>Overdue</td>
+											<td>Atur Meeting dengan team Gadex untuk proses perpanjangan</td>
+						</tr>
+		<tr>
+										<td>MOOC :: GadeX</td>
+											<td>Proposal GadeX</td>
+											<td>Mr  S K Y</td>
+											<td>Overdue</td>
+											<td>Permintaan proposal unutk perpnjangan GadeX platform</td>
+						</tr>
+		<tr>
+										<td>MOOC :: Studilmu</td>
+											<td>Permintaan proposal penawaran terbaru</td>
+											<td>Denissa Chika Finira</td>
+											<td>Pending</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>Perpanjangan G-Leads</td>
+											<td>Permintaan Proposal</td>
+											<td>Mugi Minionx</td>
+											<td>Completed</td>
+											<td>Permintaan dokumen proposal kepada vendor magnet</td>
+						</tr>
+		<tr>
+										<td>Public Seminar</td>
+											<td>TOR</td>
+											<td>Dian  Aprilia</td>
+											<td>Completed</td>
+											<td>TOR</td>
+						</tr>
+		<tr>
+										<td>Public Seminar</td>
+											<td>Google Cloud Platform</td>
+											<td>Iswara  Maharani</td>
+											<td>Overdue</td>
+											<td>Google Cloud Platform</td>
+						</tr>
+		<tr>
+										<td>RPA Project LOGS</td>
+											<td>Update project RPA</td>
+											<td>Admin pgd pcu</td>
+											<td>In progress</td>
+											<td>Update project RPA LOGS</td>
+						</tr>
+		<tr>
+										<td>Sosialisasi E-Office</td>
+											<td>Dokument Permintaan</td>
+											<td>Admin pgd pcu</td>
+											<td>In progress</td>
+											<td>Dokument Permintaan</td>
+						</tr>
+		<tr>
+										<td>Training :: RPA Batch 4</td>
+											<td>Mencari Vendor Training RPA dengan UiPath</td>
+											<td>Harji Kalbuadi</td>
+											<td>Completed</td>
+											<td>Karena Pak Hananto tidak sreg dengan vendor training RPA sebelumnya, (i-3), maka perlu mencari vendor lainnya.</td>
+						</tr>
+		<tr>
+										<td>Training :: RPA Batch 4</td>
+											<td>Dokumen Permintaan Training RPA</td>
+											<td>Harji Kalbuadi</td>
+											<td>Completed</td>
+											<td>Dokumen Permintaan dari user</td>
+						</tr>
+		<tr>
+										<td>Training :: RPA Batch 4</td>
+											<td>Meeting Vendor RPA Institute dan User</td>
+											<td>Nirwana Gandhi</td>
+											<td>Completed</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>Training :: RPA Batch 4</td>
+											<td>RAB RPA Batch 2 dan Batch 3</td>
+											<td>Nirwana Gandhi</td>
+											<td>In progress</td>
+											<td></td>
+						</tr>
+		<tr>
+										<td>Training TOT Customer Relation Management (CRM)</td>
+											<td>Dokumen Training ToT CRM</td>
+											<td>Mr  S K Y</td>
+											<td>Completed</td>
+											<td>Dokumen Training ToT CRM</td>
+						</tr>
+		<tr>
+										<td>Training TOT Customer Relation Management (CRM)</td>
+											<td>Pembuatan dokumen training</td>
+											<td>Mr  S K Y</td>
+											<td>Pending</td>
+											<td>Pembuatan dokumen training</td>
+						</tr>
+	</tbody>
+</table>

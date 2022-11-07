@@ -9,6 +9,6 @@ class Coba extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nama', 'alamat', 'create_by', 'update_by'
+        'teks', 'tanggal', 'pilihan', 'create_by', 'update_by'
     ];
 }

@@ -41,7 +41,11 @@
                     <a href="#" class="btn btn-primary mb-2" onclick="generate_route({{ $tabel->id }})">
                         Route
                     </a>
-
+                    <a href="#" class="btn btn-primary mb-2" onclick="generate_file({{ $tabel->id }})">
+                        Create File
+                    </a><br>
+                    <input type="text" readonly class="form-control @error('nama') is-invalid @enderror" id="namafile" placeholder="Nama File" name="namafile" value="">
+                    <br>
                     <table class="table table-hover table-bordered table-stripped" id="example2">
                         <thead>
                             {{-- 'nama','tipedata','null_','key_','default_','create_by','update_by',nama_tabel --}}
@@ -120,6 +124,7 @@
             
         }
         function generate($id){
+            $('#namafile').val("CONTROLLER");
             $.ajax({
                 url: "/kodescontroller/"+$id,
                 type: "GET",
@@ -129,11 +134,13 @@
                     $('#example2').hide();
                     $('#script').show();
                     $("#Script").val(data);
+                    $('#namafile').val("CONTROLLER");
                 }
             });
         }
 
         function generate_model($id){
+            $('#namafile').val("MODEL");
             $.ajax({
                 url: "/kodesmodel/"+$id,
                 type: "GET",
@@ -148,7 +155,7 @@
         }
 
         function generate_vedit($id){
-            alert('generate_vedit');
+            $('#namafile').val("VEDIT");
             $.ajax({
                 url: "/kodesvedit/"+$id,
                 type: "GET",
@@ -163,6 +170,7 @@
         }
 
         function generate_vindex($id){
+            $('#namafile').val("VINDEX");
             $.ajax({
                 url: "/kodesvindex/"+$id,
                 type: "GET",
@@ -177,7 +185,7 @@
         }
 
         function generate_vcreate($id){
-            alert('generate_vcreate');
+            $('#namafile').val("VCREATE");
             $.ajax({
                 url: "/kodesvcreate/"+$id,
                 type: "GET",
@@ -191,7 +199,8 @@
             });
         }
         function generate_migrate($id){
-            alert('generate_migrate');
+            $('#namafile').val("Migrasi");
+            // alert('generate_migrate');
             $.ajax({
                 url: "/kodesmigrate/"+$id,
                 type: "GET",
@@ -205,9 +214,25 @@
             });
         }
         function generate_route($id){
-            alert('generate_route');
+            $('#namafile').val("ROUTE");
             $.ajax({
                 url: "/kodesroute/"+$id,
+                type: "GET",
+                async: false,
+                dataType: "text",
+                success: function(data) {
+                    $('#example2').hide();
+                    $('#script').show();
+                    $("#Script").val(data);
+                }
+            });
+        }
+
+
+        function generate_file($id){
+            alert($('#namafile').val());
+            $.ajax({
+                url: "/kodesfile/"+$id+"/"+$('#namafile').val(),
                 type: "GET",
                 async: false,
                 dataType: "text",

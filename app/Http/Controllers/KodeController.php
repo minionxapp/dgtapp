@@ -6,6 +6,8 @@ use App\Models\Kode;
 use App\Models\Kolom;
 use App\Models\Tabel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class KodeController extends Controller
 {
@@ -34,6 +36,7 @@ class KodeController extends Controller
         use Illuminate\Support\Facades\Auth;
         use App\Models\User;
         use Illuminate\Support\Facades\Crypt;
+        use App\Models\Param;
         ';
         $x = $x . 'use App\Models\\' . $tabel->nama . ';
         class ' . $tabel->nama . 'Controller extends Controller
@@ -60,7 +63,7 @@ class KodeController extends Controller
 
         foreach ($koloms as $key => $value) {
             if ($value['tipedata'] == 'SEL') {
-                $x = $x . '$' . $value['nama'] . 's=[];' . "\n";
+                $x = $x . '$' . $value['nama'] . 's=Param::where(\'nama\',\'=\',\'YESNO\')->get([\'kode\',\'desc\']);' . "\n";
             }
         };
 
@@ -127,7 +130,7 @@ class KodeController extends Controller
 
         foreach ($koloms as $key => $value) {
             if ($value['tipedata'] == 'SEL') {
-                $x = $x . '$' . $value['nama'] . 's=[];' . "\n";
+                $x = $x . '$' . $value['nama'] . 's=Param::where(\'nama\',\'=\',\'YESNO\')->get([\'kode\',\'desc\']);' . "\n";
             }
         };
 
@@ -350,39 +353,51 @@ class KodeController extends Controller
         foreach ($koloms as $key => $value) {
             // return ($value['tipedata']) ;
             // VAR
-            if ($value['tipedata'] == 'VAR') {
+            if ($value['tipedata'] == 'VAR'||$value['tipedata'] == 'NUM') {
                 $x = $x . '
-                <div class="form-group">
-                <label for="' . strtolower($value['nama']) . '">' . ($value['nama']) . '</label>
-                <input type="text" autocomplete="off" class="form-control @error(\'' . $value['nama'] . '\') is-invalid @enderror" id="' . $value['nama'] . '" placeholder="' . ($value['nama']) . '" name="' . strtolower($value['nama']) . '" value="{{old(\'' . strtolower($value['nama']) . '\')}}">
-                @error(\'' . $value['nama'] . '\') <span class="text-danger">{{$message}}</span> @enderror
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="' . strtolower($value['nama']) . '">' . ($value['nama']) . '</label>
+                            <input type="text" autocomplete="off" class="form-control @error(\'' . $value['nama'] . '\') is-invalid @enderror" id="' . $value['nama'] . '" placeholder="' . ($value['nama']) . '" name="' . strtolower($value['nama']) . '" value="{{old(\'' . strtolower($value['nama']) . '\')}}">
+                            @error(\'' . $value['nama'] . '\') <span class="text-danger">{{$message}}</span> @enderror
+                        </div>
+                    </div>
                 </div>
                 ';
             }
             // DATE /DAT
             if ($value['tipedata'] == 'DAT') {
                 $x = $x . '
-                <div class="form-group">
-                <label for="' . strtolower($value['nama']) . '">' . ($value['nama']) . '</label>
-                <input type="date" autocomplete="off" class="form-control @error(\'' . $value['nama'] . '\') is-invalid @enderror" id="' . $value['nama'] . '" placeholder="' . ($value['nama']) . '" name="' . strtolower($value['nama']) . '" value="{{old(\'' . strtolower($value['nama']) . '\')}}">
-                @error(\'' . $value['nama'] . '\') <span class="text-danger">{{$message}}</span> @enderror
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="' . strtolower($value['nama']) . '">' . ($value['nama']) . '</label>
+                            <input type="date" autocomplete="off" class="form-control @error(\'' . $value['nama'] . '\') is-invalid @enderror" id="' . $value['nama'] . '" placeholder="' . ($value['nama']) . '" name="' . strtolower($value['nama']) . '" value="{{old(\'' . strtolower($value['nama']) . '\')}}">
+                            @error(\'' . $value['nama'] . '\') <span class="text-danger">{{$message}}</span> @enderror
+                        </div>
+                    </div>
                 </div>
                 ';
             }
 
             if ($value['tipedata'] == 'SEL') {
                 $x = $x . '
-                <div class="form-group">
-                    <label for="' . strtolower($value['nama']) . '">' . $value['nama'] . '</label>
-                    <select name="' . $value['nama'] . '" class="form-control" id="' . $value['nama'] . '">
-                        <option value="XXX">Jenis</option>
-                        @foreach ($' . $value['nama'] . 's as $' . $value['nama'] . ')
-                            <option value={{ $' . $value['nama'] . '->kode }}>{{ $' . $value['nama'] . '->desc }}</option>
-                        @endforeach
-                    </select>
-                    @error(\'' . $value['nama'] . '\')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="' . strtolower($value['nama']) . '">' . $value['nama'] . '</label>
+                            <select name="' . $value['nama'] . '" class="form-control" id="' . $value['nama'] . '">
+                                <option value="XXX">Jenis</option>
+                                @foreach ($' . $value['nama'] . 's as $' . $value['nama'] . ')
+                                    <option value={{ $' . $value['nama'] . '->kode }}>{{ $' . $value['nama'] . '->desc }}</option>
+                                @endforeach
+                            </select>
+                            @error(\'' . $value['nama'] . '\')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
                 ';
             }
@@ -435,43 +450,57 @@ class KodeController extends Controller
                         <div class="card-body">               
          ';
         foreach ($koloms as $key => $value) {
-            if($value['tipedata']=='VAR'){
-            $x = $x . '<div class="form-group">
+            if($value['tipedata']=='VAR'||$value['tipedata']=='NUM'){
+            $x = $x . '
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
                              <label for="' . $value['nama'] . '">' . $value['nama'] . '</label>
                              <input type="text" autocomplete="off" class="form-control @error(\'' . $value['nama'] . '\') is-invalid @enderror" id="' . $value['nama'] . '" placeholder="' . $value['nama'] . '" name="' . $value['nama'] . '" value="{{$' . strtolower($tabel->nama) . '->' . $value['nama'] . ' ?? old(\'' . $value['nama'] . '\')}}">
                              @error(\'' . $value['nama'] . '\') <span class="text-danger">{{$message}}</span> @enderror
-                        </div>';
+                        </div>                        
+                    </div>
+                <div>';
+                    
             }
 
             // DATE /DAT
             if ($value['tipedata'] == 'DAT') {
                 $x = $x . '
-                <div class="form-group">
-                <label for="' . strtolower($value['nama']) . '">' . ($value['nama']) . '</label>
-                <input type="date" autocomplete="off" class="form-control @error(\'' . $value['nama'] . '\') is-invalid @enderror" id="' . $value['nama'] . '" placeholder="' . ($value['nama']) . '" name="' . strtolower($value['nama']) . '" value="{{old(\'' . strtolower($value['nama']) . '\')}}">
-                @error(\'' . $value['nama'] . '\') <span class="text-danger">{{$message}}</span> @enderror
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="' . strtolower($value['nama']) . '">' . ($value['nama']) . '</label>
+                            <input type="date" autocomplete="off" class="form-control @error(\'' . $value['nama'] . '\') is-invalid @enderror" id="' . $value['nama'] . '" placeholder="' . ($value['nama']) . '" name="' . strtolower($value['nama']) . '" value="{{$' . strtolower($tabel->nama) . '->' . $value['nama'] . ' ?? old(\'' . strtolower($value['nama']) . '\')}}">
+                            @error(\'' . $value['nama'] . '\') <span class="text-danger">{{$message}}</span> @enderror
+                        </div>
+                    </div>
                 </div>
                 ';
             }
 
             if ($value['tipedata'] == 'SEL') {
                 $x = $x . '
-                <div class="form-group">
-                    <label for="' . strtolower($value['nama']) . '">' . $value['nama'] . '</label>
-                    <select name="' . $value['nama'] . '" class="form-control" id="' . $value['nama'] . '">
-                        <option value="XXX">Jenis</option>
-                        @foreach ($' . $value['nama'] . 's as $' . $value['nama'] . ')
-                            @if ($'.$value['nama'].'->kode == $'.strtolower($tabel->nama).'->kode)
-                                <option selected="selected" value={{ $' . $value['nama'] . '->kode }}>{{ $' . $value['nama'] . '->desc }}</option>
-                            @else
-                                <option value={{ $' . $value['nama'] . '->kode }}>{{ $' . $value['nama'] . '->desc }}</option>
-                            @endif
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="' . strtolower($value['nama']) . '">' . $value['nama'] . '</label>
+                            <select name="' . $value['nama'] . '" class="form-control" id="' . $value['nama'] . '">
+                                <option value="XXX">Jenis</option>
+                                @foreach ($' . $value['nama'] . 's as $' . $value['nama'] . ')
+                                    @if ($'.$value['nama'].'->kode == $'.strtolower($tabel->nama).'->kode)
+                                        <option selected="selected" value={{ $' . $value['nama'] . '->kode }}>{{ $' . $value['nama'] . '->desc }}</option>
+                                    @else
+                                        <option value={{ $' . $value['nama'] . '->kode }}>{{ $' . $value['nama'] . '->desc }}</option>
+                                    @endif
 
-                        @endforeach
-                    </select>
-                    @error(\'' . $value['nama'] . '\')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
+                                @endforeach
+                            </select>
+                            @error(\'' . $value['nama'] . '\')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
                 ';
             }
@@ -555,7 +584,7 @@ class KodeController extends Controller
 
 
 
-    public  function makeRoute($id)
+     public  function makeRoute($id)
     {
         $tabel = Tabel::find($id);
         $koloms = Kolom::where('nama_tabel', '=', $tabel->nama)->orderBy('urut', 'ASC')->get();
@@ -586,7 +615,64 @@ class KodeController extends Controller
 
 
 
+    public  function makeFile($id,$isiFile){
 
+        $tabel = Tabel::find($id);
+        
+        // if ($isiFile == "VEDIT") {
+            $scripEdit = $this->makeVEdit($id);
+            Storage::put('upload/'.'edit.blade.php', $scripEdit);
+            
+        // }
+        
+        // if ($isiFile == "VINDEX") {
+            $scripIndex = $this->makeVIndex($id);
+            Storage::put('upload/'.'index.blade.php', $scripIndex);
+            
+        // }
+
+        // if ($isiFile == "Model") {
+            $scripCreate = $this->makeVCreate($id);
+            Storage::put('upload/'.'create.blade.php', $scripCreate);
+            
+        // }
+        
+
+
+        $scripModel = $this->makeModel($id);
+        Storage::put('upload/'.$tabel->nama.".php", $scripModel);
+
+        $scripController = $this->makeController($id);
+        Storage::put('upload/'.$tabel->nama.'Controller.php', $scripController);
+
+        // 
+        $view_folder= env('VIEW_PATH');
+        $batScript ="cd\\ \n".
+        "mkdir ".env('VIEW_PATH')."\\".strtolower($tabel->nama)."s \n".
+        "\n".
+        "cd C:\Data_Mugi\workspace\laravel\dgtapp\storage\app\upload \n".
+        "copy *.blade.php ".env('VIEW_PATH')."\\".strtolower($tabel->nama)."s \n".
+        "del *.blade.php \n".
+        "copy *Controller.php ".env('CONTROLLER_PATH')." \n".
+        "del *Controller.php \n".
+        "copy  ".$tabel->nama.".php ".env('MODEL_PATH')." \n".
+        "del *.php \n".
+        "cd ".env('PROJECT_PATH'). " \n". 
+        "php artisan make:migration create_".strtolower($tabel->nama)."s_table  \n".
+        "cd C:\Data_Mugi\workspace\laravel\dgtapp\storage\app\upload \n".
+        "  \n"
+        ;
+        
+        // "index.blade.php   \n"
+        // ."create.blade.php    \n"
+        // ."edit.blade.php    \n";
+
+        //controller folder   C:\Data_Mugi\workspace\laravel\dgtapp\app\Http\Controllers\ParamController.php
+        //model folder   C:\Data_Mugi\workspace\laravel\dgtapp\app\Models\Kendaraan.php
+        //migrate folder  C:\Data_Mugi\workspace\laravel\dgtapp\database\migrations\2022_08_15_051922_create_seqs_table.php
+        Storage::put('upload/'.$tabel->nama.'.bat', $batScript);
+
+    }
 
 
 

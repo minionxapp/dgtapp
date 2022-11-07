@@ -21,3 +21,6 @@ URL::forceScheme('https');
 Add the use in the top:
 
 use Illuminate\Support\Facades\URL;
+
+
+untuk HELPER :::   https://yoi.home.blog/2020/06/07/membuat-helper-di-laravel/

@@ -138,6 +138,7 @@ Route::get('kodesvcreate/{id}', [App\Http\Controllers\KodeController::class, 'ma
 Route::get('kodesvedit/{id}', [App\Http\Controllers\KodeController::class, 'makeVEdit'])->name('kodes.edit')->middleware('auth');
 Route::get('kodesmigrate/{id}', [App\Http\Controllers\KodeController::class, 'makeMigrate'])->name('kodes.migrate')->middleware('auth');
 Route::get('kodesroute/{id}', [App\Http\Controllers\KodeController::class, 'makeRoute'])->name('kodes.route')->middleware('auth');
+Route::get('kodesfile/{id}/{string}', [App\Http\Controllers\KodeController::class, 'makeFile'])->name('kodes.file')->middleware('auth');
 
 
 
@@ -156,6 +157,7 @@ Route::post('cobas/store', [App\Http\Controllers\CobaController::class, 'store']
 Route::get('cobas/edit/{id}', [App\Http\Controllers\CobaController::class, 'edit'])->name('cobas.edit')->middleware(['auth', 'permission:cobas.edit']);
 Route::put('cobas/update/{id}', [App\Http\Controllers\CobaController::class, 'update'])->name('cobas.update')->middleware(['auth', 'permission:cobas.edit']);
 Route::delete('cobas/destroy/{id}', [App\Http\Controllers\CobaController::class, 'destroy'])->name('cobas.destroy')->middleware(['auth', 'permission:cobas.delete']);
+Route::get('cobas/hapusfile/{id}', [App\Http\Controllers\CobaController::class, 'hapusfile'])->name('cobas.hapusfile')->middleware(['auth', 'permission:cobas.edit']);
 
 
 Route::get('/seqs', [App\Http\Controllers\SeqController::class, 'index'])->name('seqs.index')->middleware(['auth','permission:seqs.index']);
@@ -180,7 +182,13 @@ Route::put('projects/update/{id}', [App\Http\Controllers\ProjectController::clas
 Route::delete('projects/destroy/{id}', [App\Http\Controllers\ProjectController::class, 'destroy'])->name('projects.destroy')->middleware(['auth','permission:projects.delete']);
 
 
-
+// test coding
+Route::get('/jajals', [App\Http\Controllers\JajalController::class, 'index'])->name('jajals.index')->middleware(['auth','permission:jajals.index']);
+Route::get('jajals/create', [App\Http\Controllers\JajalController::class, 'create'])->name('jajals.create')->middleware(['auth','permission:jajals.create']);
+Route::post('jajals/store', [App\Http\Controllers\JajalController::class, 'store'])->name('jajals.store')->middleware(['auth','permission:jajals.create']);
+Route::get('jajals/edit/{id}', [App\Http\Controllers\JajalController::class, 'edit'])->name('jajals.edit')->middleware(['auth','permission:jajals.edit']);
+Route::put('jajals/update/{id}', [App\Http\Controllers\JajalController::class, 'update'])->name('jajals.update')->middleware(['auth','permission:jajals.edit']);
+Route::delete('jajals/destroy/{id}', [App\Http\Controllers\JajalController::class, 'destroy'])->name('jajals.destroy')->middleware(['auth','permission:jajals.delete']);
 
 
 Route::post('/simpanfile', [App\Http\Controllers\TaskController::class, 'simpanFile'])->name('simpanfile')->middleware(['auth']);

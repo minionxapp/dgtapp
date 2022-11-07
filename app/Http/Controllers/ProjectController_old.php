@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Divisi;
+use App\Models\Param;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Crypt;
-use App\Models\Param;
 use App\Models\Project;
-use App\Helpers\Helper;
 
 class ProjectController extends Controller
 {
@@ -21,8 +20,6 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        // $UserLogin = Helper::UserLoginDivisi();
-        // dd($UserLogin);
         return view('projects.index', ['projects' => $projects]);
     }
 
@@ -33,14 +30,12 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $jeniss = Param::where('nama', '=', 'JENIS')->get(['kode', 'desc']);
-        // $divisi_kodes = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
-        $divisi_kodes = Helper::UserLoginDivisi();
-        $departemen_kodes = Helper::UserLoginDepartemen(); //Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
-        // $unit_reqs = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
-        $unit_reqs = Divisi::all();
-        $divisi_assigntos = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
-        $dept_assigntos = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
+        $jeniss = Param::where('nama','=','JENIS')->get();
+        $divisi_kodes = [];
+        $departemen_kodes = [];
+        $unit_reqs = [];
+        $divisi_assigntos = [];
+        $dept_assigntos = [];
 
         return view('projects.create', [
             'jeniss' => $jeniss,
@@ -62,6 +57,7 @@ class ProjectController extends Controller
         $request->validate([
             'kode' => 'required',
             'nama' => 'required',
+            'jenis' => 'required',
         ]);
         $project = Project::create([
             'kode' => $request->kode,
@@ -105,12 +101,12 @@ class ProjectController extends Controller
         $id = Crypt::decrypt($idx);
         // $user_id =(Auth::user()->id);
         // $userloged = User::find($user_id);
-        $jeniss = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
-        $divisi_kodes = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
-        $departemen_kodes = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
-        $unit_reqs = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
-        $divisi_assigntos = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
-        $dept_assigntos = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
+        $jeniss =  Param::where('nama','=','JENIS')->get();;
+        $divisi_kodes = Divisi::all();
+        $departemen_kodes = [];
+        $unit_reqs = [];
+        $divisi_assigntos = [];
+        $dept_assigntos = [];
         $project = Project::find($id);
         //if($project->create_by == Auth::user()->id ||$userloged->hasRole(['Super-Admin']) == 1){
         if (!$project) return redirect()->route('projects.index')
@@ -141,6 +137,7 @@ class ProjectController extends Controller
         $request->validate([
             'kode' => 'required',
             'nama' => 'required',
+            'jenis' => 'required',
         ]);
         $project = Project::find($id);
         $project->kode = $request->kode;
