@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Crypt;
 use App\Models\Param;
 use App\Models\Project;
 use App\Helpers\Helper;
+use Carbon\Carbon;
+use App\Models\File;
 
 class ProjectController extends Controller
 {
@@ -21,8 +23,17 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        // $UserLogin = Helper::UserLoginDivisi();
-        // dd($UserLogin);
+        $projects = Project::join('divisis','projects.divisi_kode','=','divisis.kode')
+        ->leftjoin('departemens','projects.departemen_kode','=','departemens.kode')
+        ->leftjoin('divisis as unit_req','projects.unit_req','=','unit_req.kode' )
+        ->join('params','projects.jenis','=','params.kode')
+        ->get(['projects.*','divisis.nama as nama_divisi',
+        'departemens.nama as nama_departemen',
+        'unit_req.nama as nama_unit_req',
+        'params.desc as param_jenis'
+    ]);
+
+        // dd($projects);
         return view('projects.index', ['projects' => $projects]);
     }
 
@@ -88,8 +99,40 @@ class ProjectController extends Controller
             'create_by' => Auth::user()->user_id
         ]);
         //$project = Project::create($array);    
-
         $project->save();
+
+
+        // SIMPAN FILE
+         // for file
+         $tujuan_upload = env('TASK_UPLOAD');
+         $current_timestamp = Carbon::now()->timestamp; 
+        $i=0;
+         if($request->hasfile('files'))
+         {
+            foreach($request->file('files') as $file)
+            {
+                $i++;
+                $name = time().'.'.$file->extension();
+                $file->move($tujuan_upload,$current_timestamp."___".$file->getClientOriginalName());
+                
+                $file_data = new File();
+                $file_data->file_group = 'PROJECT';
+                // $file_data->file_id = $coba->id.'-'.$i;
+                $file_data->file_id = 'PROJECT'.$project->id;
+                $file_data->file_real_name = $file->getClientOriginalName();
+                $file_data->file_name = $current_timestamp."___".$file->getClientOriginalName();
+                $file_data->file_path = $tujuan_upload;
+                $file_data->file_size = '0';
+                $file_data->file_type = '';
+                $file_data->create_by = Auth::user()->user_id;
+                // $file_data->update_by = Auth::user()->user_id;
+                $file_data->save();
+            }
+         }
+
+
+
+
         return redirect()->route('projects.index')->with('success_message', 'Berhasil menambah project baru');
     }
 
@@ -103,14 +146,24 @@ class ProjectController extends Controller
     public function edit($idx)
     {
         $id = Crypt::decrypt($idx);
-        // $user_id =(Auth::user()->id);
-        // $userloged = User::find($user_id);
-        $jeniss = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
-        $divisi_kodes = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
-        $departemen_kodes = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
-        $unit_reqs = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
+        $user_id =(Auth::user()->id);
+        $userloged = User::find($user_id);
+        // $unit_reqs = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
+        // $divisi_assigntos = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
+        // $dept_assigntos = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
+
+
+        $jeniss = Param::where('nama', '=', 'JENIS')->get(['kode', 'desc']);
+        $divisi_kodes = Helper::UserLoginDivisi();
+        $departemen_kodes = Helper::UserLoginDepartemen();
+        $unit_reqs = Divisi::all();
+
+        $files = File::where('file_id','=','PROJECT'.$id)->get();
         $divisi_assigntos = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
         $dept_assigntos = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
+
+
+
         $project = Project::find($id);
         //if($project->create_by == Auth::user()->id ||$userloged->hasRole(['Super-Admin']) == 1){
         if (!$project) return redirect()->route('projects.index')
@@ -120,6 +173,7 @@ class ProjectController extends Controller
             'divisi_kodes' => $divisi_kodes,
             'departemen_kodes' => $departemen_kodes,
             'unit_reqs' => $unit_reqs,
+            'files'=>$files,
             'divisi_assigntos' => $divisi_assigntos,
             'dept_assigntos' => $dept_assigntos,
         ]);
@@ -165,6 +219,39 @@ class ProjectController extends Controller
         $project->pic_assignto = $request->pic_assignto;
         $project->update_by = Auth::user()->user_id;
         $project->save();
+
+
+
+ // SIMPAN FILE
+         // for file
+         $tujuan_upload = env('TASK_UPLOAD');
+         $current_timestamp = Carbon::now()->timestamp; 
+        $i=0;
+         if($request->hasfile('files'))
+         {
+            foreach($request->file('files') as $file)
+            {
+                $i++;
+                $name = time().'.'.$file->extension();
+                $file->move($tujuan_upload,$current_timestamp."___".$file->getClientOriginalName());
+                
+                $file_data = new File();
+                $file_data->file_group = 'PROJECT';
+                // $file_data->file_id = $coba->id.'-'.$i;
+                $file_data->file_id = 'PROJECT'.$project->id;
+                $file_data->file_real_name = $file->getClientOriginalName();
+                $file_data->file_name = $current_timestamp."___".$file->getClientOriginalName();
+                $file_data->file_path = $tujuan_upload;
+                $file_data->file_size = '0';
+                $file_data->file_type = '';
+                $file_data->create_by = Auth::user()->user_id;
+                // $file_data->update_by = Auth::user()->user_id;
+                $file_data->save();
+            }
+         }
+
+
+
         return redirect()->route('projects.index')
             ->with('success_message', 'Berhasil mengubah project');
     }

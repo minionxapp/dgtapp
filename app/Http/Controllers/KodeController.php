@@ -460,7 +460,7 @@ class KodeController extends Controller
                              @error(\'' . $value['nama'] . '\') <span class="text-danger">{{$message}}</span> @enderror
                         </div>                        
                     </div>
-                <div>';
+                </div>';
                     
             }
 

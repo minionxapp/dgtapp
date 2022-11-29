@@ -422,6 +422,21 @@ return [
                             'can'     => ['jajals','jajals.index']
                         ],
                         [
+                            'text' => 'Skema',
+                            'url'  => '/lsp_skemas',
+                            'can'     => ['lsp_skemas','lsp_skemas.index']
+                        ],
+                        [
+                            'text' => 'Sertifikats',
+                            'url'  => '/lsp_sertifikats',
+                            'can'     => ['lsp_skemas','lsp_sertifikats.index']
+                        ],
+                        [
+                            'text' => 'Pegawai',
+                            'url'  => '/pegawais',
+                            'can'     => ['pegawais','pegawais.index']
+                        ],
+                        [
                             'text'    => 'level_two',
                             'url'     => '#',
                             'submenu' => [

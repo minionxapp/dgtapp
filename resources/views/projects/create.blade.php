@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <form action="{{ route('projects.store') }}" method="post" {{-- enctype="multipart/form-data" --}}>
+    <form action="{{ route('projects.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-12">
@@ -311,8 +311,11 @@
                                 </div>
                             </div>
                         </div> --}}
-
-                       
+                        <div class="form-group" id="input_file">
+                        </div>
+                        <button class="btn btn-default" type="button" id="add_file">
+                            Upload File
+                        </button>
 
                     </div>
 
@@ -328,3 +331,13 @@
         </div>
     </form>
 @stop
+
+@push('js')
+    <script>
+        $('#add_file').on('click', function(e) {
+            var x = '<div class="mb-3"> <label for="formFile" class="form-label">File Upload</label>  <input class="form-control" type="file" name="files[]" id="formFile"></div>'
+            $('#input_file').append(x);
+
+        });
+    </script>
+@endpush

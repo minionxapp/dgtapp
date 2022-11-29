@@ -119,5 +119,26 @@ class RolesAndPermissionsSeeder extends Seeder
         // $role->givePermissionTo(Permission::create(['name' => $model.'.create']));
         // $role->givePermissionTo(Permission::create(['name' => $model.'.edit']));
         // $role->givePermissionTo(Permission::create(['name' => $model.'.delete']));
+
+        // $model ='lsp_skemas';
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.index']));
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.create']));
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.edit']));
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.delete']));
+
+        // $model ='lsp_sertifikats';
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.index']));
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.create']));
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.edit']));
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.delete']));
+
+        //make seeder
+        // $model ='pegawais';
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.index']));
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.create']));
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.edit']));
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.delete']));
+
+
     }
 }

@@ -55,9 +55,6 @@
                                      <a href="/upload/task/{{ $file->file_name }}" class="btn btn-primary">{{ $file->file_real_name }}</a>
                                     <button onclick="cobaHapusFile('{{ Crypt::encrypt($file->id)}}')" type="button" class="btn btn-warning">X</button>
                                 </div>
-
-
-
                             @endforeach
 
                         </div>

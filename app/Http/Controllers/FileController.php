@@ -126,4 +126,12 @@ class FileController extends Controller
         return redirect()->route('files.index')
             ->with('success_message', 'Berhasil menghapus file');
     }
+
+
+    public function hapusfile($idx){
+        $id = Crypt::decrypt($idx);
+        $file = File::find($id);
+        if ($file) $file->delete();
+        return($id);
+    }
 }

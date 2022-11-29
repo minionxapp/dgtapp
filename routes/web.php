@@ -157,7 +157,7 @@ Route::post('cobas/store', [App\Http\Controllers\CobaController::class, 'store']
 Route::get('cobas/edit/{id}', [App\Http\Controllers\CobaController::class, 'edit'])->name('cobas.edit')->middleware(['auth', 'permission:cobas.edit']);
 Route::put('cobas/update/{id}', [App\Http\Controllers\CobaController::class, 'update'])->name('cobas.update')->middleware(['auth', 'permission:cobas.edit']);
 Route::delete('cobas/destroy/{id}', [App\Http\Controllers\CobaController::class, 'destroy'])->name('cobas.destroy')->middleware(['auth', 'permission:cobas.delete']);
-Route::get('cobas/hapusfile/{id}', [App\Http\Controllers\CobaController::class, 'hapusfile'])->name('cobas.hapusfile')->middleware(['auth', 'permission:cobas.edit']);
+
 
 
 Route::get('/seqs', [App\Http\Controllers\SeqController::class, 'index'])->name('seqs.index')->middleware(['auth','permission:seqs.index']);
@@ -173,6 +173,11 @@ Route::post('files/store', [App\Http\Controllers\FileController::class, 'store']
 Route::get('files/edit/{id}', [App\Http\Controllers\FileController::class, 'edit'])->name('files.edit')->middleware(['auth','permission:files.edit']);
 Route::put('files/update/{id}', [App\Http\Controllers\FileController::class, 'update'])->name('files.update')->middleware(['auth','permission:files.edit']);
 Route::delete('files/destroy/{id}', [App\Http\Controllers\FileController::class, 'destroy'])->name('files.destroy')->middleware(['auth','permission:files.delete']);
+
+Route::get('hapusfile/{id}', [App\Http\Controllers\FileController::class, 'hapusfile'])->name('file.hapusfile')->middleware(['auth', 'permission:files.edit']);
+
+
+
 
 Route::get('/projects', [App\Http\Controllers\ProjectController::class, 'index'])->name('projects.index')->middleware(['auth','permission:projects.index']);
 Route::get('projects/create', [App\Http\Controllers\ProjectController::class, 'create'])->name('projects.create')->middleware(['auth','permission:projects.create']);
@@ -195,3 +200,33 @@ Route::post('/simpanfile', [App\Http\Controllers\TaskController::class, 'simpanF
 
 
 Route::get('/enkripsi',  [App\Http\Controllers\EndecController::class, 'enkripsi']);
+
+// LSP
+Route::get('/lsp_skemas', [App\Http\Controllers\Lsp_skemaController::class, 'index'])->name('lsp_skemas.index')->middleware(['auth','permission:lsp_skemas.index']);
+Route::get('lsp_skemas/create', [App\Http\Controllers\Lsp_skemaController::class, 'create'])->name('lsp_skemas.create')->middleware(['auth','permission:lsp_skemas.create']);
+Route::post('lsp_skemas/store', [App\Http\Controllers\Lsp_skemaController::class, 'store'])->name('lsp_skemas.store')->middleware(['auth','permission:lsp_skemas.create']);
+Route::get('lsp_skemas/edit/{id}', [App\Http\Controllers\Lsp_skemaController::class, 'edit'])->name('lsp_skemas.edit')->middleware(['auth','permission:lsp_skemas.edit']);
+Route::put('lsp_skemas/update/{id}', [App\Http\Controllers\Lsp_skemaController::class, 'update'])->name('lsp_skemas.update')->middleware(['auth','permission:lsp_skemas.edit']);
+Route::delete('lsp_skemas/destroy/{id}', [App\Http\Controllers\Lsp_skemaController::class, 'destroy'])->name('lsp_skemas.destroy')->middleware(['auth','permission:lsp_skemas.delete']);
+
+Route::get('/lsp_sertifikats', [App\Http\Controllers\Lsp_sertifikatController::class, 'index'])->name('lsp_sertifikats.index')->middleware(['auth','permission:lsp_sertifikats.index']);
+Route::get('lsp_sertifikats/create', [App\Http\Controllers\Lsp_sertifikatController::class, 'create'])->name('lsp_sertifikats.create')->middleware(['auth','permission:lsp_sertifikats.create']);
+Route::post('lsp_sertifikats/store', [App\Http\Controllers\Lsp_sertifikatController::class, 'store'])->name('lsp_sertifikats.store')->middleware(['auth','permission:lsp_sertifikats.create']);
+Route::get('lsp_sertifikats/edit/{id}', [App\Http\Controllers\Lsp_sertifikatController::class, 'edit'])->name('lsp_sertifikats.edit')->middleware(['auth','permission:lsp_sertifikats.edit']);
+Route::put('lsp_sertifikats/update/{id}', [App\Http\Controllers\Lsp_sertifikatController::class, 'update'])->name('lsp_sertifikats.update')->middleware(['auth','permission:lsp_sertifikats.edit']);
+Route::delete('lsp_sertifikats/destroy/{id}', [App\Http\Controllers\Lsp_sertifikatController::class, 'destroy'])->name('lsp_sertifikats.destroy')->middleware(['auth','permission:lsp_sertifikats.delete']);
+
+Route::get('/sertifikats/{nama}', [App\Http\Controllers\Lsp_sertifikatController::class, 'sertifikat'])->name('lsp_sertifikats.sertifikats')->middleware(['auth','permission:lsp_sertifikats.index']);
+
+
+//make route
+
+Route::get('/pegawais', [App\Http\Controllers\PegawaiController::class, 'index'])->name('pegawais.index')->middleware(['auth','permission:pegawais.index']);
+Route::get('pegawais/create', [App\Http\Controllers\PegawaiController::class, 'create'])->name('pegawais.create')->middleware(['auth','permission:pegawais.create']);
+Route::post('pegawais/store', [App\Http\Controllers\PegawaiController::class, 'store'])->name('pegawais.store')->middleware(['auth','permission:pegawais.create']);
+Route::get('pegawais/edit/{id}', [App\Http\Controllers\PegawaiController::class, 'edit'])->name('pegawais.edit')->middleware(['auth','permission:pegawais.edit']);
+Route::put('pegawais/update/{id}', [App\Http\Controllers\PegawaiController::class, 'update'])->name('pegawais.update')->middleware(['auth','permission:pegawais.edit']);
+Route::delete('pegawais/destroy/{id}', [App\Http\Controllers\PegawaiController::class, 'destroy'])->name('pegawais.destroy')->middleware(['auth','permission:pegawais.delete']);
+
+
+

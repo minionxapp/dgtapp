@@ -72,13 +72,6 @@
 @push('js')
     <script>
         $('#add-transaksi').on('click', function(e) {
-            // var tag = document.createElement("p");
-            // var text = ('<input name="kas_keluar[]" class="form-control money" type="text" data-kas="keluar" id="kas-keluar`+i+`" data-id="`+i+`">');
-            // tag.appendChild(text);
-            // var element = document.getElementById("tr");
-            // element.appendChild(tag);
-
-
             var x = '<div class="mb-3"> <label for="formFile" class="form-label">Default file input example</label>  <input class="form-control" type="file" name="files[]" id="formFile"></div>'
             $('#tr').append(x);
 
