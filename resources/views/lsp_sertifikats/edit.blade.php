@@ -31,6 +31,34 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
+                                    <label for="nama">nama</label>
+                                    <input type="text" autocomplete="off"
+                                        class="form-control @error('nama') is-invalid @enderror" id="nama"
+                                        placeholder="nama" name="nama"
+                                        value="{{ $lsp_sertifikat->nama ?? old('nama') }}">
+                                    @error('nama')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="nip">nip</label>
+                                    <input type="text" autocomplete="off"
+                                        class="form-control @error('nip') is-invalid @enderror" id="nip"
+                                        placeholder="nip" name="nip"
+                                        value="{{ $lsp_sertifikat->nip ?? old('nip') }}">
+                                    @error('nip')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
                                     <label for="noreg1">noreg1</label>
                                     <input type="text" autocomplete="off"
                                         class="form-control @error('noreg1') is-invalid @enderror" id="noreg1"
@@ -70,20 +98,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="nama">nama</label>
-                                    <input type="text" autocomplete="off"
-                                        class="form-control @error('nama') is-invalid @enderror" id="nama"
-                                        placeholder="nama" name="nama"
-                                        value="{{ $lsp_sertifikat->nama ?? old('nama') }}">
-                                    @error('nama')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
+                      
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
@@ -293,6 +308,49 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="tahun_x1">tahun_x1</label>
+                                    <input type="text" autocomplete="off"
+                                        class="form-control @error('tahun_x1') is-invalid @enderror" id="tahun_x1"
+                                        placeholder="tahun_x1" name="tahun_x1"
+                                        value="{{ $lsp_sertifikat->tahun_x1 ?? old('tahun_x1') }}">
+                                    @error('tahun_x1')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="tahun_x2">tahun_x2</label>
+                                    <input type="text" autocomplete="off"
+                                        class="form-control @error('tahun_x2') is-invalid @enderror" id="tahun_x2"
+                                        placeholder="tahun_x2" name="tahun_x2"
+                                        value="{{ $lsp_sertifikat->tahun_x2 ?? old('tahun_x2') }}">
+                                    @error('tahun_x2')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="tanggal_x">tanggal_x</label>
+                                    <input type="text" autocomplete="off"
+                                        class="form-control @error('tanggal_x') is-invalid @enderror" id="tanggal_x"
+                                        placeholder="tanggal_x" name="tanggal_x"
+                                        value="{{ $lsp_sertifikat->tanggal_x ?? old('tanggal_x') }}">
+                                    @error('tanggal_x')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Simpan</button>
                             <a href="{{ route('lsp_sertifikats.index') }}" class="btn btn-default">

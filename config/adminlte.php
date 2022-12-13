@@ -231,7 +231,7 @@ return [
         //     'text'         => 'searchs',
         //     'topnav_right' => true,
         // ],
-       //menu notftikasi
+        //menu notftikasi
         [
             'type'         => 'navbar-notification',
             'id'           => 'my-notification',
@@ -287,7 +287,7 @@ return [
         [
             'text'    => 'Setup',
             'icon'    => 'fas fa-fw fa-share',
-            'can'     => ['setup','admin'],
+            'can'     => ['setup', 'admin'],
             'submenu' => [
                 [
                     'text'        => 'Tabel',
@@ -323,7 +323,7 @@ return [
                     'can'     => ['rolepermissions.index']
                 ],
 
-                
+
                 [
                     'text' => 'UserRole',
                     'url'  => '/userroles',
@@ -364,10 +364,10 @@ return [
                     'can'     => ['files.index']
                 ],
             ]
-            ],
+        ],
 
 
-       
+
         [
             'text' => 'profile',
             'url'  => '/profile',
@@ -391,15 +391,47 @@ return [
                     'can'     => ['projects.index']
                 ]
             ]
+        ],
+
+        [
+            'text'    => 'LSP',
+            'icon'    => 'fas fa-fw fa-share',
+            'can'     => ['lsp_sertifikats.index'],
+            'submenu' => [
+                [
+                    'text' => 'Dasboard',
+                    'url'  => '/lsp_dashboard',
+                    // 'can'     => ['lsp_skemas', 'lsp_skemas.index']
                 ],
-        // [
-        //     'text' => 'change_password',
-        //     'url'  => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-lock',
-        // ],
+                [
+                    'text' => 'Pegawai',
+                    'url'  => '/pegawais',
+                    'can'     => ['pegawais', 'pegawais.index']
+                ],
+                [
+                    'text' => 'Skema',
+                    'url'  => '/lsp_skemas',
+                    'can'     => ['lsp_skemas', 'lsp_skemas.index']
+                ],
+                [
+                    'text' => 'Daftar Sertifikats',
+                            'url'  => '/lsp_sertifikats',
+                            'can'     => ['lsp_skemas','lsp_sertifikats.index']
+                ],
+            ]
+        ],
+
+
+        
+
+
+
+
+
         [
             'text'    => 'Test',
             'icon'    => 'fas fa-fw fa-share',
+            'can'     => ['setup', 'admin'],
             'submenu' => [
                 [
                     'text' => 'Kendaraan',
@@ -414,28 +446,20 @@ return [
                         [
                             'text' => 'Coba',
                             'url'  => '/cobas',
-                            'can'     => ['cobas','cobas.index']
+                            'can'     => ['cobas', 'cobas.index']
                         ],
                         [
                             'text' => 'Jajal',
                             'url'  => '/jajals',
-                            'can'     => ['jajals','jajals.index']
+                            'can'     => ['jajals', 'jajals.index']
                         ],
-                        [
-                            'text' => 'Skema',
-                            'url'  => '/lsp_skemas',
-                            'can'     => ['lsp_skemas','lsp_skemas.index']
-                        ],
-                        [
-                            'text' => 'Sertifikats',
-                            'url'  => '/lsp_sertifikats',
-                            'can'     => ['lsp_skemas','lsp_sertifikats.index']
-                        ],
-                        [
-                            'text' => 'Pegawai',
-                            'url'  => '/pegawais',
-                            'can'     => ['pegawais','pegawais.index']
-                        ],
+                        
+                        // [
+                        //     'text' => 'Sertifikats',
+                        //     'url'  => '/lsp_sertifikats',
+                        //     'can'     => ['lsp_skemas', 'lsp_sertifikats.index']
+                        // ],
+                      
                         [
                             'text'    => 'level_two',
                             'url'     => '#',
@@ -458,21 +482,25 @@ return [
                 ],
             ],
         ],
-        ['header' => 'labels'],
+        ['header' => 'labels',
+        'can'     => ['setup', 'admin'],],
         [
             'text'       => 'important',
             'icon_color' => 'red',
             'url'        => '#',
+            'can'     => ['setup', 'admin'],
         ],
         [
             'text'       => 'warning',
             'icon_color' => 'yellow',
             'url'        => '#',
+            'can'     => ['setup', 'admin'],
         ],
         [
             'text'       => 'information',
             'icon_color' => 'cyan',
             'url'        => '#',
+            'can'     => ['setup', 'admin'],
         ],
     ],
 
@@ -565,10 +593,10 @@ return [
                     'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
                 ],
                 [
-                'type' => 'css',
-                'asset' => true,
-                'location' => '/vendor/sweetalert2/sweetalert2.css',
-            ],
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/vendor/sweetalert2/sweetalert2.css',
+                ],
             ],
         ],
         'Pace' => [

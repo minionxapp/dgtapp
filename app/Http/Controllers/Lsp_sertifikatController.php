@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Crypt;
+use Symfony\Component\Console\Output\ConsoleOutput;
 use App\Models\Param;
 use App\Models\Lsp_sertifikat;
 use App\Helpers\Helper;
@@ -24,7 +25,7 @@ class Lsp_sertifikatController extends Controller
     {
         // $pegawais = Pegawai::take(100)->get();
         // $lsp_sertifikats = Lsp_sertifikat::get(['nama','no_sertifikat','no_register']);
-        $lsp_sertifikats =[] ;//Lsp_sertifikat::take(100)->get();//get(['nama','no_sertifikat','no_register']);
+        $lsp_sertifikats = []; //Lsp_sertifikat::take(100)->get();//get(['nama','no_sertifikat','no_register']);
         return view('lsp_sertifikats.index', ['lsp_sertifikats' => $lsp_sertifikats]);
     }
 
@@ -35,10 +36,9 @@ class Lsp_sertifikatController extends Controller
      */
     public function create()
     {
-        set_time_limit(300);
-        // return view('lsp_sertifikats.create', []);
-        return (Helper::SetNikSertifikat());
-        // return view('lsp_sertifikats.create', []);
+        set_time_limit(600);
+        return view('lsp_sertifikats.create', []);
+        // return (Helper::SetNikSertifikat());
     }
 
     /**
@@ -89,17 +89,10 @@ class Lsp_sertifikatController extends Controller
     public function edit($idx)
     {
         $id = Crypt::decrypt($idx);
-        // $user_id =(Auth::user()->id);
-        // $userloged = User::find($user_id);
         $lsp_sertifikat = Lsp_sertifikat::find($id);
-        //if($lsp_sertifikat->create_by == Auth::user()->id ||$userloged->hasRole(['Super-Admin']) == 1){
         if (!$lsp_sertifikat) return redirect()->route('lsp_sertifikats.index')
             ->with('error_message', 'Lsp_sertifikat dengan id' . $id . ' tidak ditemukan');
         return view('lsp_sertifikats.edit', ['lsp_sertifikat' => $lsp_sertifikat,]);
-        //}else{
-        //    return redirect()->route('lsp_sertifikats.index')
-        //    ->with('error_message', 'And tidak berhak untuk meng edit data ini');
-        //}
     }
 
     /**
@@ -133,11 +126,16 @@ class Lsp_sertifikatController extends Controller
         $lsp_sertifikat->no_sertifikat = $request->no_sertifikat;
         $lsp_sertifikat->no_register = $request->no_register;
         $lsp_sertifikat->tipe = $request->tipe;
+        $lsp_sertifikat->tahun_x1 = $request->tahun_x1;
+        $lsp_sertifikat->tahun_x2 = $request->tahun_x2;
+        $lsp_sertifikat->tanggal_x = $request->tanggal_x;
+        $lsp_sertifikat->nip = $request->nip;
         $lsp_sertifikat->update_by = Auth::user()->user_id;
         $lsp_sertifikat->save();
         return redirect()->route('lsp_sertifikats.index')
             ->with('success_message', 'Berhasil mengubah lsp_sertifikat');
     }
+
 
 
     /**
@@ -162,24 +160,57 @@ class Lsp_sertifikatController extends Controller
 
     public function sertifikat($nama)
     {
-        // $lsp_sertifikats = Lsp_sertifikat::take(100)->get(['nama','no_sertifikat','no_register','id']);
-        $lsp_sertifikats = Lsp_sertifikat::
-            where('nama','like','%'.$nama.'%')
-            ->orWhere('nip','=',$nama)
-        ->orderBy('nama', 'ASC')->get(['nama','no_sertifikat','no_register','id','provinsi','nip']);
-        $i=0;
-        // $result_product = /*your mysql query here*/ 
+        $lsp_sertifikats = Lsp_sertifikat::where('nama', 'like', $nama)
+            ->orWhere('nip', 'like', $nama)
+            // ->orWhere('nip', '=', $nama)
+            ->orderBy('nama', 'ASC')->get(['nama', 'no_sertifikat', 'no_register', 'id', 'provinsi', 'nip','kode_skema']);
+        $i = 0;
+        //tambahkan nama skema
         $lsp_sertifikats_new = array();
-        foreach ($lsp_sertifikats as $sertipikat) {
-            $lsp_sertifikats_new [$i]["nama"]= $sertipikat->nama;
-            $lsp_sertifikats_new [$i]["id"]= $sertipikat->id;
-            $lsp_sertifikats_new [$i]["no_sertifikat"]= $sertipikat->no_sertifikat;
-            $lsp_sertifikats_new [$i]["no_register"]= $sertipikat->no_register;
-            $lsp_sertifikats_new [$i]["provinsi"]= $sertipikat->provinsi;
-            $lsp_sertifikats_new [$i]["nip"]= $sertipikat->nip;
-            $lsp_sertifikats_new [$i]["idx"]= Crypt::encrypt($sertipikat->id);
-            $i++;
+        if ($lsp_sertifikats!=null){
+                foreach ($lsp_sertifikats as $sertipikat) {
+                    $lsp_sertifikats_new[$i]["nama"] = $sertipikat->nama;
+                    $lsp_sertifikats_new[$i]["id"] = $sertipikat->id;
+                    $lsp_sertifikats_new[$i]["no_sertifikat"] = $sertipikat->no_sertifikat;
+                    $lsp_sertifikats_new[$i]["no_register"] = $sertipikat->no_register;
+                    $lsp_sertifikats_new[$i]["provinsi"] = $sertipikat->provinsi;
+                    $lsp_sertifikats_new[$i]["nip"] = $sertipikat->nip;
+                    $lsp_sertifikats_new[$i]["kode_skema"] = $sertipikat->kode_skema;                    
+                    $lsp_sertifikats_new[$i]["idx"] = Crypt::encrypt($sertipikat->id);
+                    $i++;
+                }
+                return json_encode(array('data' => $lsp_sertifikats_new));
+            }else{
+                return json_encode(array('datax' =>[]));
+            }
+    }
+
+    public function updatenik($ids,$nik){//untuk update nik sekaligus pada daftar datatables
+        $output = new ConsoleOutput();
+        // $output->writeln($ids);
+        $array = explode(',', $ids);
+        $i=0;
+        for ($i=0; $i <count($array); $i++) { 
+            $sertifikat = Lsp_sertifikat::find($array[$i]);
+            $sertifikat->nip =$nik;
+            $sertifikat->save();
         }
-        return json_encode(array('data' => $lsp_sertifikats_new));
+        
+        return "update Nik Id :::".$ids.' dengan nik :'.$nik;
+        
+    }
+
+    
+
+    
+    public function kirimsertifikat(){
+        return (Helper::KirimSertifikat());
+    }
+
+
+
+    // update nik sertifikat
+    public function updaateniksertifikat(){
+        
     }
 }

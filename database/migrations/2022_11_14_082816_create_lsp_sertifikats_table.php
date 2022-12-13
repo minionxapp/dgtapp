@@ -37,6 +37,10 @@
                     $table->string('no_sertifikat')->nullable();
                     $table->string('no_register')->nullable();
                     $table->string('tipe')->nullable();
+                    $table->string('tahun_x1')->nullable();
+                    $table->string('tahun_x2')->nullable();
+                    $table->string('tanggal_x')->nullable();
+                    $table->string('nip')->nullable();
 
                     $table->string('create_by')->nullable();
                     $table->string('update_by')->nullable();

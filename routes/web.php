@@ -218,6 +218,11 @@ Route::delete('lsp_sertifikats/destroy/{id}', [App\Http\Controllers\Lsp_sertifik
 
 Route::get('/sertifikats/{nama}', [App\Http\Controllers\Lsp_sertifikatController::class, 'sertifikat'])->name('lsp_sertifikats.sertifikats')->middleware(['auth','permission:lsp_sertifikats.index']);
 
+Route::get('lsp_sertifikats/updatenik/{ids}/{nik}', [App\Http\Controllers\Lsp_sertifikatController::class, 'updatenik'])->name('lsp_sertifikats.updatenik')->middleware(['auth','permission:lsp_sertifikats.index']);
+Route::get('lsp_sertifikats/kirimSertifikat', [App\Http\Controllers\Lsp_sertifikatController::class, 'KirimSertifikat'])->name('lsp_sertifikats.kirimSertifikat')->middleware(['auth','permission:lsp_sertifikats.index']);
+
+Route::get('/lsp_dashboard', [App\Http\Controllers\Lsp_dasboardController::class, 'index'])->name('lsp_dashboard')->middleware('auth');
+
 
 //make route
 
@@ -227,6 +232,7 @@ Route::post('pegawais/store', [App\Http\Controllers\PegawaiController::class, 's
 Route::get('pegawais/edit/{id}', [App\Http\Controllers\PegawaiController::class, 'edit'])->name('pegawais.edit')->middleware(['auth','permission:pegawais.edit']);
 Route::put('pegawais/update/{id}', [App\Http\Controllers\PegawaiController::class, 'update'])->name('pegawais.update')->middleware(['auth','permission:pegawais.edit']);
 Route::delete('pegawais/destroy/{id}', [App\Http\Controllers\PegawaiController::class, 'destroy'])->name('pegawais.destroy')->middleware(['auth','permission:pegawais.delete']);
+Route::get('/pegawai/{id}', [App\Http\Controllers\PegawaiController::class, 'pegawai'])->name('pegawais.cari')->middleware(['auth','permission:pegawais.index']);
 
 
 
