@@ -166,4 +166,18 @@ class PegawaiController extends Controller
         }
         return json_encode(array('data' => $pegawais_new));
     }
+
+
+
+
+    public function pegawainik($nik)
+    {
+        $pegawai = Pegawai::where('nip', '=', $nik)->first();
+        if($pegawai != null){
+            return $pegawai;
+        }else{
+            return null;
+        }
+
+    }
 }

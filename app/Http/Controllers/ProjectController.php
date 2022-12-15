@@ -22,11 +22,17 @@ class ProjectController extends Controller
      */
     public function index()
     {
+        $divisi_kodes = Helper::UserLoginDivisi();
+        $departemen_kodes = Helper::UserLoginDepartemen();
+
+        // return $departemen_kodes ;
         $projects = Project::all();
         $projects = Project::join('divisis','projects.divisi_kode','=','divisis.kode')
         ->leftjoin('departemens','projects.departemen_kode','=','departemens.kode')
         ->leftjoin('divisis as unit_req','projects.unit_req','=','unit_req.kode' )
         ->join('params','projects.jenis','=','params.kode')
+        ->where('projects.departemen_kode','=', $departemen_kodes[0]->kode)
+        ->where('projects.divisi_kode','=', $divisi_kodes[0]->kode)
         ->get(['projects.*','divisis.nama as nama_divisi',
         'departemens.nama as nama_departemen',
         'unit_req.nama as nama_unit_req',

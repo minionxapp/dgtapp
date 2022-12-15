@@ -394,6 +394,18 @@ return [
         ],
 
         [
+            'text'    => 'TMS',
+            'icon'    => 'fas fa-fw fa-share',
+            'can'     => ['lsp_sertifikats.index'],
+            'submenu' => [
+                [
+                    'text' => 'Training Notes',
+                    'url'  => '/training_notes',
+                    'can'     => ['training_notes', 'training_notes.index']
+                ],
+            ]
+        ],
+        [
             'text'    => 'LSP',
             'icon'    => 'fas fa-fw fa-share',
             'can'     => ['lsp_sertifikats.index'],
@@ -418,6 +430,7 @@ return [
                             'url'  => '/lsp_sertifikats',
                             'can'     => ['lsp_skemas','lsp_sertifikats.index']
                 ],
+                
             ]
         ],
 

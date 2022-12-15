@@ -20,26 +20,26 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>kode</th>
-                                <th>nama</th>
+                                <th>Kode</th>
+                                <th>Nama</th>
                                 <th>jenis</th>
-                                <th>divisi_kode</th>
-                                <th>departemen_kode</th>
-                                <th>unit_req</th>
-                                <th>pic_req</th>
-                                <th>keterangan</th>
+                                <th>Divisi  </th>
+                                <th>Departemen</th>
+                                <th>Unit req</th>
+                                <th>Pic req</th>
+                                {{-- <th>Keterangan</th> --}}
                                 {{-- <th>file01</th>
                                 <th>file02</th>
                                 <th>gambar</th> --}}
-                                <th>start_plan</th>
-                                <th>end_plan</th>
-                                <th>divisi_assignto</th>
-                                <th>dept_assignto</th>
+                                <th>Mulai</th>
+                                <th>Selesai</th>
+                                {{-- <th>Divisi assignto</th> --}}
+                                {{-- <th>Dept assignto</th> --}}
                                 {{-- <th>file_desc01</th>
                                 <th>file_uri01</th>
                                 <th>file_desc02</th>
                                 <th>file_uri02</th> --}}
-                                <th>pic_assignto</th>
+                                {{-- <th>pic_assignto</th> --}}
 
                                 <th>Opsi</th>
                             </tr>
@@ -56,19 +56,19 @@
                                     <td>{{ $project->nama_departemen }}</td>
                                     <td>{{ $project->nama_unit_req }}</td>
                                     <td>{{ $project->pic_req }}</td>
-                                    <td>{{ $project->keterangan }}</td>
+                                    {{-- <td>{{ $project->keterangan }}</td> --}}
                                     {{-- <td>{{ $project->file01 }}</td>
                                     <td>{{ $project->file02 }}</td>
                                     <td>{{ $project->gambar }}</td> --}}
                                     <td>{{ $project->start_plan }}</td>
                                     <td>{{ $project->end_plan }}</td>
-                                    <td>{{ $project->divisi_assignto }}</td>
-                                    <td>{{ $project->dept_assignto }}</td>
+                                    {{-- <td>{{ $project->divisi_assignto }}</td> --}}
+                                    {{-- <td>{{ $project->dept_assignto }}</td> --}}
                                     {{-- <td>{{ $project->file_desc01 }}</td> --}}
                                     {{-- <td>{{ $project->file_uri01 }}</td>
                                     <td>{{ $project->file_desc02 }}</td>
                                     <td>{{ $project->file_uri02 }}</td> --}}
-                                    <td>{{ $project->pic_assignto }}</td>
+                                    {{-- <td>{{ $project->pic_assignto }}</td> --}}
 
                                     <td>
                                         @can('projects.edit')

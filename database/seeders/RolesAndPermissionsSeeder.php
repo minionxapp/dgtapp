@@ -139,6 +139,13 @@ class RolesAndPermissionsSeeder extends Seeder
         // $role->givePermissionTo(Permission::create(['name' => $model.'.edit']));
         // $role->givePermissionTo(Permission::create(['name' => $model.'.delete']));
 
+        // //make seeder
+        // $model ='training_notes';
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.index']));
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.create']));
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.edit']));
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.delete']));
+
 
     }
 }

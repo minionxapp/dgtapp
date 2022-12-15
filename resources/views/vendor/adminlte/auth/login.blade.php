@@ -25,7 +25,7 @@
         @csrf
 
         {{-- Email field --}}
-        <div class="input-group mb-3">
+        {{-- <div class="input-group mb-3">
             <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
                    value="{{ old('email') }}" placeholder="{{ __('adminlte::adminlte.email') }}" autofocus>
 
@@ -36,6 +36,38 @@
             </div>
 
             @error('email')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div> --}}
+        {{-- Username field --}}
+        {{-- <div class="form-group row">
+            <label for="username" class="col-md-4 col-form-label text-md-right">Username Or Email</label>
+           
+            <div class="col-md-6">
+                <input id="username" type="username" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required  autofocus>
+           
+                @error('username')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+        </div> --}}
+
+        {{-- Username field --}}
+        <div class="input-group mb-3">
+            <input type="username" name="username" class="form-control @error('username') is-invalid @enderror"
+                   placeholder="{{ __('adminlte::adminlte.username') }}">
+
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock {{ config('adminlte.classes_auth_icon', '') }}"></span>
+                </div>
+            </div>
+
+            @error('password')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>

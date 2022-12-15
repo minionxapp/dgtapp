@@ -232,7 +232,22 @@ Route::post('pegawais/store', [App\Http\Controllers\PegawaiController::class, 's
 Route::get('pegawais/edit/{id}', [App\Http\Controllers\PegawaiController::class, 'edit'])->name('pegawais.edit')->middleware(['auth','permission:pegawais.edit']);
 Route::put('pegawais/update/{id}', [App\Http\Controllers\PegawaiController::class, 'update'])->name('pegawais.update')->middleware(['auth','permission:pegawais.edit']);
 Route::delete('pegawais/destroy/{id}', [App\Http\Controllers\PegawaiController::class, 'destroy'])->name('pegawais.destroy')->middleware(['auth','permission:pegawais.delete']);
-Route::get('/pegawai/{id}', [App\Http\Controllers\PegawaiController::class, 'pegawai'])->name('pegawais.cari')->middleware(['auth','permission:pegawais.index']);
+Route::get('/pegawai/{nama}', [App\Http\Controllers\PegawaiController::class, 'pegawai'])->name('pegawais.cari')->middleware(['auth','permission:pegawais.index']);
+Route::get('/pegawai/pegawainik/{nik}', [App\Http\Controllers\PegawaiController::class, 'pegawainik'])->name('pegawais.pegawainik')->middleware(['auth','permission:pegawais.index']);
 
 
+//make route training_notes
+Route::get('/training_notes', [App\Http\Controllers\Training_noteController::class, 'index'])->name('training_notes.index')->middleware(['auth','permission:training_notes.index']);
+Route::get('training_notes/create', [App\Http\Controllers\Training_noteController::class, 'create'])->name('training_notes.create')->middleware(['auth','permission:training_notes.create']);
+Route::post('training_notes/store', [App\Http\Controllers\Training_noteController::class, 'store'])->name('training_notes.store')->middleware(['auth','permission:training_notes.create']);
+Route::get('training_notes/edit/{id}', [App\Http\Controllers\Training_noteController::class, 'edit'])->name('training_notes.edit')->middleware(['auth','permission:training_notes.edit']);
+Route::put('training_notes/update/{id}', [App\Http\Controllers\Training_noteController::class, 'update'])->name('training_notes.update')->middleware(['auth','permission:training_notes.edit']);
+Route::delete('training_notes/destroy/{id}', [App\Http\Controllers\Training_noteController::class, 'destroy'])->name('training_notes.destroy')->middleware(['auth','permission:training_notes.delete']);
+
+
+
+
+
+
+Route::get('/noseq', [App\Http\Controllers\SeqController::class, 'noseq'])->name('seq.noseq')->middleware(['auth']);
 

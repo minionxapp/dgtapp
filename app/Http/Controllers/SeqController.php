@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Seq;
+use Carbon\Carbon;
 
 class SeqController extends Controller
 {
@@ -114,5 +116,14 @@ class SeqController extends Controller
         if ($seq) $seq->delete();
         return redirect()->route('seqs.index')
             ->with('success_message', 'Berhasil menghapus seq');
+    }
+
+
+
+    // get and update seq
+    public function noseq()
+    {
+        return Helper::setSequence('Test','2022');
+       
     }
 }

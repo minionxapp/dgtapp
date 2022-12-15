@@ -12,6 +12,8 @@ use App\Models\File;
 use App\Models\Lsp_kirim_sertifikat;
 use App\Models\Lsp_sertifikat;
 use App\Models\Pegawai;
+use App\Models\Seq;
+use Carbon\Carbon;
 
  
 class Helper {
@@ -110,5 +112,30 @@ class Helper {
 
     }
 
+    public static function setSequence($seqname,$tahun){
+        $seq = Seq::where('seqname','=',$seqname)
+        ->where('tahun','=',$tahun)
+        ->first();
+        if($seq){
+            $seq->nilai = $seq->nilai + 1;
+        }else{
+            // 'seqname', 'nilai', 'tahun', 'seqvalue', 'keterangan', 'create_by', 'update_by'
+    
+            $seq = new Seq();
+            $seq->seqname =$seqname ;
+            $seq->nilai = 1;
+            $seq->tahun = now()->year;
+            $seq->seqvalue = 0;
+            $seq->keterangan ='' ;
+            $seq->create_by =Auth::user()->user_id;
+            $seq->update_by =Auth::user()->user_id;
+        }
+        
+
+        $seq->save();
+
+        
+        return $seq;
+    }
     
 }
