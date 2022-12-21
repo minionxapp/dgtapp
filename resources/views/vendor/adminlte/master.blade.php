@@ -32,6 +32,15 @@
 
         <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+       {{-- tambahan1 --}}
+       {{-- untuk dev pake lokal --}}
+        <link rel="stylesheet" href="{{ asset('vendor/datatables/css/dataTables.bootstrap4.min.css') }}">     
+         {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"> --}}
+         
+         {{-- unutk developmen pake lokal--}}
+         <link rel="stylesheet" href="{{ asset('vendor/datatables-plugins/responsive/css/responsive.bootstrap4.min.css') }}">  
+         {{-- <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css"> --}}
+        {{-- end tambahan 1 --}}
     @else
         <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
     @endif
@@ -81,8 +90,16 @@
     {{-- Base Scripts --}}
     @if(!config('adminlte.enabled_laravel_mix'))
         <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+        {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
         <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+
+        {{-- dev pake local --}}
+        <script src="{{ asset('vendor/datatables/js/jquery.dataTables.js') }}"></script>
+        {{-- <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script> --}}
+        <script src="{{ asset('vendor/datatables-plugins/responsive/js/dataTables.responsive.js') }}"></script>
+        {{-- <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script> --}}
+         
 
         {{-- Configured Scripts --}}
         @include('adminlte::plugins', ['type' => 'js'])

@@ -59,7 +59,7 @@
         {{-- Username field --}}
         <div class="input-group mb-3">
             <input type="username" name="username" class="form-control @error('username') is-invalid @enderror"
-                   placeholder="{{ __('adminlte::adminlte.username') }}">
+                   placeholder="username">
 
             <div class="input-group-append">
                 <div class="input-group-text">

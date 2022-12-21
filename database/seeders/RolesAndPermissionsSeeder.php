@@ -145,6 +145,19 @@ class RolesAndPermissionsSeeder extends Seeder
         // $role->givePermissionTo(Permission::create(['name' => $model.'.create']));
         // $role->givePermissionTo(Permission::create(['name' => $model.'.edit']));
         // $role->givePermissionTo(Permission::create(['name' => $model.'.delete']));
+        //make seeder
+        // $model ='training_plans';
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.index']));
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.create']));
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.edit']));
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.delete']));
+
+        //make seeder
+        // $model ='vm_perusahaans';
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.index']));
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.create']));
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.edit']));
+        // $role->givePermissionTo(Permission::create(['name' => $model.'.delete']));
 
 
     }

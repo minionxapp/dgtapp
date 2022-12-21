@@ -245,7 +245,25 @@ Route::put('training_notes/update/{id}', [App\Http\Controllers\Training_noteCont
 Route::delete('training_notes/destroy/{id}', [App\Http\Controllers\Training_noteController::class, 'destroy'])->name('training_notes.destroy')->middleware(['auth','permission:training_notes.delete']);
 
 
+//make route training_plans
 
+Route::get('/training_plans', [App\Http\Controllers\Training_planController::class, 'index'])->name('training_plans.index')->middleware(['auth','permission:training_plans.index']);
+Route::get('training_plans/create', [App\Http\Controllers\Training_planController::class, 'create'])->name('training_plans.create')->middleware(['auth','permission:training_plans.create']);
+Route::post('training_plans/store', [App\Http\Controllers\Training_planController::class, 'store'])->name('training_plans.store')->middleware(['auth','permission:training_plans.create']);
+Route::get('training_plans/edit/{id}', [App\Http\Controllers\Training_planController::class, 'edit'])->name('training_plans.edit')->middleware(['auth','permission:training_plans.edit']);
+Route::put('training_plans/update/{id}', [App\Http\Controllers\Training_planController::class, 'update'])->name('training_plans.update')->middleware(['auth','permission:training_plans.edit']);
+Route::delete('training_plans/destroy/{id}', [App\Http\Controllers\Training_planController::class, 'destroy'])->name('training_plans.destroy')->middleware(['auth','permission:training_plans.delete']);
+
+
+
+//make route vm_perusahaans
+
+Route::get('/vm_perusahaans', [App\Http\Controllers\Vm_perusahaanController::class, 'index'])->name('vm_perusahaans.index')->middleware(['auth','permission:vm_perusahaans.index']);
+Route::get('vm_perusahaans/create', [App\Http\Controllers\Vm_perusahaanController::class, 'create'])->name('vm_perusahaans.create')->middleware(['auth','permission:vm_perusahaans.create']);
+Route::post('vm_perusahaans/store', [App\Http\Controllers\Vm_perusahaanController::class, 'store'])->name('vm_perusahaans.store')->middleware(['auth','permission:vm_perusahaans.create']);
+Route::get('vm_perusahaans/edit/{id}', [App\Http\Controllers\Vm_perusahaanController::class, 'edit'])->name('vm_perusahaans.edit')->middleware(['auth','permission:vm_perusahaans.edit']);
+Route::put('vm_perusahaans/update/{id}', [App\Http\Controllers\Vm_perusahaanController::class, 'update'])->name('vm_perusahaans.update')->middleware(['auth','permission:vm_perusahaans.edit']);
+Route::delete('vm_perusahaans/destroy/{id}', [App\Http\Controllers\Vm_perusahaanController::class, 'destroy'])->name('vm_perusahaans.destroy')->middleware(['auth','permission:vm_perusahaans.delete']);
 
 
 

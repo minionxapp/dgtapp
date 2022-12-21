@@ -3,7 +3,7 @@
 @section('title', 'List Training_note')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">List Training Note</h1>
+    <h1 class="m-0 text-dark">List Trainee Info</h1>
 @stop
 
 @section('content')

@@ -399,9 +399,24 @@ return [
             'can'     => ['lsp_sertifikats.index'],
             'submenu' => [
                 [
-                    'text' => 'Training Notes',
+                    'text' => 'Pegawai',
+                    'url'  => '/pegawais',
+                    'can'     => ['pegawais', 'pegawais.index']
+                ],
+                [
+                    'text' => 'Rencana Training',
+                    'url'  => '/training_plans',
+                    'can'     => ['training_plans', 'training_plans.index']
+                ],
+                [
+                    'text' => 'Trainee Info',
                     'url'  => '/training_notes',
                     'can'     => ['training_notes', 'training_notes.index']
+                ],
+                [
+                    'text' => 'Vendor',
+                    'url'  => '/vm_perusahaans',
+                    'can'     => ['vm_perusahaans', 'vm_perusahaans.index']
                 ],
             ]
         ],
@@ -414,11 +429,6 @@ return [
                     'text' => 'Dasboard',
                     'url'  => '/lsp_dashboard',
                     // 'can'     => ['lsp_skemas', 'lsp_skemas.index']
-                ],
-                [
-                    'text' => 'Pegawai',
-                    'url'  => '/pegawais',
-                    'can'     => ['pegawais', 'pegawais.index']
                 ],
                 [
                     'text' => 'Skema',
