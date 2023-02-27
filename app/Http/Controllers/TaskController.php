@@ -92,7 +92,6 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            // 'kode' => 'required',
             'nm_project' => 'required',
             'divisi_kode' => 'required',
             'departemen_kode'=>'required',
@@ -101,9 +100,21 @@ class TaskController extends Controller
         ]);
 
         $seq = Seq::where('seqname','=','TASK')->where('tahun','=', date("Y"))->first();
+        if($seq == null){
+            $seq = Seq::create([
+                'seqname'=> 'TASK',
+                'nilai' =>0,
+                'tahun'=>date("Y"),
+                'seqvalue'=>0, 
+                'keterangan'=>'Sequence untuk task', 
+                'create_by'=>Auth::user()->id.'', 
+                'update_by'
+            ]);
+            $seq->save();
+        }
+
         $current_timestamp = Carbon::now()->timestamp; 
         $seq2= Seq::where('seqvalue','=',$seq->seqvalue)->first();
-        // return $seq2;
         if($seq2) {
             $seq2->seqvalue = $current_timestamp;
             $seq2->nilai = $seq->nilai+1;
@@ -128,19 +139,20 @@ class TaskController extends Controller
         // SIMPAN FILE
          // for file
          $file = $request->file('file');
-         $tujuan_upload = env('TASK_UPLOAD');
-         $file->move($tujuan_upload,$current_timestamp."___".$file->getClientOriginalName());
-         
-        $file_data = new File();
-        $file_data->file_group = 'TASK';
-        $file_data->file_id = $kode;
-        $file_data->file_real_name = $file->getClientOriginalName();
-        $file_data->file_name = $current_timestamp."___".$file->getClientOriginalName();
-        $file_data->file_path = $tujuan_upload;
-        $file_data->file_size = '0';
-        $file_data->file_type = '';
-        $file_data->update_by = Auth::user()->user_id;
-        $file_data->save();
+         if($file){
+            $tujuan_upload = env('TASK_UPLOAD');
+             $file->move($tujuan_upload,$current_timestamp."___".$file->getClientOriginalName());
+             $file_data = new File();
+             $file_data->file_group = 'TASK';
+             $file_data->file_id = $kode;
+             $file_data->file_real_name = $file->getClientOriginalName();
+             $file_data->file_name = $current_timestamp."___".$file->getClientOriginalName();
+             $file_data->file_path = $tujuan_upload;
+             $file_data->file_size = '0';
+             $file_data->file_type = '';
+             $file_data->update_by = Auth::user()->user_id;
+             $file_data->save();
+        }
         return redirect()->route('tasks.index')
             ->with('success_message', 'Berhasil menambah Task  baru :'.$kode);
 
@@ -184,19 +196,20 @@ class TaskController extends Controller
         $task = Task::find($id);
 
         // edit hanya untuk user yang buat dan super-admin
-        if($task->create_by == Auth::user()->id ||$userloged->hasRole(['Super-Admin']) == 1){
-            if (!$task) return redirect()->route('tasks.index')
-                ->with('error_message', 'Divisi dengan id'.$id.' tidak ditemukan');
-            // files
+        //---------Mohon untuk di ubah yang 1 departemen
+        // if($task->create_by == Auth::user()->id ||$userloged->hasRole(['Super-Admin']) == 1){
+        //     if (!$task) return redirect()->route('tasks.index')
+        //         ->with('error_message', 'Divisi dengan id'.$id.' tidak ditemukan');
+        //     // files
             $files = File::where('file_id','=',$task->kode)->get();
             return view('tasks.edit', ['task' => $task,'departemens'=>$departemens,'divisis'=>$divisis,'task'=>$task,
             'user'=>$user,'params'=>$params,'paramjenis'=>$paramjenis,'files'=>$files]);
 
-        }else{
-            return redirect()->route('tasks.index')
-            ->with('error_message', 'And tidak berhak untuk meng edit data ini');
+        // }else{
+        //     return redirect()->route('tasks.index')
+        //     ->with('error_message', 'And tidak berhak untuk meng edit data ini');
 
-        }
+        // }
     }
 
     /**
@@ -243,6 +256,8 @@ class TaskController extends Controller
             $file_data->file_size = '0';
             $file_data->file_type = '';
             $file_data->update_by = Auth::user()->user_id;
+            $file_data->create_by = Auth::user()->user_id;
+
             $file_data->save();
 
         }

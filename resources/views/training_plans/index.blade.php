@@ -3,7 +3,7 @@
 @section('title', 'List Training_plan')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">List Training_plan</h1>
+    <h1 class="m-0 text-dark">List Training Plan</h1>
 @stop
 
 @section('content')
@@ -24,6 +24,7 @@
                             <tr>
                                 <th>No.</th>
                                 <th>Nama Training</th>
+                                <th>Jenis</th>
                                 <th>Kategori</th>
                                 <th>Akademi</th>
                                 {{-- <th>keterangan</th> --}}
@@ -36,7 +37,7 @@
                                 <th>Mulai</th>
                                 <th>Selesai</th>
                                 <th>unit_usul</th>
-
+                                <th>Status</th>
                                 <th>Opsi</th>
                             </tr>
                         </thead>
@@ -46,6 +47,7 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $training_plan->nama_training }}</td>
+                                    <td>{{ $training_plan->jenis }}</td>
                                     <td>{{ $training_plan->kategori }}</td>
                                     <td>{{ $training_plan->nama_departemen }}</td>
                                     {{-- <td>{{ $training_plan->keterangan }}</td> --}}
@@ -58,7 +60,7 @@
                                     <td>{{ $training_plan->tgl_mulai }}</td>
                                     <td>{{ $training_plan->tgl_selesai }}</td>
                                     <td>{{ $training_plan->nama_divisi }}</td>
-
+                                    <td>{{ $training_plan->status }}</td>
                                     <td>
                                         @can('training_plans.edit')
                                             <a href="{{ route('training_plans.edit', Crypt::encrypt($training_plan->id)) }}"
@@ -72,6 +74,11 @@
                                                 Delete
                                             </a>
                                         @endcan
+                                        {{-- training_plan_pesertas/xx --}}
+                                        <a href="{{ route('training_plan_pesertas.index', Crypt::encrypt($training_plan->id)) }}"
+                                            class="btn btn-primary btn-xs">
+                                            Peserta
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

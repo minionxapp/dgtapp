@@ -13,7 +13,7 @@
     
 
     <!-- Bootstrap core CSS -->
-<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="http://localhost:8000/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {

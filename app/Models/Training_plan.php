@@ -9,6 +9,6 @@
             use HasFactory;
             protected $fillable = [               
         'nama_training','keterangan','pelaksanaan','jml_peserta','lokasi','biaya','jml_kelas','durasi','tgl_mulai','kategori',
-        'tgl_selesai','unit_usul','pic_akademi','create_by','update_by'
+        'tgl_selesai','unit_usul','pic_akademi','create_by','update_by','jenis','status'
         ];
     }

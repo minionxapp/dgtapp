@@ -20,24 +20,23 @@ class Training_planController extends Controller
      */
     public function index()
     {
-        // $users = User::join('divisis','users.divisi_kode','=','divisis.kode')
-        // ->join('departemens','users.departemen_kode','=','departemens.kode')
-        // ->get(['users.*', 'divisis.nama as nama_divisi','departemens.nama as nama_departemen']);
-
-        // $training_plans = Training_plan::all(); TR-KATEGORI
-
         $training_plans = Training_plan::
         join('divisis','training_plans.unit_usul','=','divisis.kode')
         ->join('departemens','training_plans.pic_akademi','=','departemens.kode')
         ->join('params','training_plans.pelaksanaan','=','params.kode')
         ->join('params as params2','training_plans.kategori','=','params2.kode')
         ->join('params as paramsLokasi','training_plans.lokasi','=','paramsLokasi.kode')
+        ->join('params as paramsJenis','training_plans.jenis','=','paramsJenis.kode')
+        ->join('params as paramsStatus','training_plans.status','=','paramsStatus.kode')
         ->where('params.nama', '=', 'TR-PELAKSANA')
         ->get(['training_plans.*','divisis.nama as nama_divisi',
                 'departemens.nama as nama_departemen',
                 'params.desc as pelaksanaan',
                 'params2.desc as kategori',
-                'paramsLokasi.desc as namalokasi']);
+                'paramsJenis.desc as jenis',
+                'paramsLokasi.desc as namalokasi',
+                'paramsStatus.desc as status',
+            ]);
         return view('training_plans.index', ['training_plans' => $training_plans]);
     }
 
@@ -53,6 +52,8 @@ class Training_planController extends Controller
         $unit_usuls = Divisi::orderBy('kode')->get();;
         $pic_akademis = Departemen::where('divisi_kode', '=', Auth::user()->divisi_kode)->get(['kode', 'nama']);
         $lokasis = Param::where('nama', '=', 'TR-LOKASI')->get(['kode', 'desc']);
+        $jeniss = Param::where('nama', '=', 'TR-JENIS')->get(['kode', 'desc']);
+        $statuss = Param::where('nama', '=', 'STATUS')->get(['kode', 'desc']);
         
         // dd($pic_akademis);
         return view('training_plans.create', [
@@ -61,6 +62,8 @@ class Training_planController extends Controller
             'pic_akademis' => $pic_akademis,
             'kategoris'=>$kategoris,
             'lokasis'=>$lokasis,
+            'jeniss'=>$jeniss,
+            'statuss'=>$statuss,
         ]);
     }
 
@@ -84,9 +87,11 @@ class Training_planController extends Controller
             'tgl_mulai' => $request->tgl_mulai,
             'tgl_selesai' => $request->tgl_selesai,
             'unit_usul' => $request->unit_usul,
+            'jenis'=>$request->jenis,
             'pic_akademi' => $request->pic_akademi,
             'kategori'=>$request->kategori,
-            'create_by' => Auth::user()->user_id
+            'create_by' => Auth::user()->user_id,
+            'status'=>$request->status,
         ]);
         //$training_plan = Training_plan::create($array);    
 
@@ -109,7 +114,9 @@ class Training_planController extends Controller
         $unit_usuls = Divisi::orderBy('kode')->get();;
         $pic_akademis = Departemen::where('divisi_kode', '=', Auth::user()->divisi_kode)->get(['kode', 'nama']);
         $training_plan = Training_plan::find($id);
+        $jeniss=Param::where('nama', '=', 'TR-JENIS')->get(['kode', 'desc']);
         $lokasis = Param::where('nama', '=', 'TR-LOKASI')->get(['kode', 'desc']);
+        $statuss = Param::where('nama', '=', 'STATUS')->get(['kode', 'desc']);
         if (!$training_plan) return redirect()->route('training_plans.index')
             ->with('error_message', 'Training_plan dengan id' . $id . ' tidak ditemukan');
         return view('training_plans.edit', [
@@ -118,6 +125,8 @@ class Training_planController extends Controller
             'pic_akademis' => $pic_akademis,
             'kategoris'=>$kategoris,
             'lokasis'=>$lokasis,
+            'jeniss'=>$jeniss,
+            'statuss'=>$statuss,
         ]);
         //}else{
         //    return redirect()->route('training_plans.index')
@@ -150,6 +159,8 @@ class Training_planController extends Controller
         $training_plan->pic_akademi = $request->pic_akademi;
         $training_plan->update_by = Auth::user()->user_id;
         $training_plan->kategori = $request->kategori;
+        $training_plan->jenis = $request->jenis;
+        $training_plan->status=$request->status;
 
         
         $training_plan->save();

@@ -396,12 +396,12 @@ return [
         [
             'text'    => 'TMS',
             'icon'    => 'fas fa-fw fa-share',
-            'can'     => ['lsp_sertifikats.index'],
+            'can'     => ['tms','super_admin'],
             'submenu' => [
                 [
                     'text' => 'Pegawai',
                     'url'  => '/pegawais',
-                    'can'     => ['pegawais', 'pegawais.index']
+                    'can'     => ['pegawais', 'pegawais.index','super_admin']
                 ],
                 [
                     'text' => 'Rencana Training',
@@ -418,12 +418,56 @@ return [
                     'url'  => '/vm_perusahaans',
                     'can'     => ['vm_perusahaans', 'vm_perusahaans.index']
                 ],
+                [
+                    'text' => 'Training License',
+                    'url'  => '/training_licenses',
+                    'can'     => ['training_licenses', 'training_licenses.index','super_admin']
+                ],
+                [
+                    'text' => 'Training Peserta',
+                    'url'  => '/training_plan_pesertas_detail/test',
+                    'can'     => ['training_plan_pesertas', 'training_plan_pesertas.index','super_admin']
+                ],
+            ]
+        ],
+        
+        [
+            'text'    => 'Mentor',
+            'icon'    => 'fas fa-fw fa-share',
+            'can'     => ['mentor_surtugs','super_admin'],
+            'submenu' => [
+                [
+                    'text' => 'Surat Tugas',
+                    'url'  => '/mentor_surtugs',
+                    'can'     => ['mentor_surtugs', 'mentor_surtugs.index']
+                ],
+                // [
+                //     'text' => 'Mentors',
+                //     'url'  => '/mentor_mentors',
+                //     'can'     => ['mentor_mentors', 'mentor_mentors.index']
+                // ],
+                // [
+                //     'text' => 'Mentee',
+                //     'url'  => '/mentor_mentes',
+                //     'can'     => ['mentor_mentes', 'mentor_mentes.index']
+                // ],
+                [
+                    'text' => 'Kegiatan',
+                    'url'  => '/mentor_events',
+                    'can'     => ['mentor_events', 'mentor_events.index']
+                ],
+                // [
+                //     'text' => 'mentor_event_members',
+                //     'url'  => '/mentor_event_members',
+                //     'can'     => ['mentor_event_members', 'mentor_event_members.index']
+                // ],
+
             ]
         ],
         [
             'text'    => 'LSP',
             'icon'    => 'fas fa-fw fa-share',
-            'can'     => ['lsp_sertifikats.index'],
+            'can'     => ['lsp','super_admin'],
             'submenu' => [
                 [
                     'text' => 'Dasboard',

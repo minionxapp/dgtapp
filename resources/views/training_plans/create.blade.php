@@ -3,7 +3,7 @@
 @section('title', 'Tambah Training_plan ')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Tambah Training_plan</h1>
+    <h1 class="m-0 text-dark">Tambah Training Plan</h1>
 @stop
 
 @section('content')
@@ -16,7 +16,7 @@
 
 
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label for="nama_training">Nama Training</label>
                                     <input type="text" autocomplete="off"
@@ -27,7 +27,9 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-8">
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label for="keterangan">Deskripsi</label>
                                     <input type="text" autocomplete="off"
@@ -43,7 +45,20 @@
 
 
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="jenis">Jenis</label>
+                                    <select name="jenis" class="form-control" id="jenis">
+                                        @foreach ($jeniss as $jenis)
+                                            <option value={{ $jenis->kode }}>{{ $jenis->desc }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('jenis')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="pic_akademi">Ketegori</label>
                                     <select name="kategori" class="form-control" id="kategori">
@@ -56,7 +71,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="pelaksanaan">Pelaksanaan</label>
                                     <select name="pelaksanaan" class="form-control" id="pelaksanaan">
@@ -110,6 +125,7 @@
                                 </div>
                             </div>
                         </div>
+                       
 
 
                         <div class="row">
@@ -209,7 +225,17 @@
                         </div>
 
                         <div class="row">
-                            
+                            <div class="form-group">
+                                <label for="lokasi">Status</label>
+                                <select name="status" class="form-control" id="status">
+                                    @foreach ($statuss as $status)
+                                        <option value={{ $status->kode }}>{{ $status->desc }}</option>
+                                    @endforeach
+                                </select>
+                                @error('lokasi')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
 
                     </div>

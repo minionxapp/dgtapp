@@ -78,17 +78,10 @@ class PegawaiController extends Controller
     public function edit($idx)
     {
         $id = Crypt::decrypt($idx);
-        // $user_id =(Auth::user()->id);
-        // $userloged = User::find($user_id);
         $pegawai = Pegawai::find($id);
-        //if($pegawai->create_by == Auth::user()->id ||$userloged->hasRole(['Super-Admin']) == 1){
         if (!$pegawai) return redirect()->route('pegawais.index')
             ->with('error_message', 'Pegawai dengan id' . $id . ' tidak ditemukan');
         return view('pegawais.edit', ['pegawai' => $pegawai,]);
-        //}else{
-        //    return redirect()->route('pegawais.index')
-        //    ->with('error_message', 'And tidak berhak untuk meng edit data ini');
-        //}
     }
 
     /**

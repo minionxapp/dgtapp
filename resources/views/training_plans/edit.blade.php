@@ -3,7 +3,7 @@
 @section('title', 'Edit Training_plan')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Edit Training_plan</h1>
+    <h1 class="m-0 text-dark">Edit Training Plan</h1>
 @stop
 
 @section('content')
@@ -14,9 +14,8 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label for="nama_training">Nama Training</label>
                                     <input type="text" autocomplete="off"
@@ -28,7 +27,9 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-8">
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label for="keterangan">Deskripsi</label>
                                     <input type="text" autocomplete="off"
@@ -42,10 +43,29 @@
                             </div>
                         </div>
                         <div class="row">
-                            
+
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="kategori">Jenis</label>
+                                    <select name="jenis" class="form-control" id="jenis">
+                                        <option value="XXX">Jenis</option>
+                                        @foreach ($jeniss as $jenis)
+                                            @if ($training_plan->jenis == $jenis->kode)
+                                                <option selected="selected" value={{ $jenis->kode }}>
+                                                    {{ $jenis->desc }}</option>
+                                            @else
+                                                <option value={{ $jenis->kode }}>{{ $jenis->desc }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                    @error('pelaksanaan')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="kategori">kategori</label>
                                     <select name="kategori" class="form-control" id="kategori">
@@ -59,12 +79,12 @@
                                             @endif
                                         @endforeach
                                     </select>
-                                    @error('pelaksanaan')
+                                    @error('kategory')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="pelaksanaan">pelaksanaan</label>
                                     <select name="pelaksanaan" class="form-control" id="pelaksanaan">
@@ -222,10 +242,28 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
-                            
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="lokasi">Status</label>
+                                    <select name="status" class="form-control" id="status">
+                                        <option value="XXX">Status</option>
+                                        @foreach ($statuss as $status)
+                                            @if ($status->kode == $training_plan->status)
+                                                <option selected="selected" value={{ $status->kode }}>
+                                                    {{ $status->desc }}</option>
+                                            @else
+                                                <option value={{ $status->kode }}>{{ $status->desc }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                    @error('pic_akademi')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
+
 
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Simpan</button>

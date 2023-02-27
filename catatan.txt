@@ -24,3 +24,12 @@ use Illuminate\Support\Facades\URL;
 
 
 untuk HELPER :::   https://yoi.home.blog/2020/06/07/membuat-helper-di-laravel/
+
+ambil sorce git clone https://github.com/minionxapp/dgtapp.git
+composer install
+
+tuto nya
+https://www.cafeteria.id/2018/08/cara-menjalankan-aplikasi-laravel-hasil.html
+
+buat file .env
+copy .env.example .env

@@ -30,7 +30,8 @@
                     $table->string('tgl_selesai')->nullable();
                     $table->string('unit_usul')->nullable();
                     $table->string('pic_akademi')->nullable();
-
+                    $table->string('jenis')->nullable();
+                    $table->string('status')->nullable();
                     $table->string('create_by')->nullable();
                     $table->string('update_by')->nullable();
                     $table->timestamps();

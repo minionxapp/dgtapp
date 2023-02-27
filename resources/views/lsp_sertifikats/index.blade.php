@@ -321,8 +321,8 @@
                     {
                         data: 'nip',
                         render: function (data, type, row, meta) {
-                      return  '<a href= http://localhost:8000/lsp_sertifikats/edit/'+ data+' class=\"btn btn-primary btn-xs\">Edit</a><br>' +
-                      '<a href="#" onclick="editx(\''+data+'\',\''+row.nama+'\',\''+row.id+'\')" class="btn btn-primary btn-xs" >Edit Nik</a>'  ;
+                    //   return  '<a href= http://localhost:8000/lsp_sertifikats/edit/'+ data+' class=\"btn btn-primary btn-xs\">Edit</a><br>' +
+                    return '<a href="#" onclick="editx(\''+data+'\',\''+row.nama+'\',\''+row.id+'\')" class="btn btn-primary btn-xs" >Edit Nik</a>'  ;
 
 
                     }

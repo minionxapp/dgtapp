@@ -265,7 +265,73 @@ Route::get('vm_perusahaans/edit/{id}', [App\Http\Controllers\Vm_perusahaanContro
 Route::put('vm_perusahaans/update/{id}', [App\Http\Controllers\Vm_perusahaanController::class, 'update'])->name('vm_perusahaans.update')->middleware(['auth','permission:vm_perusahaans.edit']);
 Route::delete('vm_perusahaans/destroy/{id}', [App\Http\Controllers\Vm_perusahaanController::class, 'destroy'])->name('vm_perusahaans.destroy')->middleware(['auth','permission:vm_perusahaans.delete']);
 
+//make route training_licenses
+
+Route::get('/training_licenses', [App\Http\Controllers\Training_licenseController::class, 'index'])->name('training_licenses.index')->middleware(['auth','permission:training_licenses.index']);
+Route::get('training_licenses/create', [App\Http\Controllers\Training_licenseController::class, 'create'])->name('training_licenses.create')->middleware(['auth','permission:training_licenses.create']);
+Route::post('training_licenses/store', [App\Http\Controllers\Training_licenseController::class, 'store'])->name('training_licenses.store')->middleware(['auth','permission:training_licenses.create']);
+Route::get('training_licenses/edit/{id}', [App\Http\Controllers\Training_licenseController::class, 'edit'])->name('training_licenses.edit')->middleware(['auth','permission:training_licenses.edit']);
+Route::put('training_licenses/update/{id}', [App\Http\Controllers\Training_licenseController::class, 'update'])->name('training_licenses.update')->middleware(['auth','permission:training_licenses.edit']);
+Route::delete('training_licenses/destroy/{id}', [App\Http\Controllers\Training_licenseController::class, 'destroy'])->name('training_licenses.destroy')->middleware(['auth','permission:training_licenses.delete']);
 
 
 Route::get('/noseq', [App\Http\Controllers\SeqController::class, 'noseq'])->name('seq.noseq')->middleware(['auth']);
+
+
+Route::get('training_plan_pesertas_detail/{id}', [App\Http\Controllers\Training_plan_pesertaController::class, 'index'])->name('training_plan_pesertas.index')->middleware(['auth','permission:training_plan_pesertas.index']);
+Route::get('training_plan_pesertas/create/{id}', [App\Http\Controllers\Training_plan_pesertaController::class, 'create'])->name('training_plan_pesertas.create')->middleware(['auth','permission:training_plan_pesertas.create']);
+Route::post('training_plan_pesertas/store', [App\Http\Controllers\Training_plan_pesertaController::class, 'store'])->name('training_plan_pesertas.store')->middleware(['auth','permission:training_plan_pesertas.create']);
+Route::get('training_plan_pesertas/edit/{id}', [App\Http\Controllers\Training_plan_pesertaController::class, 'edit'])->name('training_plan_pesertas.edit')->middleware(['auth','permission:training_plan_pesertas.edit']);
+Route::put('training_plan_pesertas/update/{id}', [App\Http\Controllers\Training_plan_pesertaController::class, 'update'])->name('training_plan_pesertas.update')->middleware(['auth','permission:training_plan_pesertas.edit']);
+Route::delete('training_plan_pesertas/destroy/{id}', [App\Http\Controllers\Training_plan_pesertaController::class, 'destroy'])->name('training_plan_pesertas.destroy')->middleware(['auth','permission:training_plan_pesertas.delete']);
+
+
+
+//make route  mentor_surtugs
+
+Route::get('/mentor_surtugs', [App\Http\Controllers\Mentor_surtugController::class, 'index'])->name('mentor_surtugs.index')->middleware(['auth','permission:mentor_surtugs.index']);
+Route::get('mentor_surtugs/create', [App\Http\Controllers\Mentor_surtugController::class, 'create'])->name('mentor_surtugs.create')->middleware(['auth','permission:mentor_surtugs.create']);
+Route::post('mentor_surtugs/store', [App\Http\Controllers\Mentor_surtugController::class, 'store'])->name('mentor_surtugs.store')->middleware(['auth','permission:mentor_surtugs.create']);
+Route::get('mentor_surtugs/edit/{id}', [App\Http\Controllers\Mentor_surtugController::class, 'edit'])->name('mentor_surtugs.edit')->middleware(['auth','permission:mentor_surtugs.edit']);
+Route::put('mentor_surtugs/update/{id}', [App\Http\Controllers\Mentor_surtugController::class, 'update'])->name('mentor_surtugs.update')->middleware(['auth','permission:mentor_surtugs.edit']);
+Route::delete('mentor_surtugs/destroy/{id}', [App\Http\Controllers\Mentor_surtugController::class, 'destroy'])->name('mentor_surtugs.destroy')->middleware(['auth','permission:mentor_surtugs.delete']);
+
+
+//make route mentor_mentors
+Route::get('/mentor_mentors', [App\Http\Controllers\Mentor_mentorController::class, 'index'])->name('mentor_mentors.index')->middleware(['auth','permission:mentor_mentors.index']);
+Route::get('mentor_mentors/create/{id}', [App\Http\Controllers\Mentor_mentorController::class, 'create'])->name('mentor_mentors.create')->middleware(['auth','permission:mentor_mentors.create']);
+Route::post('mentor_mentors/store', [App\Http\Controllers\Mentor_mentorController::class, 'store'])->name('mentor_mentors.store')->middleware(['auth','permission:mentor_mentors.create']);
+Route::get('mentor_mentors/edit/{id}', [App\Http\Controllers\Mentor_mentorController::class, 'edit'])->name('mentor_mentors.edit')->middleware(['auth','permission:mentor_mentors.edit']);
+Route::put('mentor_mentors/update/{id}', [App\Http\Controllers\Mentor_mentorController::class, 'update'])->name('mentor_mentors.update')->middleware(['auth','permission:mentor_mentors.edit']);
+Route::delete('mentor_mentors/destroy/{id}', [App\Http\Controllers\Mentor_mentorController::class, 'destroy'])->name('mentor_mentors.destroy')->middleware(['auth','permission:mentor_mentors.delete']);
+Route::get('/mentor_mentors_surtug/{id}', [App\Http\Controllers\Mentor_mentorController::class, 'mentorIndex'])->name('mentor_mentors_surtug.index')->middleware(['auth','permission:mentor_mentors.index']);
+
+
+//make route mentor_mentes
+
+Route::get('/mentor_mentes', [App\Http\Controllers\Mentor_menteController::class, 'index'])->name('mentor_mentes.index')->middleware(['auth','permission:mentor_mentes.index']);
+Route::get('mentor_mentes/create/{id}', [App\Http\Controllers\Mentor_menteController::class, 'create'])->name('mentor_mentes.create')->middleware(['auth','permission:mentor_mentes.create']);
+Route::post('mentor_mentes/store', [App\Http\Controllers\Mentor_menteController::class, 'store'])->name('mentor_mentes.store')->middleware(['auth','permission:mentor_mentes.create']);
+Route::get('mentor_mentes/edit/{id}', [App\Http\Controllers\Mentor_menteController::class, 'edit'])->name('mentor_mentes.edit')->middleware(['auth','permission:mentor_mentes.edit']);
+Route::put('mentor_mentes/update/{id}', [App\Http\Controllers\Mentor_menteController::class, 'update'])->name('mentor_mentes.update')->middleware(['auth','permission:mentor_mentes.edit']);
+Route::delete('mentor_mentes/destroy/{id}', [App\Http\Controllers\Mentor_menteController::class, 'destroy'])->name('mentor_mentes.destroy')->middleware(['auth','permission:mentor_mentes.delete']);
+Route::get('/mentor_mentes_surtug/{id}', [App\Http\Controllers\Mentor_menteController::class, 'menteIndex'])->name('mentor_mentes_surtug.index')->middleware(['auth','permission:mentor_mentes.index']);
+
+//make route mentor_events
+
+Route::get('/mentor_events', [App\Http\Controllers\Mentor_eventController::class, 'index'])->name('mentor_events.index')->middleware(['auth','permission:mentor_events.index']);
+Route::get('mentor_events/create', [App\Http\Controllers\Mentor_eventController::class, 'create'])->name('mentor_events.create')->middleware(['auth','permission:mentor_events.create']);
+Route::post('mentor_events/store', [App\Http\Controllers\Mentor_eventController::class, 'store'])->name('mentor_events.store')->middleware(['auth','permission:mentor_events.create']);
+Route::get('mentor_events/edit/{id}', [App\Http\Controllers\Mentor_eventController::class, 'edit'])->name('mentor_events.edit')->middleware(['auth','permission:mentor_events.edit']);
+Route::put('mentor_events/update/{id}', [App\Http\Controllers\Mentor_eventController::class, 'update'])->name('mentor_events.update')->middleware(['auth','permission:mentor_events.edit']);
+Route::delete('mentor_events/destroy/{id}', [App\Http\Controllers\Mentor_eventController::class, 'destroy'])->name('mentor_events.destroy')->middleware(['auth','permission:mentor_events.delete']);
+
+//make route mentor_event_members
+Route::get('/mentor_event_members', [App\Http\Controllers\Mentor_event_memberController::class, 'index'])->name('mentor_event_members.index')->middleware(['auth','permission:mentor_event_members.index']);
+Route::get('mentor_event_members/create/{surtug}', [App\Http\Controllers\Mentor_event_memberController::class, 'create'])->name('mentor_event_members.create')->middleware(['auth','permission:mentor_event_members.create']);
+Route::post('mentor_event_members/store', [App\Http\Controllers\Mentor_event_memberController::class, 'store'])->name('mentor_event_members.store')->middleware(['auth','permission:mentor_event_members.create']);
+Route::get('mentor_event_members/edit/{id}', [App\Http\Controllers\Mentor_event_memberController::class, 'edit'])->name('mentor_event_members.edit')->middleware(['auth','permission:mentor_event_members.edit']);
+Route::put('mentor_event_members/update/{id}', [App\Http\Controllers\Mentor_event_memberController::class, 'update'])->name('mentor_event_members.update')->middleware(['auth','permission:mentor_event_members.edit']);
+Route::delete('mentor_event_members/destroy/{id}', [App\Http\Controllers\Mentor_event_memberController::class, 'destroy'])->name('mentor_event_members.destroy')->middleware(['auth','permission:mentor_event_members.delete']);
+Route::get('/mentor_event_members_index/{surtug}', [App\Http\Controllers\Mentor_event_memberController::class, 'indexevent'])->name('mentor_event_members_index.index')->middleware(['auth','permission:mentor_event_members.index']);
 
