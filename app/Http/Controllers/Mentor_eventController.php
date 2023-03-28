@@ -20,13 +20,12 @@ class Mentor_eventController extends Controller
      */
     public function index()
     {
-        $mentor_events = Mentor_event::
-        join('mentor_surtugs','mentor_events.no_surtug','=','mentor_surtugs.id')
-        ->get(['mentor_events.*','mentor_surtugs.no_surtug as surtug','mentor_surtugs.uraian as surtug_uraian']);
+        $mentor_events = Mentor_event::join('mentor_surtugs', 'mentor_events.no_surtug', '=', 'mentor_surtugs.id')
+            ->get(['mentor_events.*', 'mentor_surtugs.no_surtug as surtug', 'mentor_surtugs.uraian as surtug_uraian']);
         return view('mentor_events.index', ['mentor_events' => $mentor_events]);
     }
 
-   
+
 
     /**
      * Show the form for creating a new resource.
@@ -36,7 +35,6 @@ class Mentor_eventController extends Controller
     public function create()
     {
         $no_surtugs = Mentor_surtug::all();
-
         return view('mentor_events.create', [
             'no_surtugs' => $no_surtugs,
         ]);
@@ -49,20 +47,35 @@ class Mentor_eventController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([]);
-        $mentor_event = Mentor_event::create([
-            'no_surtug' => $request->no_surtug,
-            'nama_event' => $request->nama_event,
-            'ket' => $request->ket,
-            'tgl_mulai' => $request->tgl_mulai,
-            'tgl_selesai' => $request->tgl_selesai,
+        // $request->validate([
+        //     'tgl_mulai'=>'required',
+        //     'tgl_selesai'=>'required',
+        //     'nama_event'=>'required',
+        // ]);
 
-            'create_by' => Auth::user()->user_id
-        ]);
-        //$mentor_event = Mentor_event::create($array);    
+        $surtugs = Mentor_surtug::find($request->no_surtug);
+        
+        //tanggal mulai dan selesai yg diinput masih dalam range tng mulai selesai sutug
 
-        $mentor_event->save();
-        return redirect()->route('mentor_events.index')->with('success_message', 'Berhasil menambah mentor_event baru');
+        if (($request->tgl_mulai >= $surtugs->tgl_mulai && $request->tgl_mulai <= $surtugs->tgl_selesai) &&
+            ($request->tgl_selesai >= $surtugs->tgl_mulai && $request->tgl_selesai <= $surtugs->tgl_selesai) &&
+             ($request->selesai < $request->tgl_mulai)) {
+            // return 'mulai diantara mulai dan akhir surtug';
+
+            $mentor_event = Mentor_event::create([
+                'no_surtug' => $request->no_surtug,
+                'nama_event' => $request->nama_event,
+                'ket' => $request->ket,
+                'tgl_mulai' => $request->tgl_mulai,
+                'tgl_selesai' => $request->tgl_selesai,
+                'create_by' => Auth::user()->user_id
+            ]);
+            $mentor_event->save();
+            // return 'sukses....';
+            return redirect()->route('mentor_events.index')->with('success_message', 'Berhasil menambah mentor_event baru');
+        } else {
+            return redirect()->route('mentor_events.index')->with('success_message', 'GAGAL menambah mentor_event baru');
+        }
     }
 
 
@@ -122,14 +135,14 @@ class Mentor_eventController extends Controller
         $mentor_event = Mentor_event::find($id);
 
         // cek event sudah ada membernya
-        $mentorEvents = Mentor_event_member::where('event_id','=',$id)->count();
-        if($mentorEvents > 0){
+        $mentorEvents = Mentor_event_member::where('event_id', '=', $id)->count();
+        if ($mentorEvents > 0) {
             return redirect()->route('mentor_events.index')
-            ->with('success_message', 'GAGAL menghapus kegiatan............');
+                ->with('success_message', 'GAGAL menghapus kegiatan............');
         }
 
         if ($mentor_event) $mentor_event->delete();
         return redirect()->route('mentor_events.index')
-            ->with('success_message', 'Berhasil menghapus mentor_event');
+            ->with('success_message', 'Berhasil menghapus kegiatan (event)');
     }
 }

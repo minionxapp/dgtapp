@@ -79,6 +79,10 @@
                                             class="btn btn-primary btn-xs">
                                             Peserta
                                         </a>
+                                        <a href="{{ route('training_costs_index.index', Crypt::encrypt($training_plan->id)) }}"
+                                            class="btn btn-primary btn-xs">
+                                            Biaya
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

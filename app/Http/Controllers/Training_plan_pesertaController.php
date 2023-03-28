@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Crypt;
 use App\Models\Param;
 use App\Models\Training_plan_peserta;
 use App\Models\Training_plan;
+use PhpParser\Node\Stmt\Foreach_;
 
 class Training_plan_pesertaController extends Controller
 {
@@ -45,7 +46,8 @@ class Training_plan_pesertaController extends Controller
     public function create($idx)
     {
         $id = Crypt::decrypt($idx);
-        return view('training_plan_pesertas.create', ['training_plan_id'=>$id,'idx'=>$idx]);
+        $training = Training_plan::find($id);
+        return view('training_plan_pesertas.create', ['training_plan_id'=>$id,'idx'=>$idx,'training'=>$training]);
     }
 
     /**
@@ -64,11 +66,33 @@ class Training_plan_pesertaController extends Controller
             'nik' => $request->nik,
             'status_peserta' => $request->status_peserta,
             'keterangan' => $request->keterangan,
-            'create_by' => Auth::user()->user_id
+            'create_by' => Auth::user()->user_id,
+            'niks' => $request->niks,
         ]);
 
-        // Cek peserta sudah dalam daftar atau belum
-        $training_plan_peserta->save();
+        if ($request->niks =='on'){
+            $arr = explode(',' , $request->nik);
+            // return $arr[0].'-'.$arr[1];
+            $arrx ='';
+            for ($i=0;  $i< count($arr); $i++) { 
+                $arrx= $arrx.','.$arr[$i];
+                $training_plan_peserta = Training_plan_peserta::create([
+                    'training_plan_id' => $request->training_plan_id,
+                    'nik' => $arr[$i],
+                    'status_peserta' => $request->status_peserta,
+                    'keterangan' => $request->keterangan,
+                    'create_by' => Auth::user()->user_id,
+                    'niks' => $request->niks,
+                ]);
+                $training_plan_peserta->save();
+            }
+
+            // return $arrx;
+        }
+        else {
+            // Cek peserta sudah dalam daftar atau belum
+            $training_plan_peserta->save();
+        }
         return redirect()->route('training_plan_pesertas.index', Crypt::encrypt($request->training_plan_id))->with('success_message', 'Berhasil menambah training_plan_peserta baru');
     }
 

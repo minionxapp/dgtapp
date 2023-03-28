@@ -335,3 +335,13 @@ Route::put('mentor_event_members/update/{id}', [App\Http\Controllers\Mentor_even
 Route::delete('mentor_event_members/destroy/{id}', [App\Http\Controllers\Mentor_event_memberController::class, 'destroy'])->name('mentor_event_members.destroy')->middleware(['auth','permission:mentor_event_members.delete']);
 Route::get('/mentor_event_members_index/{surtug}', [App\Http\Controllers\Mentor_event_memberController::class, 'indexevent'])->name('mentor_event_members_index.index')->middleware(['auth','permission:mentor_event_members.index']);
 
+//make route biaya training /Training_cost
+
+Route::get('/training_costs', [App\Http\Controllers\Training_costController::class, 'index'])->name('training_costs.index')->middleware(['auth','permission:training_costs.index']);
+Route::get('training_costs/create/{training_id}', [App\Http\Controllers\Training_costController::class, 'create'])->name('training_costs.create')->middleware(['auth','permission:training_costs.create']);
+Route::post('training_costs/store', [App\Http\Controllers\Training_costController::class, 'store'])->name('training_costs.store')->middleware(['auth','permission:training_costs.create']);
+Route::get('training_costs/edit/{id}', [App\Http\Controllers\Training_costController::class, 'edit'])->name('training_costs.edit')->middleware(['auth','permission:training_costs.edit']);
+Route::put('training_costs/update/{id}', [App\Http\Controllers\Training_costController::class, 'update'])->name('training_costs.update')->middleware(['auth','permission:training_costs.edit']);
+Route::delete('training_costs/destroy/{id}', [App\Http\Controllers\Training_costController::class, 'destroy'])->name('training_costs.destroy')->middleware(['auth','permission:training_costs.delete']);
+Route::get('/training_costs_index/{training_id}', [App\Http\Controllers\Training_costController::class, 'index_trainingid'])->name('training_costs_index.index')->middleware(['auth','permission:training_costs.index']);
+

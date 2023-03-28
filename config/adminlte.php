@@ -414,6 +414,11 @@ return [
                     'can'     => ['training_notes', 'training_notes.index']
                 ],
                 [
+                    'text' => 'Training Cost',
+                    'url'  => '/training_costs',
+                    'can'     => ['training_costs', 'training_costs.index']
+                ],
+                [
                     'text' => 'Vendor',
                     'url'  => '/vm_perusahaans',
                     'can'     => ['vm_perusahaans', 'vm_perusahaans.index']

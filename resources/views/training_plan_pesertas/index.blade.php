@@ -53,10 +53,10 @@
 
                                     <td>
                                         @can('training_plan_pesertas.edit')
-                                            <a href="{{ route('training_plan_pesertas.edit', Crypt::encrypt($training_plan_peserta->id)) }}"
+                                            {{-- <a href="{{ route('training_plan_pesertas.edit', Crypt::encrypt($training_plan_peserta->id)) }}"
                                                 class="btn btn-primary btn-xs">
                                                 Edit
-                                            </a>
+                                            </a> --}}
                                         @endcan
                                         @can('training_plan_pesertas.delete')
                                             <a href="{{ route('training_plan_pesertas.destroy', Crypt::encrypt($training_plan_peserta->id)) }}"
