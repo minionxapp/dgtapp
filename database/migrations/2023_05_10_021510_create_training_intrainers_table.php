@@ -1,5 +1,3 @@
-
-        
         <?php
 
         use Illuminate\Database\Migrations\Migration;
@@ -15,17 +13,15 @@
              */
             public function up()
             {
-                Schema::create('files', function (Blueprint $table) {
+                Schema::create('training_intrainers', function (Blueprint $table) {
                     $table->id();
-                    $table->string('file_group');
-                    $table->string('file_id');
-                    $table->string('file_real_name');
-                    $table->string('file_name');
-                    $table->string('file_path');
-                    $table->string('file_size');
-                    $table->string('file_type');
-                    
-                    $table->string('file_desc');
+                    $table->string('nip')->nullable();
+                    $table->string('nama_trainer')->nullable();
+                    $table->string('training_plan_id')->nullable();
+                    $table->string('materi')->nullable();
+                    $table->string('catatan')->nullable();
+                    $table->string('internal')->nullable();
+
                     $table->string('create_by')->nullable();
                     $table->string('update_by')->nullable();
                     $table->timestamps();
@@ -39,6 +35,6 @@
              */
             public function down()
             {
-                Schema::dropIfExists('files');
+                Schema::dropIfExists('training_intrainers');
             }
         };

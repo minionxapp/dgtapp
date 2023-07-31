@@ -135,7 +135,7 @@ class Helper {
         $seq->save();
 
         
-        return $seq;
+        return $seq->nilai;
     }
     
 }

@@ -4,6 +4,25 @@
 
 @section('content_header')
     <h1 class="m-0 text-dark">Biaya Training :: {{ $nm_training }}</h1>
+    {{-- <a href="{{ route('training_plans.index') }}" >
+        List ||  
+    </a>
+    <a href="{{ route('training_plans.edit', $training_plan_id) }}">
+        Training  ||  
+    </a>
+    <a href="{{ route('training_plan_pesertas.index', $training_plan_id) }}" >
+        Peserta  ||
+     </a>
+     <a href="{{ route('training_costs_index.index', $training_plan_id)  }}" >
+        Biaya  ||  
+     </a> 
+     <a href="{{ route('training_intrainers_index.index', $training_plan_id) }}">
+        Trainer  ||  
+    </a>
+    <a href="{{ route('files.indexfile', Crypt::encrypt($training_plan_id)) }}">
+        Files  ||  
+    </a> --}}
+    @include('include.trmenu') 
 @stop
 
 @section('content')
@@ -11,13 +30,14 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                   
                     @can('training_costs.create')
                         <a href="{{ route('training_costs.create', $training_plan_id) }}" class="btn btn-primary mb-2">
                             Tambah
                         </a>
-                        <a href="{{ route('training_plans.index') }}" class="btn btn-primary mb-2">
+                        {{-- <a href="{{ route('training_plans.index') }}" class="btn btn-primary mb-2">
                             Kembali
-                        </a>
+                        </a> --}}
                     @endcan
                     {{-- table-responsive --}}
                     <table class="table table-hover table-bordered table-stripped " id="datalist">
@@ -43,10 +63,10 @@
 
                                     <td>
                                         @can('training_costs.edit')
-                                            <a href="{{ route('training_costs.edit', Crypt::encrypt($training_cost->id)) }}"
+                                            {{-- <a href="{{ route('training_costs.edit', Crypt::encrypt($training_cost->id)) }}"
                                                 class="btn btn-primary btn-xs">
                                                 Edit
-                                            </a>
+                                            </a> --}}
                                         @endcan
                                         @can('training_costs.delete')
                                             <a href="{{ route('training_costs.destroy', Crypt::encrypt($training_cost->id)) }}"
@@ -86,9 +106,9 @@
         $(document).ready(function() {
             $('#datalist').DataTable({
                 footerCallback: function(row, data, start, end, display) {
-                    
+
                     var api = this.api();
-                   
+
 
                     // Remove the formatting to get integer data for summation
                     var intVal = function(i) {
@@ -115,12 +135,11 @@
                     //     }, 0);
 
                     // // Update footer
-                    $(api.column(2).footer()).html(  total.toLocaleString('en-US') );
+                    $(api.column(2).footer()).html(total.toLocaleString('en-US'));
                 },
                 // "processing": true,
                 // "serverSide": true,
-            }
-            );
+            });
         });
 
 
@@ -134,10 +153,10 @@
         // $('#datalist').DataTable({
         //     "responsive": true,
         // });
-        function numberFormat(number){
-            return number.toLocaleString('en-US') ;
+        function numberFormat(number) {
+            return number.toLocaleString('en-US');
         }
-        
+
         function notificationBeforeDelete(event, el) {
             event.preventDefault();
             if (confirm('Apakah anda yakin akan menghapus data ? ')) {

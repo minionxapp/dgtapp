@@ -4,7 +4,19 @@
         @section('title', 'Edit Training_plan_peserta')
 
         @section('content_header')
-            <h1 class="m-0 text-dark">Edit Training_plan_peserta</h1>
+            {{-- <h1 class="m-0 text-dark">Edit Training_plan_peserta</h1><br>
+            <a href="{{ route('training_plans.index') }}" >
+                List ||  
+            </a>
+            <a href="{{ route('training_plans.edit', Crypt::encrypt($training_plan->id)) }}"  >
+                Training  ||   
+            </a>
+            <a href="{{ route('training_plan_pesertas.index', Crypt::encrypt($training_plan->id)) }}" >
+                Peserta  ||  
+            </a>
+            <a href="{{ route('training_costs_index.index', Crypt::encrypt($training_plan->id)) }}" >
+                Biaya  ||  
+            </a> --}}
         @stop
 
         @section('content')

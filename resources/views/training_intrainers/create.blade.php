@@ -1,92 +1,70 @@
 @extends('adminlte::page')
 
-@section('title', 'Tambah Training_plan_peserta ')
+@section('title', 'Tambah Training_intrainer ')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Tambah Peserta Training ({{ $training->nama_training }})</h1>
-    {{-- <style>
-        .center {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        flex: 1 0 100%;
-        height: 100%;
-        }
-        
-    </style> --}}
+    <h1 class="m-0 text-dark">Tambah Training_intrainer</h1>
 @stop
 
 @section('content')
-    {{-- <div class="center">
-    <!-- Tuliskan teks atau elemen apapun yang ingin ditempatkan di tengah -->
-    tetsttttttt
-</div> --}}
-    <form action="{{ route('training_plan_pesertas.store') }}" method="post" {{-- enctype="multipart/form-data" --}}>
+    <form action="{{ route('training_intrainers.store') }}" method="post" {{-- enctype="multipart/form-data" --}}>
         @csrf
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="nik">NIP</label>
+                                    <input type="text" autocomplete="off"
+                                        class="form-control @error('nip') is-invalid @enderror" id="nip"
+                                        placeholder="nip" name="nip" value="" onchange="cariNik()">
+                                    @error('nik')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    {{-- <label for="training_plan_id">training_plan_id</label> --}}
-                                    <input type="text" autocomplete="off" readonly hidden
-                                        class="form-control @error('training_plan_id') is-invalid @enderror"
-                                        id="training_plan_id" placeholder="training_plan_id" name="training_plan_id"
-                                        value="{{ $training_plan_id }}">
+                                    <label for="nama_trainer">nama_trainer</label>
+                                    <input type="text" autocomplete="off"
+                                        class="form-control @error('nama_trainer') is-invalid @enderror" id="nama_trainer"
+                                        placeholder="nama_trainer" name="nama_trainer" value="{{ old('nama_trainer') }}" readonly>
+                                    @error('nama_trainer')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="training_plan_id">training_plan_id</label>
+                                    <select name="training_plan_id" class="form-control" id="training_plan_id">
+                                        @foreach ($training_plans as $training_plan)
+                                            <option value={{ $training_plan->id }}>{{ $training_plan->nama_training }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                     @error('training_plan_id')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row">
-
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label for="nik">NIK</label>
-                                    <input type="text" autocomplete="off"
-                                        class="form-control @error('nik') is-invalid @enderror" id="nik"
-                                        placeholder="nik" name="nik" value="P81035,P8103" onchange="cariNik()">
-                                    @error('nik')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-8">
-                                <div class="form-group">
-                                    <label for="nama">Nama</label>
-                                    <input type="text" autocomplete="off"
-                                        class="form-control @error('nama') is-invalid @enderror" id="nama"
-                                        placeholder="nama" name="nama" value="{{ old('nama') }}" readonly>
-                                    @error('nama')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-1">
-                                <div class="form-group">
-                                    <label for="nama">&nbsp;</label><br>
-                                    <button class="btn btn-primary" type="button" disabled id="cek">
-                                        <span class="spinner-border spinner-border-sm" role="status"
-                                            aria-hidden="true"></span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="status_peserta">status_peserta</label>
+                                    <label for="materi">materi</label>
                                     <input type="text" autocomplete="off"
-                                        class="form-control @error('status_peserta') is-invalid @enderror"
-                                        id="status_peserta" placeholder="status_peserta" name="status_peserta"
-                                        value="{{ old('status_peserta') }}">
-                                    @error('status_peserta')
+                                        class="form-control @error('materi') is-invalid @enderror" id="materi"
+                                        placeholder="materi" name="materi" value="{{ old('materi') }}">
+                                    @error('materi')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -96,11 +74,28 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="keterangan">keterangan</label>
+                                    <label for="catatan">catatan</label>
                                     <input type="text" autocomplete="off"
-                                        class="form-control @error('keterangan') is-invalid @enderror" id="keterangan"
-                                        placeholder="keterangan" name="keterangan" value="{{ old('keterangan') }}">
-                                    @error('keterangan')
+                                        class="form-control @error('catatan') is-invalid @enderror" id="catatan"
+                                        placeholder="catatan" name="catatan" value="{{ old('catatan') }}">
+                                    @error('catatan')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="internal">Internal</label>
+                                    <select name="internal" class="form-control" id="internal">
+                                        <option value="">--Internal--</option>
+                                        @foreach ($internals as $internal)
+                                            <option value={{ $internal->kode }}>{{ $internal->desc }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('internal')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -111,8 +106,12 @@
 
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary" id="simpan">Simpan</button>
-                        <a href="{{ route('training_plan_pesertas.index', Crypt::encrypt($training_plan_id)) }}"
-                            class="btn btn-default">
+                        {{-- <a href="{{ route('training_intrainers_.index') }}" class="btn btn-default">
+                            Batal
+                        </a> --}}
+
+
+                        <a href="{{ route('training_intrainers_index.index', Crypt::encrypt($training_plan->id)) }}" class="btn btn-default">
                             Batal
                         </a>
                     </div>
@@ -151,14 +150,14 @@
         }
 
 
-         function cariNik() {
+        function cariNik() {
             document.getElementById("simpan").disabled = true;
             jml_tidak_ada = 0;
             nik_tidak_ada = '';
             all_nama_pegawai = '';
-            $('#nama').val(null);
+            $('#nama_trainer').val(null);
             // if($('#niks').is(":checked")){
-            var niks = $('#nik').val().split(',')
+            var niks = $('#nip').val().split(',')
             var jmlNik = niks.length;
             for (var i = 0; i < jmlNik; i++) {
                 cariPegawai(niks[i]);
@@ -169,11 +168,11 @@
             } else {
                 // alert('Semua NIK di temukan');
                 document.getElementById("simpan").disabled = false;
-                $('#nama').val(null);
-                $('#nama').val(all_nama_pegawai.substring(1, all_nama_pegawai.length));
+                $('#nama_trainer').val(null);
+                $('#nama_trainer').val(all_nama_pegawai.substring(1, all_nama_pegawai.length));
                 // $('#cek').hide();
             }
-            
+
         }
     </script>
 @endpush

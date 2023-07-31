@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Models\Departemen;
 use App\Models\Divisi;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Param;
 use App\Models\Training_plan;
+use Illuminate\Support\Carbon;
 
 class Training_planController extends Controller
 {
@@ -20,23 +22,46 @@ class Training_planController extends Controller
      */
     public function index()
     {
-        $training_plans = Training_plan::
-        join('divisis','training_plans.unit_usul','=','divisis.kode')
-        ->join('departemens','training_plans.pic_akademi','=','departemens.kode')
-        ->join('params','training_plans.pelaksanaan','=','params.kode')
-        ->join('params as params2','training_plans.kategori','=','params2.kode')
-        ->join('params as paramsLokasi','training_plans.lokasi','=','paramsLokasi.kode')
-        ->join('params as paramsJenis','training_plans.jenis','=','paramsJenis.kode')
-        ->join('params as paramsStatus','training_plans.status','=','paramsStatus.kode')
-        ->where('params.nama', '=', 'TR-PELAKSANA')
-        ->get(['training_plans.*','divisis.nama as nama_divisi',
-                'departemens.nama as nama_departemen',
-                'params.desc as pelaksanaan',
-                'params2.desc as kategori',
-                'paramsJenis.desc as jenis',
-                'paramsLokasi.desc as namalokasi',
-                'paramsStatus.desc as status',
-            ]);
+        $user_id = (Auth::user()->id);
+        $userloged = User::find($user_id);
+        if ($userloged->hasRole(['Admin', 'Super-Admin'])) {
+            $training_plans = Training_plan::join('divisis', 'training_plans.unit_usul', '=', 'divisis.kode')
+                ->join('departemens', 'training_plans.pic_akademi', '=', 'departemens.kode')
+                ->join('params', 'training_plans.pelaksanaan', '=', 'params.kode')
+                ->join('params as params2', 'training_plans.kategori', '=', 'params2.kode')
+                ->join('params as paramsLokasi', 'training_plans.lokasi', '=', 'paramsLokasi.kode')
+                ->join('params as paramsJenis', 'training_plans.jenis', '=', 'paramsJenis.kode')
+                ->join('params as paramsStatus', 'training_plans.status', '=', 'paramsStatus.kode')
+                ->where('params.nama', '=', 'TR-PELAKSANA')
+                ->get([
+                    'training_plans.*', 'divisis.nama as nama_divisi',
+                    'departemens.nama as nama_departemen',
+                    'params.desc as pelaksanaan',
+                    'params2.desc as kategori',
+                    'paramsJenis.desc as jenis',
+                    'paramsLokasi.desc as namalokasi',
+                    'paramsStatus.desc as status',
+                ]);
+        }else{
+            $training_plans = Training_plan::join('divisis', 'training_plans.unit_usul', '=', 'divisis.kode')
+                ->join('departemens', 'training_plans.pic_akademi', '=', 'departemens.kode')
+                ->join('params', 'training_plans.pelaksanaan', '=', 'params.kode')
+                ->join('params as params2', 'training_plans.kategori', '=', 'params2.kode')
+                ->join('params as paramsLokasi', 'training_plans.lokasi', '=', 'paramsLokasi.kode')
+                ->join('params as paramsJenis', 'training_plans.jenis', '=', 'paramsJenis.kode')
+                ->join('params as paramsStatus', 'training_plans.status', '=', 'paramsStatus.kode')
+                ->where('params.nama', '=', 'TR-PELAKSANA')
+                ->where('departemens.kode','=',$userloged->departemen_kode)
+                ->get([
+                    'training_plans.*', 'divisis.nama as nama_divisi',
+                    'departemens.nama as nama_departemen',
+                    'params.desc as pelaksanaan',
+                    'params2.desc as kategori',
+                    'paramsJenis.desc as jenis',
+                    'paramsLokasi.desc as namalokasi',
+                    'paramsStatus.desc as status',
+                ]);
+        }
         return view('training_plans.index', ['training_plans' => $training_plans]);
     }
 
@@ -50,20 +75,27 @@ class Training_planController extends Controller
         $pelaksanaans = Param::where('nama', '=', 'TR-PELAKSANA')->get(['kode', 'desc']);
         $kategoris = Param::where('nama', '=', 'TR-KATEGORI')->get(['kode', 'desc']);
         $unit_usuls = Divisi::orderBy('kode')->get();;
-        $pic_akademis = Departemen::where('divisi_kode', '=', Auth::user()->divisi_kode)->get(['kode', 'nama']);
         $lokasis = Param::where('nama', '=', 'TR-LOKASI')->get(['kode', 'desc']);
         $jeniss = Param::where('nama', '=', 'TR-JENIS')->get(['kode', 'desc']);
         $statuss = Param::where('nama', '=', 'STATUS')->get(['kode', 'desc']);
-        
+
+        $user_id =(Auth::user()->id);
+        $userloged = User::find($user_id);
+        if($userloged->hasRole(['Admin', 'Super-Admin'])){
+            $pic_akademis = Departemen::where('divisi_kode', '=', Auth::user()->divisi_kode)->get(['kode', 'nama']);
+        }else{
+            $pic_akademis = Departemen::where('divisi_kode', '=', Auth::user()->divisi_kode)
+            ->where('kode', '=', Auth::user()->departemen_kode)->get(['kode', 'nama']);
+        }
         // dd($pic_akademis);
         return view('training_plans.create', [
             'pelaksanaans' => $pelaksanaans,
             'unit_usuls' => $unit_usuls,
             'pic_akademis' => $pic_akademis,
-            'kategoris'=>$kategoris,
-            'lokasis'=>$lokasis,
-            'jeniss'=>$jeniss,
-            'statuss'=>$statuss,
+            'kategoris' => $kategoris,
+            'lokasis' => $lokasis,
+            'jeniss' => $jeniss,
+            'statuss' => $statuss,
         ]);
     }
 
@@ -76,6 +108,7 @@ class Training_planController extends Controller
     {
         $request->validate([]);
         $training_plan = Training_plan::create([
+            'kode_training'=>'TR-'.Carbon::now()->format('Y').'-'.Helper::setSequence('TR',Carbon::now()->format('Y')),
             'nama_training' => $request->nama_training,
             'keterangan' => $request->keterangan,
             'pelaksanaan' => $request->pelaksanaan,
@@ -87,11 +120,11 @@ class Training_planController extends Controller
             'tgl_mulai' => $request->tgl_mulai,
             'tgl_selesai' => $request->tgl_selesai,
             'unit_usul' => $request->unit_usul,
-            'jenis'=>$request->jenis,
+            'jenis' => $request->jenis,
             'pic_akademi' => $request->pic_akademi,
-            'kategori'=>$request->kategori,
+            'kategori' => $request->kategori,
             'create_by' => Auth::user()->user_id,
-            'status'=>$request->status,
+            'status' => $request->status,
         ]);
         //$training_plan = Training_plan::create($array);    
 
@@ -112,21 +145,33 @@ class Training_planController extends Controller
         $kategoris = Param::where('nama', '=', 'TR-KATEGORI')->get(['kode', 'desc']);
         $pelaksanaans = Param::where('nama', '=', 'TR-PELAKSANA')->get(['kode', 'desc']);
         $unit_usuls = Divisi::orderBy('kode')->get();;
-        $pic_akademis = Departemen::where('divisi_kode', '=', Auth::user()->divisi_kode)->get(['kode', 'nama']);
+        // $pic_akademis = Departemen::where('divisi_kode', '=', Auth::user()->divisi_kode)->get(['kode', 'nama']);
+        $user_id =(Auth::user()->id);
+        $userloged = User::find($user_id);
+        if($userloged->hasRole(['Admin', 'Super-Admin'])){
+            $pic_akademis = Departemen::where('divisi_kode', '=', Auth::user()->divisi_kode)->get(['kode', 'nama']);
+        }else{
+            $pic_akademis = Departemen::where('divisi_kode', '=', Auth::user()->divisi_kode)
+            ->where('kode', '=', Auth::user()->departemen_kode)->get(['kode', 'nama']);
+        }
         $training_plan = Training_plan::find($id);
-        $jeniss=Param::where('nama', '=', 'TR-JENIS')->get(['kode', 'desc']);
+        $jeniss = Param::where('nama', '=', 'TR-JENIS')->get(['kode', 'desc']);
         $lokasis = Param::where('nama', '=', 'TR-LOKASI')->get(['kode', 'desc']);
         $statuss = Param::where('nama', '=', 'STATUS')->get(['kode', 'desc']);
         if (!$training_plan) return redirect()->route('training_plans.index')
             ->with('error_message', 'Training_plan dengan id' . $id . ' tidak ditemukan');
+            // return $training_plan;
         return view('training_plans.edit', [
-            'training_plan' => $training_plan, 'pelaksanaans' => $pelaksanaans,
+            'training_plan' => $training_plan, 
+            'training_id'=>$idx,
+            'nama_training'=>$training_plan->nama_training,
+            'pelaksanaans' => $pelaksanaans,
             'unit_usuls' => $unit_usuls,
             'pic_akademis' => $pic_akademis,
-            'kategoris'=>$kategoris,
-            'lokasis'=>$lokasis,
-            'jeniss'=>$jeniss,
-            'statuss'=>$statuss,
+            'kategoris' => $kategoris,
+            'lokasis' => $lokasis,
+            'jeniss' => $jeniss,
+            'statuss' => $statuss,
         ]);
         //}else{
         //    return redirect()->route('training_plans.index')
@@ -160,9 +205,9 @@ class Training_planController extends Controller
         $training_plan->update_by = Auth::user()->user_id;
         $training_plan->kategori = $request->kategori;
         $training_plan->jenis = $request->jenis;
-        $training_plan->status=$request->status;
+        $training_plan->status = $request->status;
 
-        
+
         $training_plan->save();
         return redirect()->route('training_plans.index')
             ->with('success_message', 'Berhasil mengubah training_plan');

@@ -416,7 +416,7 @@ return [
                 [
                     'text' => 'Training Cost',
                     'url'  => '/training_costs',
-                    'can'     => ['training_costs', 'training_costs.index']
+                    'can'     => [/*'training_costs', 'training_costs.index',*/'super_admin']
                 ],
                 [
                     'text' => 'Vendor',
@@ -431,7 +431,12 @@ return [
                 [
                     'text' => 'Training Peserta',
                     'url'  => '/training_plan_pesertas_detail/test',
-                    'can'     => ['training_plan_pesertas', 'training_plan_pesertas.index','super_admin']
+                    'can'     => [/*'training_plan_pesertas', 'training_plan_pesertas.index',*/'super_admin']
+                ],
+                [
+                    'text' => 'Training Fasilitator',
+                    'url'  => '/training_intrainers',
+                    'can'     => [/*'training_intrainers', 'training_intrainers.index',*/'super_admin']
                 ],
             ]
         ],

@@ -173,8 +173,10 @@ Route::post('files/store', [App\Http\Controllers\FileController::class, 'store']
 Route::get('files/edit/{id}', [App\Http\Controllers\FileController::class, 'edit'])->name('files.edit')->middleware(['auth','permission:files.edit']);
 Route::put('files/update/{id}', [App\Http\Controllers\FileController::class, 'update'])->name('files.update')->middleware(['auth','permission:files.edit']);
 Route::delete('files/destroy/{id}', [App\Http\Controllers\FileController::class, 'destroy'])->name('files.destroy')->middleware(['auth','permission:files.delete']);
-
 Route::get('hapusfile/{id}', [App\Http\Controllers\FileController::class, 'hapusfile'])->name('file.hapusfile')->middleware(['auth', 'permission:files.edit']);
+
+Route::get('/filesindex/{id}', [App\Http\Controllers\FileController::class, 'indexfile'])->name('files.indexfile')->middleware(['auth','permission:files.index']);
+Route::get('files/createfile/{id}', [App\Http\Controllers\FileController::class, 'createfile'])->name('files.createfile')->middleware(['auth','permission:files.create']);
 
 
 
@@ -284,6 +286,9 @@ Route::post('training_plan_pesertas/store', [App\Http\Controllers\Training_plan_
 Route::get('training_plan_pesertas/edit/{id}', [App\Http\Controllers\Training_plan_pesertaController::class, 'edit'])->name('training_plan_pesertas.edit')->middleware(['auth','permission:training_plan_pesertas.edit']);
 Route::put('training_plan_pesertas/update/{id}', [App\Http\Controllers\Training_plan_pesertaController::class, 'update'])->name('training_plan_pesertas.update')->middleware(['auth','permission:training_plan_pesertas.edit']);
 Route::delete('training_plan_pesertas/destroy/{id}', [App\Http\Controllers\Training_plan_pesertaController::class, 'destroy'])->name('training_plan_pesertas.destroy')->middleware(['auth','permission:training_plan_pesertas.delete']);
+Route::get('training_plan_pesertas_cek/{id}/{training_id}', [App\Http\Controllers\Training_plan_pesertaController::class, 'CekPeserta'])->name('training_plan_pesertas.cekpeserta')->middleware(['auth','permission:training_plan_pesertas.index']);
+Route::get('training_plan_pesertas_export/{training_id}', [App\Http\Controllers\Training_plan_pesertaController::class, 'ExportPeserta'])->name('training_plan_pesertas.export')->middleware(['auth','permission:training_plan_pesertas.create']);
+Route::post('training_plan_pesertas_import/{training_id}', [App\Http\Controllers\Training_plan_pesertaController::class, 'ImportPeserta'])->name('training_plan_pesertas.import')->middleware(['auth','permission:training_plan_pesertas.create']);
 
 
 
@@ -345,3 +350,13 @@ Route::put('training_costs/update/{id}', [App\Http\Controllers\Training_costCont
 Route::delete('training_costs/destroy/{id}', [App\Http\Controllers\Training_costController::class, 'destroy'])->name('training_costs.destroy')->middleware(['auth','permission:training_costs.delete']);
 Route::get('/training_costs_index/{training_id}', [App\Http\Controllers\Training_costController::class, 'index_trainingid'])->name('training_costs_index.index')->middleware(['auth','permission:training_costs.index']);
 
+
+//make route training_intrainers
+
+Route::get('/training_intrainers', [App\Http\Controllers\Training_intrainerController::class, 'index'])->name('training_intrainers.index')->middleware(['auth','permission:training_intrainers.index']);
+Route::get('training_intrainers/create/{training_id}', [App\Http\Controllers\Training_intrainerController::class, 'create'])->name('training_intrainers.create')->middleware(['auth','permission:training_intrainers.create']);
+Route::post('training_intrainers/store', [App\Http\Controllers\Training_intrainerController::class, 'store'])->name('training_intrainers.store')->middleware(['auth','permission:training_intrainers.create']);
+Route::get('training_intrainers/edit/{id}', [App\Http\Controllers\Training_intrainerController::class, 'edit'])->name('training_intrainers.edit')->middleware(['auth','permission:training_intrainers.edit']);
+Route::put('training_intrainers/update/{id}', [App\Http\Controllers\Training_intrainerController::class, 'update'])->name('training_intrainers.update')->middleware(['auth','permission:training_intrainers.edit']);
+Route::delete('training_intrainers/destroy/{id}', [App\Http\Controllers\Training_intrainerController::class, 'destroy'])->name('training_intrainers.destroy')->middleware(['auth','permission:training_intrainers.delete']);
+Route::get('/training_intrainers_index/{training_id}', [App\Http\Controllers\Training_intrainerController::class, 'index_trainingid'])->name('training_intrainers_index.index')->middleware(['auth','permission:training_intrainers.index']);

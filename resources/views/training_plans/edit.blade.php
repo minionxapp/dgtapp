@@ -3,7 +3,32 @@
 @section('title', 'Edit Training_plan')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Edit Training Plan</h1>
+    <h1 class="m-0 text-dark">Edit Training Plan :: {{ $nama_training }}</h1></p>
+    {{-- <a href="{{ route('training_plans.edit', Crypt::encrypt($training_plan->id)) }}"
+        class="btn btn-primary btn-mb2">
+        Edit
+    </a> --}}
+    <a href="{{ route('training_plans.index') }}" >
+        List ||  
+    </a>
+    <a href="{{ route('training_plans.edit', $training_id) }}" >
+        Training  ||  
+    </a>
+    <a href="{{ route('training_plan_pesertas.index', $training_id) }}">
+        Peserta  ||  
+    </a>
+    <a href="{{ route('training_costs_index.index', $training_id) }}">
+        Biaya  ||  
+    </a>
+    <a href="{{ route('training_intrainers_index.index', $training_id) }}">
+        Trainer  ||  
+    </a>
+    <a href="{{ route('files.indexfile', $training_id) }}">
+        Files  ||  
+    </a>
+    
+
+    
 @stop
 
 @section('content')
@@ -15,7 +40,20 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label for="nama_training">Kode Training</label>
+                                    <input type="text" autocomplete="off"
+                                        class="form-control @error('kode_training') is-invalid @enderror" id="kode_training"
+                                        placeholder="kode_training" name="nama_training"
+                                        value="{{ $training_plan->kode_training ?? old('kode_training') }}" readonly>
+                                    @error('kode_training')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-10">
                                 <div class="form-group">
                                     <label for="nama_training">Nama Training</label>
                                     <input type="text" autocomplete="off"
@@ -50,7 +88,7 @@
                                 <div class="form-group">
                                     <label for="kategori">Jenis</label>
                                     <select name="jenis" class="form-control" id="jenis">
-                                        <option value="XXX">Jenis</option>
+                                        {{-- <option value="XXX">Jenis</option> --}}
                                         @foreach ($jeniss as $jenis)
                                             @if ($training_plan->jenis == $jenis->kode)
                                                 <option selected="selected" value={{ $jenis->kode }}>
@@ -88,7 +126,7 @@
                                 <div class="form-group">
                                     <label for="pelaksanaan">pelaksanaan</label>
                                     <select name="pelaksanaan" class="form-control" id="pelaksanaan">
-                                        <option value="XXX">Jenis</option>
+                                        {{-- <option value="XXX">Jenis</option> --}}
                                         @foreach ($pelaksanaans as $pelaksanaan)
                                             @if ($training_plan->pelaksanaan == $pelaksanaan->kode)
                                                 <option selected="selected" value={{ $pelaksanaan->kode }}>
@@ -153,7 +191,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="biaya">Biaya</label>
+                                    <label for="biaya">Perkiraan Biaya</label>
                                     <input type="text" autocomplete="off"
                                         class="form-control @error('biaya') is-invalid @enderror" id="biaya"
                                         placeholder="biaya" name="biaya"
@@ -207,7 +245,7 @@
                                 <div class="form-group">
                                     <label for="unit_usul">Unit Pengusul</label>
                                     <select name="unit_usul" class="form-control" id="unit_usul">
-                                        <option value="XXX">Jenis</option>
+                                        {{-- <option value="XXX">Jenis</option> --}}
                                         @foreach ($unit_usuls as $unit_usul)
                                             @if ($unit_usul->kode == $training_plan->unit_usul)
                                                 <option selected="selected" value={{ $unit_usul->kode }}>
@@ -226,7 +264,7 @@
                                 <div class="form-group">
                                     <label for="pic_akademi">PIC Akademi</label>
                                     <select name="pic_akademi" class="form-control" id="pic_akademi">
-                                        <option value="XXX">Jenis</option>
+                                        {{-- <option value="XXX">Jenis</option> --}}
                                         @foreach ($pic_akademis as $pic_akademi)
                                             @if ($pic_akademi->kode == $training_plan->pic_akademi)
                                                 <option selected="selected" value={{ $pic_akademi->kode }}>

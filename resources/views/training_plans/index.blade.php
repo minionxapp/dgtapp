@@ -15,6 +15,7 @@
                         <a href="{{ route('training_plans.create') }}" class="btn btn-primary mb-2">
                             Tambah
                         </a>
+                        
                     @endcan
                     
                     <table class="table table-hover table-bordered table-stripped table-responsive" id="datalist">
@@ -23,17 +24,18 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Nama Training</th>
+                                <th>Kode</th>
+                                <th>Nama</th>
                                 <th>Jenis</th>
                                 <th>Kategori</th>
                                 <th>Akademi</th>
                                 {{-- <th>keterangan</th> --}}
                                 <th>Pelaksana</th>
-                                <th>Peserta</th>
+                                <th>Tot Peserta</th>
                                 <th>Lokasi</th>
-                                <th>Biaya</th>
+                                <th>Tot Biaya</th>
                                 <th>Batch</th>
-                                <th>Durasi</th>
+                                <th>Durasi (Jamlat)</th>
                                 <th>Mulai</th>
                                 <th>Selesai</th>
                                 <th>unit_usul</th>
@@ -46,6 +48,7 @@
                             @foreach ($training_plans as $key => $training_plan)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
+                                    <td>{{ $training_plan->kode_training }}</td>
                                     <td>{{ $training_plan->nama_training }}</td>
                                     <td>{{ $training_plan->jenis }}</td>
                                     <td>{{ $training_plan->kategori }}</td>

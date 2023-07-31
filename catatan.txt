@@ -33,3 +33,18 @@ https://www.cafeteria.id/2018/08/cara-menjalankan-aplikasi-laravel-hasil.html
 
 buat file .env
 copy .env.example .env
+
+
+
+export to excel
+php.ini 
+extension=gd
+composer require phpoffice/phpspreadsheet
+composer require maatwebsite/excel
+
+php artisan vendor:publish --provider="Maatwebsite\Excel\ExcelServiceProvider" --tag=config
+
+php artisan make:export PesertaExport --model=Training_plan_peserta
+php artisan make:import PesertaImport --model=Training_plan_peserta
+
+https://www.malasngoding.com/export-excel-laravel/

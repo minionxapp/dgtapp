@@ -45,12 +45,42 @@ class PermissionController extends Controller
             // 'id' => $request->id,
             'name' => $request->name,
             'guard_name' => $request->guard_name,
-
             'create_by' => Auth::user()->user_id
         ]);
-        //$permission = Permission::create($array);    
-
         $permission->save();
+
+        $permissionIndex = Permission::create([
+            // 'id' => $request->id,
+            'name' => $request->name.'.index',
+            'guard_name' => $request->guard_name,
+            'create_by' => Auth::user()->user_id
+        ]);
+        $permissionIndex->save();
+
+        $permissionCreate = Permission::create([
+            // 'id' => $request->id,
+            'name' => $request->name.'.create',
+            'guard_name' => $request->guard_name,
+            'create_by' => Auth::user()->user_id
+        ]);
+        $permissionCreate->save();
+
+        $permissionEdit = Permission::create([
+            // 'id' => $request->id,
+            'name' => $request->name.'.edit',
+            'guard_name' => $request->guard_name,
+            'create_by' => Auth::user()->user_id
+        ]);
+        $permissionEdit->save();
+
+        $permissionDelete = Permission::create([
+            // 'id' => $request->id,
+            'name' => $request->name.'.delete',
+            'guard_name' => $request->guard_name,
+            'create_by' => Auth::user()->user_id
+        ]);
+        $permissionDelete->save();
+
         return redirect()->route('permissions.index')->with('success_message', 'Berhasil menambah permission baru');
     }
 

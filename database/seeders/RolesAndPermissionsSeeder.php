@@ -25,7 +25,7 @@ class RolesAndPermissionsSeeder extends Seeder
         // $user->assignRole('admin');
         // $roles = $user->getRoleNames();
         // $permission = Permission::create(['name' => 'test.role']);
-        $role = Role:: where('name','=','admin')->first();
+        $role = Role::where('name', '=', 'admin')->first();
         // $role->givePermissionTo(Permission::create(['name' => 'setup']));
         // $model ='users';
         // $role->givePermissionTo(Permission::create(['name' => $model.'.index']));
@@ -85,7 +85,7 @@ class RolesAndPermissionsSeeder extends Seeder
         // // $role->givePermissionTo(Permission::create(['name' => $model.'.create']));
         // // $role->givePermissionTo(Permission::create(['name' => $model.'.edit']));
         // // $role->givePermissionTo(Permission::create(['name' => $model.'.delete']));
-        
+
         // $model ='cobas';
         // $role->givePermissionTo(Permission::create(['name' => $model.'']));
         // $role->givePermissionTo(Permission::create(['name' => $model.'.index']));
@@ -99,8 +99,8 @@ class RolesAndPermissionsSeeder extends Seeder
         //   $role->givePermissionTo(Permission::create(['name' => $model.'.create']));
         //   $role->givePermissionTo(Permission::create(['name' => $model.'.edit']));
         //   $role->givePermissionTo(Permission::create(['name' => $model.'.delete']));
-           
-        
+
+
         // //make seeder
         // $model ='files';
         // $role->givePermissionTo(Permission::create(['name' => $model.'.index']));
@@ -172,7 +172,7 @@ class RolesAndPermissionsSeeder extends Seeder
         //  $role->givePermissionTo(Permission::create(['name' => $model.'.create']));
         //  $role->givePermissionTo(Permission::create(['name' => $model.'.edit']));
         //  $role->givePermissionTo(Permission::create(['name' => $model.'.delete']));
- 
+
         //make seeder
         // $model ='mentor_surtugs';
         // $role->givePermissionTo(Permission::create(['name' => $model.'.index']));
@@ -199,13 +199,13 @@ class RolesAndPermissionsSeeder extends Seeder
         // $role->givePermissionTo(Permission::create(['name' => $model.'.create']));
         // $role->givePermissionTo(Permission::create(['name' => $model.'.edit']));
         // $role->givePermissionTo(Permission::create(['name' => $model.'.delete']));
-         //make seeder
+        //make seeder
         //  $model ='mentor_event_members';
         //  $role->givePermissionTo(Permission::create(['name' => $model.'.index']));
         //  $role->givePermissionTo(Permission::create(['name' => $model.'.create']));
         //  $role->givePermissionTo(Permission::create(['name' => $model.'.edit']));
         //  $role->givePermissionTo(Permission::create(['name' => $model.'.delete']));
- 
+
         //make seeder
         // $model ='training_costs';
         // $role->givePermissionTo(Permission::create(['name' => $model.'.index']));
@@ -213,6 +213,11 @@ class RolesAndPermissionsSeeder extends Seeder
         // $role->givePermissionTo(Permission::create(['name' => $model.'.edit']));
         // $role->givePermissionTo(Permission::create(['name' => $model.'.delete']));
 
-
+        //make seeder
+        // $model = 'training_intrainers';
+        // $role->givePermissionTo(Permission::create(['name' => $model . '.index']));
+        // $role->givePermissionTo(Permission::create(['name' => $model . '.create']));
+        // $role->givePermissionTo(Permission::create(['name' => $model . '.edit']));
+        // $role->givePermissionTo(Permission::create(['name' => $model . '.delete']));
     }
 }

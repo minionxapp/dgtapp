@@ -3,7 +3,8 @@
 @section('title', 'List File')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">List File</h1>
+    <h1 class="m-0 text-dark">File :: {{ $nama_training }}</h1></p>
+    @include('include.trmenu') 
 @stop
 
 @section('content')
@@ -12,7 +13,7 @@
             <div class="card">
                 <div class="card-body">
                     @can('files.create')
-                        <a href="{{ route('files.create') }}" class="btn btn-primary mb-2">
+                        <a href="{{ route('files.createfile', $training_id) }}" class="btn btn-primary mb-2">
                             Tambah
                         </a>
                     @endcan
@@ -20,14 +21,14 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>file_group</th>
-                                <th>file_id</th>
+                                {{-- <th>file_group</th> --}}
+                                {{-- <th>file_id</th> --}}
                                 <th>file_real_name</th>
-                                <th>file_name</th>
-                                <th>file_path</th>
-                                <th>file_size</th>
-                                <th>file_type</th>
                                 <th>file_desc</th>
+                                {{-- <th>file_name</th> --}}
+                                {{-- <th>file_path</th> --}}
+                                <th>file_size</th>
+                                {{-- <th>file_type</th> --}}
 
                                 <th>Opsi</th>
                             </tr>
@@ -37,14 +38,14 @@
                             @foreach ($files as $key => $file)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
-                                    <td>{{ $file->file_group }}</td>
-                                    <td>{{ $file->file_id }}</td>
+                                    {{-- <td>{{ $file->file_group }}</td> --}}
+                                    {{-- <td>{{ $file->file_id }}</td> --}}
                                     <td>{{ $file->file_real_name }}</td>
-                                    <td>{{ $file->file_name }}</td>
-                                    <td>{{ $file->file_path }}</td>
-                                    <td>{{ $file->file_size }}</td>
-                                    <td>{{ $file->file_type }}</td>
                                     <td>{{ $file->file_desc }}</td>
+                                    {{-- <td>{{ $file->file_name }}</td> --}}
+                                    {{-- <td>{{ $file->file_path }}</td> --}}
+                                    <td>{{ $file->file_size }}</td>
+                                    {{-- <td>{{ $file->file_type }}</td> --}}
 
                                     <td>
                                         @can('files.edit')
@@ -53,7 +54,7 @@
                                             </a>
                                         @endcan
                                         @can('files.delete')
-                                            <a href="{{ route('files.destroy', $file) }}"
+                                            <a href="{{ route('files.destroy', Crypt::encrypt($file->id)) }}"
                                                 onclick="notificationBeforeDelete(event, this)" class="btn btn-danger btn-xs">
                                                 Delete
                                             </a>

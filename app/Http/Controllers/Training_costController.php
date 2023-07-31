@@ -27,8 +27,13 @@ class Training_costController extends Controller
         $id = Crypt::decrypt($training_id);
         $nm_training = Training_plan::find($id);
         $training_costs = Training_cost::where('training_plan_id','=',$id)->get();
-        // return 'index_trainingid : ' . $id;
-        return view('training_costs.index',['training_costs' => $training_costs,'training_plan_id'=>$training_id,'nm_training'=>$nm_training->nama_training]);
+        
+        return view('training_costs.index',
+        ['training_costs' => $training_costs,
+        'training_plan'=>$training_id,
+        'training_id'=>$training_id,
+        'training_plan_id'=>$training_id,
+        'nm_training'=>$nm_training->nama_training]);
     }
 
     /**
@@ -41,9 +46,9 @@ class Training_costController extends Controller
         $kategori_biayas = Param::where('nama', '=', 'YESNO')->get(['kode', 'desc']);
         $id = Crypt::decrypt($training_id);
         $training_plans = Training_plan::where('id','=',$id)->get();
-        // return $training_plans;
         return view('training_costs.create', [
-            'kategori_biayas' => $kategori_biayas,'training_plan_id'=>$training_id,'training_plans'=>$training_plans
+            'kategori_biayas' => $kategori_biayas,
+            'training_plan_id'=>$training_id,'training_plans'=>$training_plans
         ]);
     }
 
@@ -62,8 +67,6 @@ class Training_costController extends Controller
             'kategori_biaya' => $request->kategori_biaya,
             'create_by' => Auth::user()->user_id
         ]);
-        //$training_cost = Training_cost::create($array);    'training_plan_id'=>$training_id
-//      return view('training_costs.index',['training_costs' => $training_costs,'training_plan_id'=>$training_id]);
         $training_cost->save();
         return redirect()->route('training_costs_index.index',Crypt::encrypt($request->training_plan_id))->with('success_message', 'Berhasil menambah training_cost baru');
     }
@@ -111,8 +114,11 @@ class Training_costController extends Controller
         $training_cost->kategori_biaya = $request->kategori_biaya;
         $training_cost->update_by = Auth::user()->user_id;
         $training_cost->save();
-        return redirect()->route('training_costs.index')
-            ->with('success_message', 'Berhasil mengubah training_cost');
+        // return redirect()->route('training_costs.index')
+        //     ->with('success_message', 'Berhasil mengubah training_cost');
+
+            return redirect()->route('training_costs_index.index',Crypt::encrypt($request->training_plan_id))->with('success_message', 'Berhasil menambah training_cost baru');
+
     }
 
 

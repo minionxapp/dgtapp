@@ -20,10 +20,7 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label for="training_plan_id">training_plan_id</label>
-                            {{-- <input type="text" autocomplete="off" class="form-control @error('training_plan_id') is-invalid @enderror" id="training_plan_id" placeholder="training_plan_id" name="training_plan_id" value="{{old('training_plan_id')}}"> --}}
-                            
                             <select name="training_plan_id" class="form-control" id="training_plan_id">
-                                {{-- <option value="XXX">Jenis</option> --}}
                                 @foreach ($training_plans as $training_plan)
                                 <option value={{ $training_plan->id }}>{{ $training_plan->nama_training }}</option>
                                 @endforeach
